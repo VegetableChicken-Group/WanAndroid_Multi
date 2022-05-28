@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/drawable/ic_launcher_background.xml" value="0.2065" />
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/layout/layout_test.xml" value="0.19384057971014493" />
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_main/src/main/res/drawable/ic_launcher_background.xml" value="0.2065" />
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_main/src/main/res/layout/activity_main.xml" value="0.215625" />
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_main/src/main/res/layout/main_activity_main.xml" value="0.18135764944275581" />
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_test/src/main/res/layout/test_activity_test.xml" value="0.3129528985507246" />
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_test/src/main/res/layout/test_fragment_show.xml" value="0.3129528985507246" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
