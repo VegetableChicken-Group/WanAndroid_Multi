@@ -1,7 +1,5 @@
 package com.ndhzs.lib.common.ui.mvvm
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ndhzs.lib.common.ui.BaseFragment
@@ -20,8 +18,4 @@ abstract class BaseVmFragment<VM : ViewModel> : BaseFragment() {
   }
   
   protected open fun getViewModelFactory(): ViewModelProvider.Factory? = null
-  
-  protected fun <T> LiveData<T>.observe(observer: Observer<T>) {
-    observe(viewLifecycleOwner, observer)
-  }
 }

@@ -10,6 +10,6 @@ when {
   projectName.startsWith("module_") -> ModuleProject.initProject(project)
   projectName.startsWith("lib_") -> LibProject.initProject(project)
   projectName.startsWith("api_") -> ApiProject.initProject(project)
-  else -> throw Exception("出现未知类型模块:$projectName $projectDir\n请为该模块声明对应的依赖插件")
+  else -> throw Exception("出现未知类型模块: name = $projectName   dir = $projectDir\n请为该模块声明对应的依赖插件！")
 }
 

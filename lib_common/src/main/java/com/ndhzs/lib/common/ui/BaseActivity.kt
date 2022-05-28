@@ -88,4 +88,8 @@ abstract class BaseActivity(
     }
     return fragment
   }
+  
+  protected fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
+    observe(this@BaseActivity, observer)
+  }
 }

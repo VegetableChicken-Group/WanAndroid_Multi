@@ -50,7 +50,7 @@ class ModuleDebugProject : BaseApplicationProject(), Plugin<Project> {
       throw RuntimeException("该插件只能给 module 使用！")
     }
   
-    if (project.plugins.hasPlugin("com.android.library")) {
+    if (plugins.hasPlugin("com.android.library")) {
       throw RuntimeException("开启单模块调试前，请先注释多模块插件！")
     }
   }

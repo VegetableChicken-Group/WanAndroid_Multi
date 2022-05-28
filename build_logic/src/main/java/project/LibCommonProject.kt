@@ -1,5 +1,6 @@
 package project
 
+import lib.*
 import org.gradle.api.Project
 import project.base.BaseLibraryProject
 
@@ -11,5 +12,21 @@ import project.base.BaseLibraryProject
  */
 object LibCommonProject : BaseLibraryProject() {
   override fun Project.init() {
+    // lib_common 默认情况下是导入所有依赖
+    dependAndroidView()
+    dependAndroidKtx()
+    dependCoroutines()
+    dependCoroutinesRx3()
+    dependEventBus()
+    dependGlide()
+    dependLifecycleKtx()
+    dependLottie()
+    dependNetwork()
+    dependNetworkInternal()
+    dependPaging()
+    dependRoom()
+    dependRoomRxjava()
+    dependRoomPaging()
+    dependRxPermissions()
   }
 }

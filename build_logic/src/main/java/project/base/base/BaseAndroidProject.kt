@@ -14,7 +14,7 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
-import versions.Config
+import config.Config
 
 /**
  * ...
@@ -33,14 +33,18 @@ abstract class BaseAndroidProject : BaseProject() {
         // 自动依赖自己目录下的子模块
         dependChildModule(project)
       }
+      // 本来可以不依赖 Test，但每次那个 test 文件夹都报错，有时候又忘了删，强迫症
       dependTestBase()
+      // 所有模块都需要依赖 ARouter
       dependARouter()
     }
     super.initProject(project)
   }
   
   /**
-   * 统一配置 android 闭包
+   * 统一配置 android 闭包的公共部分
+   *
+   * 除了那个 targetSdk 以外，因为他没有写在顶层接口
    */
   protected fun <A : BuildFeatures, B : BuildType, C : DefaultConfig, D : ProductFlavor>
     CommonExtension<A, B, C, D>.uniformConfigAndroid(project: Project) {
@@ -115,7 +119,7 @@ abstract class BaseAndroidProject : BaseProject() {
       it.isDirectory
         && "(lib_.+)|(api_.+)".toRegex().matches(it.name)
         && includeProjects.contains(it.name)
-    }.onEach {
+    }.forEach {
       "implementation"(project(":${project.name}:${it.name}"))
     }
   }

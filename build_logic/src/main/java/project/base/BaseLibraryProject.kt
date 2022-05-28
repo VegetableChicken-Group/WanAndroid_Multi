@@ -7,7 +7,7 @@ import org.gradle.api.Action
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import project.base.base.BaseAndroidProject
-import versions.Config
+import config.Config
 
 /**
  * ...

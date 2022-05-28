@@ -4,8 +4,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import com.ndhzs.lib.common.utils.BindView
-import java.lang.RuntimeException
-import java.lang.reflect.ParameterizedType
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseFragment : Fragment() {
@@ -26,4 +24,13 @@ abstract class BaseFragment : Fragment() {
    * ```
    */
   protected fun <T : View> Int.view() = BindView<T>(this) { this@BaseFragment }
+  
+  /**
+   * 尤其注意这个 viewLifecycleOwner
+   *
+   * Fragment 与 View 的生命周期是不同的，而且一般情况下不会使用到 Fragment 的生命周期
+   */
+  protected fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
+    observe(viewLifecycleOwner, observer)
+  }
 }

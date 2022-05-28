@@ -32,6 +32,11 @@ class MainActivity : BaseActivity() {
         )
     }
     
+    // 观察 liveData
+    ServiceManager(ITestService::class).liveData.observe {
+      // ......
+    }
+    
     mBtnShowFragment.setOnClickListener {
       replaceFragment(R.id.main_fcv_show) {
         toast("启动 TestShowFragment")

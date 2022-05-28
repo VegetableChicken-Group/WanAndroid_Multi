@@ -21,8 +21,6 @@ fun Project.dependTestBase() {
     "testImplementation"(Test.junit)
     "androidTestImplementation"(Test.`junit-android`)
     "androidTestImplementation"(Test.`espresso-core`)
-    
-    "testImplementation"(Lifecycle.`core-testing`)
   }
 }
 
