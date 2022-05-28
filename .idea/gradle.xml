@@ -31,7 +31,6 @@
             <option value="$PROJECT_DIR$/module_test/api_test" />
           </set>
         </option>
-        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>
