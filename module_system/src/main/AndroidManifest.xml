@@ -3,10 +3,7 @@
     package="com.ndhzs.module.system">
 
     <application>
-        <activity
-            android:name=".SystemActivity"
-            android:exported="true">
-        </activity>
+
     </application>
 
 </manifest>

@@ -6,7 +6,7 @@
         android:name="app.DebugApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="module_test"
+        android:label="module_system"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WanAndroid_Multi">
@@ -18,10 +18,6 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.ndhzs.module.system.SystemActivity"
-            android:exported="true">
         </activity>
     </application>
 

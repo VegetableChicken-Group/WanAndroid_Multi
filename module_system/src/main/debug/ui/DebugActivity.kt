@@ -1,8 +1,11 @@
 package ui
 
 import android.os.Bundle
-import com.ndhzs.api.test.ITestService
+import androidx.fragment.app.FragmentContainerView
+import androidx.fragment.app.commit
 import com.ndhzs.lib.common.ui.BaseActivity
+import com.ndhzs.module.system.page.ui.SystemFragment
+import kotlin.random.Random
 
 /**
  * ...
@@ -13,12 +16,18 @@ import com.ndhzs.lib.common.ui.BaseActivity
 class DebugActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    TestActivity.start(
-      this,
-      ITestService.Data(
-        "123", "12345"
-      )
-    )
-    finish()
+    
+    val fragmentContainerView = FragmentContainerView(this)
+    fragmentContainerView.id = Random.nextInt()
+    setContentView(fragmentContainerView)
+    
+    val tag = SystemFragment::class.java.simpleName
+    var fragment = supportFragmentManager.findFragmentByTag(tag)
+    if (fragment !is SystemFragment) {
+      fragment = SystemFragment()
+      supportFragmentManager.commit {
+        add(fragmentContainerView.id, fragment, tag)
+      }
+    }
   }
 }
