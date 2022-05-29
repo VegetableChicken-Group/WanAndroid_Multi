@@ -15,6 +15,7 @@ import org.gradle.kotlin.dsl.project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import config.Config
+import lib.dependAndroidBase
 
 /**
  * ...
@@ -35,7 +36,9 @@ abstract class BaseAndroidProject : BaseProject() {
       }
       // 本来可以不依赖 Test，但每次那个 test 文件夹都报错，有时候又忘了删，强迫症
       dependTestBase()
-      // 所有模块都需要依赖 ARouter
+      // 所有 Android 工程模块都需要
+      dependAndroidBase()
+      // 所有 Android 工程模块都需要依赖 ARouter
       dependARouter()
     }
     super.initProject(project)
