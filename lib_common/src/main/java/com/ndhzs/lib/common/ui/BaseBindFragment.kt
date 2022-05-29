@@ -17,8 +17,13 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
   
   abstract override fun onViewCreated(view: View, savedInstanceState: Bundle?)
   
-  protected lateinit var binding: VB
-    private set
+  /**
+   * 由于 View 的生命周期与 Fragment 不匹配，
+   * 所以在 [onDestroyView] 后需要取消对 [binding] 的引用
+   */
+  private var _binding: VB? = null
+  protected val binding: VB
+    get() = _binding!!
   
   @Suppress("UNCHECKED_CAST")
   @Deprecated(
@@ -37,7 +42,7 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
       ViewGroup::class.java,
       Boolean::class.java
     )
-    binding = method.invoke(null, inflater, container, false) as VB
+    _binding = method.invoke(null, inflater, container, false) as VB
     onCreateViewBefore(container, savedInstanceState)
     return binding.root
   }
@@ -49,5 +54,10 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ) {
+  }
+  
+  override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
   }
 }
