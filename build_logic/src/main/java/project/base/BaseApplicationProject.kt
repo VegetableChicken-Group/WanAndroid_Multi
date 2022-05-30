@@ -7,6 +7,7 @@ import org.gradle.api.Action
 import org.gradle.kotlin.dsl.apply
 import project.base.base.BaseAndroidProject
 import config.Config
+import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
 /**
  * ...
@@ -31,6 +32,16 @@ abstract class BaseApplicationProject : BaseAndroidProject() {
         "android",
         Action<BaseAppModuleExtension> {
           initAndroid(this)
+        }
+      )
+  
+      extensions.configure(
+        "kapt",
+        Action<KaptExtension> {
+          arguments {
+            arg("AROUTER_MODULE_NAME", project.name)
+            arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录
+          }
         }
       )
     }

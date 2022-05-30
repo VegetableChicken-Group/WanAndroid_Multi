@@ -29,7 +29,7 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
   @Deprecated(
     "不要重写该方法，请使用 onViewCreated() 代替",
     ReplaceWith("onViewCreated(view, savedInstanceState)"),
-    DeprecationLevel.HIDDEN
+    DeprecationLevel.ERROR
   )
   override fun onCreateView(
     inflater: LayoutInflater,

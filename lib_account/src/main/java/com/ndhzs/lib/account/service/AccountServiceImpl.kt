@@ -1,15 +1,21 @@
 package com.ndhzs.lib.account.service
 
 import android.content.Context
+import android.util.Log
+import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
+import com.google.gson.Gson
 import com.ndhzs.api.account.IAccountService
 import com.ndhzs.lib.account.network.LoginApiService
+import com.ndhzs.lib.common.BaseApp
 import com.ndhzs.lib.common.config.ACCOUNT_SERVICE
+import com.ndhzs.lib.common.extensions.getSp
+import com.ndhzs.lib.common.extensions.lazyUnlock
 import com.ndhzs.lib.common.extensions.mapOrThrowApiException
 import com.ndhzs.lib.common.extensions.throwApiExceptionIfFail
 import com.ndhzs.lib.common.network.ApiGenerator
@@ -33,19 +39,21 @@ class AccountServiceImpl : IAccountService {
   
   private lateinit var mContext: Context
   
-  private val mCookieJar = PersistentCookieJar(
-    SetCookieCache(), SharedPrefsCookiePersistor(mContext)
-  )
-  
-  private val mRetrofit = ApiGenerator.getNewRetrofit {
-    client(
-      OkHttpClient().newBuilder()
-        .cookieJar(this@AccountServiceImpl)
-        .build()
+  private val mCookieJar by lazyUnlock {
+    PersistentCookieJar(
+      SetCookieCache(), SharedPrefsCookiePersistor(mContext)
     )
   }
   
-  private val mApiService = mRetrofit.create(LoginApiService::class.java)
+  private val mApiService by lazyUnlock {
+    ApiGenerator.getApiService(LoginApiService::class, false) {
+      client(
+        OkHttpClient().newBuilder()
+          .cookieJar(this@AccountServiceImpl)
+          .build()
+      )
+    }
+  }
   
   private val mUserInfoLiveData = MutableLiveData<IAccountService.LoginBean?>()
   
@@ -63,7 +71,7 @@ class AccountServiceImpl : IAccountService {
   ): Single<IAccountService.LoginBean> {
     return mApiService.login(username, password)
       .mapOrThrowApiException()
-      .doOnSuccess { mUserInfoLiveData.postValue(it) }
+      .doOnSuccess { mUserInfoLiveData.postValue(it.copy(password = password)) }
       .subscribeOn(Schedulers.io())
   }
   
@@ -85,12 +93,28 @@ class AccountServiceImpl : IAccountService {
   ): Single<IAccountService.LoginBean> {
     return mApiService.register(username, password, rePassword)
       .mapOrThrowApiException()
-      .doOnSuccess { mUserInfoLiveData.postValue(it) }
+      .doOnSuccess { mUserInfoLiveData.postValue(it.copy(password = password)) }
       .subscribeOn(Schedulers.io())
   }
   
+  private val mUserInfoSp = BaseApp.appContext.getSp("UserInfo")
+  
   override fun init(context: Context) {
     mContext = context
+    val gson = Gson()
+    val spKey = "LoginBean"
+    // 从本地初始化数据
+    val userinfo = mUserInfoSp.getString(spKey, null)
+    val loginBean: IAccountService.LoginBean? =
+      gson.fromJson(userinfo, IAccountService.LoginBean::class.java)
+    if (loginBean != null) {
+      mUserInfoLiveData.postValue(loginBean)
+    }
+    getUserInfoLiveData().observeForever {
+      mUserInfoSp.edit {
+        putString(spKey, gson.toJson(it))
+      }
+    }
   }
   
   override fun loadForRequest(url: HttpUrl): List<Cookie> {

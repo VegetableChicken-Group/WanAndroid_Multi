@@ -1,3 +1,4 @@
+import api.dependApiAccount
 import lib.*
 
 plugins {
@@ -7,8 +8,11 @@ plugins {
 
 dependAndroidView()
 dependAndroidKtx()
+dependLifecycleKtx()
+
 dependNetwork()
 dependRxjava()
 dependCoroutines()
 dependCoroutinesRx3()
-dependLibAccount()
+
+dependApiAccount()

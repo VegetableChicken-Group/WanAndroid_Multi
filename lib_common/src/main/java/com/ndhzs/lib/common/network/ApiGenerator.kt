@@ -1,6 +1,8 @@
 package com.ndhzs.lib.common.network
 
+import android.util.Log
 import com.ndhzs.api.account.IAccountService
+import com.ndhzs.lib.common.extensions.lazyUnlock
 import com.ndhzs.lib.common.service.ServiceManager
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -12,14 +14,14 @@ import kotlin.reflect.KClass
 /**
  * ```
  * 在 ApiService 接口中：
- * interface LoginApiService {
+ * interface ApiService {
  *
  *     @GET("/aaa/bbb")
  *     fun getXXX(): Single<ApiWrapper<Bean>> // 统一使用 ApiWrapper 包装
  *
  *     companion object {
  *         val INSTANCE by lazy {
- *             ApiGenerator.getApiService(LoginApiService::class)
+ *             ApiGenerator.getApiService(ApiService::class)
  *         }
  *     }
  * }
@@ -49,29 +51,42 @@ object ApiGenerator {
     return retrofit.create(clazz.java)
   }
   
-  fun <T : Any> getApiService(clazz: KClass<T>, config: Retrofit.Builder.() -> Unit): T {
-    return getNewRetrofit(config).create(clazz.java)
+  fun <T : Any> getApiService(
+    clazz: KClass<T>,
+    isNeedCookie: Boolean,
+    config: Retrofit.Builder.() -> Unit
+  ): T {
+    return getNewRetrofit(isNeedCookie, config).create(clazz.java)
   }
   
-  fun getNewRetrofit(config: Retrofit.Builder.() -> Unit): Retrofit {
+  fun getNewRetrofit(
+    isNeedCookie: Boolean,
+    config: Retrofit.Builder.() -> Unit
+  ): Retrofit {
     return Retrofit
       .Builder()
       .baseUrl(getBaseUrl())
-      .client(OkHttpClient().newBuilder().defaultOkhttpConfig())
+      .client(OkHttpClient().newBuilder().defaultOkhttpConfig(isNeedCookie))
       .addConverterFactory(GsonConverterFactory.create())
       .addCallAdapterFactory(RxJava3CallAdapterFactory.createSynchronous())
       .apply { config.invoke(this) }
       .build()
   }
   
-  private val retrofit: Retrofit = getNewRetrofit {}
+  private val retrofit by lazyUnlock {
+    getNewRetrofit(true) {}
+  }
   
-  private val mAccountService = ServiceManager(IAccountService::class)
+  private val mAccountService by lazyUnlock {
+    ServiceManager(IAccountService::class)
+  }
   
-  private fun OkHttpClient.Builder.defaultOkhttpConfig(): OkHttpClient {
+  private fun OkHttpClient.Builder.defaultOkhttpConfig(isNeedCookie: Boolean): OkHttpClient {
     connectTimeout(10, TimeUnit.SECONDS)
     readTimeout(10, TimeUnit.SECONDS)
-    cookieJar(mAccountService) // 给每条请求增加 cookie
+    if (isNeedCookie) {
+      cookieJar(mAccountService) // 给每条请求增加 cookie
+    }
     return build()
   }
 }

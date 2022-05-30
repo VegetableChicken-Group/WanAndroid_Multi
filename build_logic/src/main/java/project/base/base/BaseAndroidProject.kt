@@ -95,16 +95,6 @@ abstract class BaseAndroidProject : BaseProject() {
         jvmTarget = "1.8"
       }
     )
-    
-    project.extensions.configure(
-      "kapt",
-      Action<KaptExtension> {
-        arguments {
-          arg("AROUTER_MODULE_NAME", project.name)
-          arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录
-        }
-      }
-    )
   }
   
   /**

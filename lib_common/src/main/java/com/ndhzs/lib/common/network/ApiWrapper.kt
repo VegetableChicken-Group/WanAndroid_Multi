@@ -13,17 +13,13 @@ import kotlin.jvm.Throws
 open class ApiWrapper<T> (
   @SerializedName("data")
   val data: T,
-  @SerializedName("errorCode")
-  override val errorCode: Int,
-  @SerializedName("errorMsg")
-  override val errorMsg: String
-) : Serializable, ApiStatue(errorCode, errorMsg)
+) : Serializable, ApiStatue()
 
 open class ApiStatue(
   @SerializedName("errorCode")
-  open val errorCode: Int,
+  val errorCode: Int = 0,
   @SerializedName("errorMsg")
-  open val errorMsg: String
+  val errorMsg: String = ""
 ) : Serializable {
   
   fun isSuccess(): Boolean {

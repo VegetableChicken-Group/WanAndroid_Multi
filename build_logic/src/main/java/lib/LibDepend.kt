@@ -9,9 +9,8 @@ import org.gradle.kotlin.dsl.dependencies
  * @email 2767465918@qq.com
  * @date 2022/5/30 11:24
  */
-object LibProject {
+object LibDepend {
   const val common = ":lib_common"
-  const val account = ":lib_account:api_account"
 }
 
 /**
@@ -22,12 +21,6 @@ object LibProject {
  */
 internal fun Project.dependLibCommon() {
   dependencies {
-    "implementation"(project(LibProject.common))
-  }
-}
-
-fun Project.dependLibAccount() {
-  dependencies {
-    "implementation"(project(LibProject.account))
+    "implementation"(project(LibDepend.common))
   }
 }

@@ -1,7 +1,7 @@
-import lib.dependLibAccount
+import api.dependApiAccount
 
 plugins {
   id("module-manager")
 }
 
-dependLibAccount()
+dependApiAccount()
