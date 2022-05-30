@@ -1,6 +1,8 @@
 package project
 
-import org.gradle.api.Project
+import lib.dependLibCommon
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 import project.base.BaseLibraryProject
 
 /**
@@ -11,14 +13,15 @@ import project.base.BaseLibraryProject
  */
 object ModuleProject : BaseLibraryProject() {
   
-  override fun Project.init() {
+  override fun initProject() {
     checkIsInDebug()
+    dependLibCommon()
   }
   
   /**
    * 检查该模块是否处于 debug 状态
    */
-  private fun Project.checkIsInDebug() {
+  private fun checkIsInDebug() {
     if (plugins.hasPlugin("com.android.application")) {
       throw RuntimeException("取消单模块调试才能使用多模块插件！")
     }

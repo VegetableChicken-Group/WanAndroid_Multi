@@ -7,7 +7,6 @@ import lib.dependARouter
 import lib.dependTestBase
 import org.gradle.api.Action
 import org.gradle.api.JavaVersion
-import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.dependencies
@@ -25,14 +24,13 @@ import lib.dependAndroidBase
  */
 abstract class BaseAndroidProject : BaseProject() {
   
-  override fun initProject(project: Project) {
+  override fun initProjectInternal() {
     project.run {
       dependencies {
-        if (project.name != "lib_common") {
-          "implementation"(project(":lib_common"))
+        if (isDependChildModule()) {
+          // 自动依赖自己目录下的子模块
+          dependChildModule()
         }
-        // 自动依赖自己目录下的子模块
-        dependChildModule(project)
       }
       // 本来可以不依赖 Test，但每次那个 test 文件夹都报错，有时候又忘了删，强迫症
       dependTestBase()
@@ -41,8 +39,10 @@ abstract class BaseAndroidProject : BaseProject() {
       // 所有 Android 工程模块都需要依赖 ARouter
       dependARouter()
     }
-    super.initProject(project)
+    super.initProjectInternal()
   }
+  
+  open fun isDependChildModule(): Boolean = true
   
   /**
    * 统一配置 android 闭包的公共部分
@@ -50,7 +50,7 @@ abstract class BaseAndroidProject : BaseProject() {
    * 除了那个 targetSdk 以外，因为他没有写在顶层接口
    */
   protected fun <A : BuildFeatures, B : BuildType, C : DefaultConfig, D : ProductFlavor>
-    CommonExtension<A, B, C, D>.uniformConfigAndroid(project: Project) {
+    CommonExtension<A, B, C, D>.uniformConfigAndroid() {
     
     compileSdk = Config.compileSdk
     defaultConfig {
@@ -110,12 +110,12 @@ abstract class BaseAndroidProject : BaseProject() {
   /**
    * 自动依赖自己目录下的子模块
    */
-  private fun DependencyHandlerScope.dependChildModule(project: Project) {
+  private fun DependencyHandlerScope.dependChildModule() {
     
     // 根 gradle 中包含的所有子模块
-    val includeProjects = project.rootProject.allprojects.map { it.name }
+    val includeProjects = rootProject.subprojects.map { it.name }
     
-    project.projectDir.listFiles()!!.filter {
+    projectDir.listFiles()!!.filter {
       // 1.是文件夹
       // 2.以 lib_ 或者 api_ 开头
       // 3.根 gradle 导入了的模块
@@ -123,7 +123,7 @@ abstract class BaseAndroidProject : BaseProject() {
         && "(lib_.+)|(api_.+)".toRegex().matches(it.name)
         && includeProjects.contains(it.name)
     }.forEach {
-      "implementation"(project(":${project.name}:${it.name}"))
+      "implementation"(project(":${name}:${it.name}"))
     }
   }
 }

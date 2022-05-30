@@ -1,6 +1,5 @@
 package project
 
-import org.gradle.api.Project
 import project.base.BaseLibraryProject
 
 /**
@@ -10,6 +9,6 @@ import project.base.BaseLibraryProject
  * @date 2022/5/28 12:27
  */
 object ApiProject : BaseLibraryProject() {
-  override fun Project.init() {
+  override fun initProject() {
   }
 }

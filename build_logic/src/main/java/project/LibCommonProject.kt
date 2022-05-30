@@ -11,7 +11,7 @@ import project.base.BaseLibraryProject
  * @date 2022/5/28 12:22
  */
 object LibCommonProject : BaseLibraryProject() {
-  override fun Project.init() {
+  override fun initProject() {
     // lib_common 默认情况下是导入所有依赖
     dependAndroidView()
     dependAndroidKtx()

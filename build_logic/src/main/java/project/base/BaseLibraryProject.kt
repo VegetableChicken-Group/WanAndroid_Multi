@@ -17,30 +17,28 @@ import config.Config
  */
 abstract class BaseLibraryProject : BaseAndroidProject() {
   
-  override fun initProject(project: Project) {
-    initLibrary(project)
-    super.initProject(project)
+  override fun initProjectInternal() {
+    initLibrary()
+    super.initProjectInternal()
   }
   
-  protected open fun initLibrary(project: Project) {
-    project.run {
-      apply(plugin = "com.android.library")
-      apply(plugin = "kotlin-android")
-      apply(plugin = "kotlin-kapt")
-  
-      extensions.configure(
-        "android",
-        Action<LibraryExtension> {
-          initAndroid(this, project)
-        }
-      )
-    }
+  protected open fun initLibrary() {
+    apply(plugin = "com.android.library")
+    apply(plugin = "kotlin-android")
+    apply(plugin = "kotlin-kapt")
+    
+    extensions.configure(
+      "android",
+      Action<LibraryExtension> {
+        initAndroid(this)
+      }
+    )
   }
   
   // 配置 android 闭包
-  protected open fun initAndroid(extension: LibraryExtension, project: Project) {
+  protected open fun initAndroid(extension: LibraryExtension) {
     extension.run {
-      uniformConfigAndroid(project)
+      uniformConfigAndroid()
       defaultConfig {
         targetSdk = Config.targetSdk
       }

@@ -3,8 +3,11 @@
 package project
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import lib.dependLibCommon
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 import project.base.BaseApplicationProject
 
 /**
@@ -20,11 +23,12 @@ class ModuleDebugProject : BaseApplicationProject(), Plugin<Project> {
     initProject(target)
   }
   
-  override fun Project.init() {
+  override fun initProject() {
+    dependLibCommon()
   }
   
-  override fun initAndroid(extension: BaseAppModuleExtension, project: Project) {
-    super.initAndroid(extension, project)
+  override fun initAndroid(extension: BaseAppModuleExtension) {
+    super.initAndroid(extension)
     extension.run {
       // 设置 debug 的源集
       sourceSets {

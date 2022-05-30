@@ -4,7 +4,6 @@ package project.base
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.Action
-import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import project.base.base.BaseAndroidProject
 import config.Config
@@ -17,12 +16,12 @@ import config.Config
  */
 abstract class BaseApplicationProject : BaseAndroidProject() {
   
-  override fun initProject(project: Project) {
-    initApplication(project)
-    super.initProject(project)
+  override fun initProjectInternal() {
+    initApplication()
+    super.initProjectInternal()
   }
   
-  protected open fun initApplication(project: Project) {
+  protected open fun initApplication() {
     project.run {
       apply(plugin = "com.android.application")
       apply(plugin = "kotlin-android")
@@ -31,16 +30,16 @@ abstract class BaseApplicationProject : BaseAndroidProject() {
       extensions.configure(
         "android",
         Action<BaseAppModuleExtension> {
-          initAndroid(this, project)
+          initAndroid(this)
         }
       )
     }
   }
   
   // 配置 android 闭包
-  protected open fun initAndroid(extension: BaseAppModuleExtension, project: Project) {
+  protected open fun initAndroid(extension: BaseAppModuleExtension) {
     extension.run {
-      uniformConfigAndroid(project)
+      uniformConfigAndroid()
       defaultConfig {
         applicationId = Config.getApplicationId(project)
         versionCode = Config.versionCode

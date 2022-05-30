@@ -1,9 +1,9 @@
 package project
 
-import org.gradle.api.Project
+import lib.dependLibCommon
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.project
 import project.base.BaseApplicationProject
-import java.io.File
 
 /**
  * ...
@@ -12,14 +12,15 @@ import java.io.File
  * @date 2022/5/28 12:20
  */
 object AppProject : BaseApplicationProject() {
-  override fun Project.init() {
+  override fun initProject() {
     dependAllProject()
+    dependLibCommon()
   }
   
   /**
    * 引入第一层目录下所有的 module 和 lib 模块
    */
-  private fun Project.dependAllProject() {
+  private fun dependAllProject() {
     
     // 测试使用，设置 module_app 暂时不依赖的模块
     val excludeList = mutableListOf<String>(

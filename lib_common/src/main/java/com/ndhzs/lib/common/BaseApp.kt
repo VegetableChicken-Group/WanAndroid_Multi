@@ -11,7 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter
  * @email 2767465918@qq.com
  * @date 2022/5/26 14:01
  */
-abstract class BaseApp : Application() {
+open class BaseApp : Application() {
   companion object {
     lateinit var appContext: Context
       private set

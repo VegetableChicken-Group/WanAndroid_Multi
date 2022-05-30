@@ -1,6 +1,6 @@
 package project
 
-import org.gradle.api.Project
+import lib.dependLibCommon
 import project.base.BaseLibraryProject
 
 /**
@@ -10,6 +10,15 @@ import project.base.BaseLibraryProject
  * @date 2022/5/28 12:21
  */
 object LibProject : BaseLibraryProject() {
-  override fun Project.init() {
+  override fun initProject() {
+    dependLibCommon()
+  }
+  
+  override fun isDependChildModule(): Boolean {
+//    if (name == "lib_account") {
+//      println(name)
+//      return false
+//    }
+    return super.isDependChildModule()
   }
 }
