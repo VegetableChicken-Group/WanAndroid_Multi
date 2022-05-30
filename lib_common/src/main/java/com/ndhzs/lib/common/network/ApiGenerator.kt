@@ -15,7 +15,7 @@ import kotlin.reflect.KClass
  * interface LoginApiService {
  *
  *     @GET("/aaa/bbb")
- *     fun getXXX(): Single<Bean>
+ *     fun getXXX(): Single<ApiWrapper<Bean>> // 统一使用 ApiWrapper 包装
  *
  *     companion object {
  *         val INSTANCE by lazy {
