@@ -1,2 +1,14 @@
 <resources>
+    <string name="home">首页</string>
+    <string name="marketplace">广场</string>
+    <string name="wechat">公众号</string>
+    <string name="system">体系</string>
+    <string name="project">项目</string>
+    <string name="my_points">我的积分</string>
+    <string name="my_collections">我的收藏</string>
+    <string name="my_share">我的分享</string>
+    <string name="todo">TODO</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="log_out">退出登录</string>
+    <string name="system_settings">系统设置</string>
 </resources>

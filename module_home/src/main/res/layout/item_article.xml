@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:cardCornerRadius="6dp"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_margin="4dp"
+        tools:text="2021-11-21 21:22"
+        android:textSize="11sp"
+        android:layout_gravity="end"
+        android:id="@+id/homeRvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/homeButtonLike"
+        android:layout_margin="5dp"
+        android:layout_gravity="bottom|end"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_like"
+        tools:tint="@color/collect_icon_tint"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_margin="8dp"
+            android:textSize="11sp"
+            tools:text="徐公"
+            android:id="@+id/homeRvHead"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginBottom="4dp"
+            android:layout_marginHorizontal="8dp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            tools:text="Android原生PDF功能实现"
+            android:id="@+id/homeRvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            tools:text="广场Tab / 自助"
+            android:textSize="11sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginHorizontal="8dp"
+            android:id="@+id/homeRvLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
