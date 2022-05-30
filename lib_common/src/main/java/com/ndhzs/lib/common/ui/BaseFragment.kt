@@ -3,7 +3,11 @@ package com.ndhzs.lib.common.ui
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.flowWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import com.ndhzs.lib.common.utils.BindView
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
 abstract class BaseFragment : Fragment() {
@@ -32,5 +36,14 @@ abstract class BaseFragment : Fragment() {
    */
   protected fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
     observe(viewLifecycleOwner, observer)
+  }
+  
+  /**
+   * 结合生命周期收集 Flow 方法
+   */
+  protected fun <T> Flow<T>.collectLaunch(action: suspend (value: T) -> Unit) {
+    lifecycleScope.launch {
+      flowWithLifecycle(viewLifecycleOwner.lifecycle).collect { action.invoke(it) }
+    }
   }
 }

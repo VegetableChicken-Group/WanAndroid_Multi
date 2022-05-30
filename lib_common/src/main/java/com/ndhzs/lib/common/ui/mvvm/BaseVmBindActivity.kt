@@ -2,6 +2,7 @@ package com.ndhzs.lib.common.ui.mvvm
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.annotation.CallSuper
 import androidx.lifecycle.ViewModel
 import androidx.viewbinding.ViewBinding
@@ -47,5 +48,13 @@ abstract class BaseVmBindActivity<VM : ViewModel, VB : ViewBinding>(
     super.onCreate(savedInstanceState)
     onSetContentViewBefore()
     setContentView(binding.root)
+  }
+  
+  @Deprecated(
+    "打个标记，因为使用了 ViewBinding，防止你忘记删除这个",
+    level = DeprecationLevel.ERROR, replaceWith = ReplaceWith("")
+  )
+  override fun setContentView(layoutResID: Int) {
+    super.setContentView(layoutResID)
   }
 }
