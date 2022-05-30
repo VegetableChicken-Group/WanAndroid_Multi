@@ -1,6 +1,7 @@
 import api.dependApiMain
 import lib.dependAndroidKtx
 import lib.dependAndroidView
+import lib.dependLifecycleKtx
 
 plugins {
 //  id("module-manager")
@@ -9,6 +10,7 @@ plugins {
 
 dependAndroidView()
 dependAndroidKtx()
+dependLifecycleKtx()
 
 dependApiMain()
 

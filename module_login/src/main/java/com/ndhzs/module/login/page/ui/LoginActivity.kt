@@ -5,7 +5,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.ndhzs.lib.common.config.LOGIN_ENTRY
 import com.ndhzs.lib.common.extensions.setOnSingleClickListener
 import com.ndhzs.lib.common.extensions.toast
-import com.ndhzs.lib.common.network.ApiGenerator
 import com.ndhzs.lib.common.ui.mvvm.BaseVmBindActivity
 import com.ndhzs.module.login.databinding.ActivityLoginBinding
 import com.ndhzs.module.login.page.viewmodel.LoginViewModel
@@ -39,6 +38,10 @@ class LoginActivity : BaseVmBindActivity<LoginViewModel, ActivityLoginBinding>()
       } else {
         viewModel.login(username, password)
       }
+    }
+    
+    binding.loginBtnRegister.setOnSingleClickListener {
+    
     }
     
     binding.loginBtnForgetPassword.setOnSingleClickListener {
