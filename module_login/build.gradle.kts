@@ -2,8 +2,8 @@ import api.dependApiAccount
 import lib.*
 
 plugins {
-//  id("module-manager")
-  id("module-debug")
+  id("module-manager")
+//  id("module-debug")
 }
 
 dependAndroidView()
