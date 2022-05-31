@@ -30,5 +30,6 @@ class TestActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.test_activity_test)
+    val name = mData.name
   }
 }
