@@ -14,6 +14,7 @@ object ApiDepend {
   const val account = ":lib_account:api_account"
   const val main = ":module_main:api_main"
   const val test = ":module_test:api_test"
+  const val web = ":lib_web:api_web"
 }
 
 /**
@@ -53,3 +54,6 @@ fun Project.dependApiTest(extraImplDepend: (() -> List<String>)? = null) {
   dependApi(ApiDepend.test, extraImplDepend)
 }
 
+fun Project.dependApiWeb(extraImplDepend: (() -> List<String>)? = null) {
+  dependApi(ApiDepend.web, extraImplDepend)
+}
