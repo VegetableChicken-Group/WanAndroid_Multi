@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.jwzg.lib.web">
-
+    package="com.ndhzs.lib.web">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

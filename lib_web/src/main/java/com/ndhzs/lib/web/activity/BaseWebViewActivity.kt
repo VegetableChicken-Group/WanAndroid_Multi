@@ -1,4 +1,4 @@
-package com.jwzg.lib.web.activity
+package com.ndhzs.lib.web.activity
 
 import android.content.Context
 import android.content.Intent
@@ -6,15 +6,18 @@ import android.graphics.Bitmap
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.os.Bundle
+import android.util.Log
 import android.webkit.*
 import com.ndhzs.lib.common.extensions.lazyUnlock
 import com.ndhzs.lib.common.ui.BaseActivity
+import com.ndhzs.lib.web.R
 
 
 /**
  *
  * @ProjectName:    WanAndroid_Multi
- * @Package:        com.jwzg.lib.web.activity
+ * @Package:        com.ndhzs.lib.web.activity
  * @ClassName:      BaseWebViewActivity
  * @Author:         Yan
  * @CreateDate:     2022年05月31日 19:08:00
@@ -22,6 +25,7 @@ import com.ndhzs.lib.common.ui.BaseActivity
  * @Version:        1.0
  * @Description:    通用的网页加载页面
  */
+
 class BaseWebViewActivity : BaseActivity(){
 
     companion object {
@@ -52,7 +56,9 @@ class BaseWebViewActivity : BaseActivity(){
     }
 
 
-    init {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(webView)
         initWebView()
         webView.loadUrl(url!!)
     }

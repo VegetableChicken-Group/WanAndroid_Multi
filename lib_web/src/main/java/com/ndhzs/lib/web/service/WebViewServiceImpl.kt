@@ -1,15 +1,15 @@
-package com.jwzg.lib.web.service
+package com.ndhzs.lib.web.service
 
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.jwzg.api.web.IWebViewService
-import com.jwzg.lib.web.activity.BaseWebViewActivity
+import com.ndhzs.api.web.IWebViewService
+import com.ndhzs.lib.web.activity.BaseWebViewActivity
 import com.ndhzs.lib.common.config.WEB_SERVICE
 
 /**
  *
  * @ProjectName:    WanAndroid_Multi
- * @Package:        com.jwzg.lib.web
+ * @Package:        com.ndhzs.lib.web
  * @ClassName:      WebViewServiceImpl
  * @Author:         Yan
  * @CreateDate:     2022年05月31日 18:55:00

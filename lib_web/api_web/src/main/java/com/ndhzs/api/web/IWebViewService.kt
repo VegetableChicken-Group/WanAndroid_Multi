@@ -1,13 +1,12 @@
-package com.jwzg.api.web
+package com.ndhzs.api.web
 
 import android.content.Context
 import com.alibaba.android.arouter.facade.template.IProvider
-import java.io.Serializable
 
 /**
  *
  * @ProjectName:    WanAndroid_Multi
- * @Package:        com.jwzg.api.web
+ * @Package:        com.ndhzs.api.web
  * @ClassName:      IWebViewService
  * @Author:         Yan
  * @CreateDate:     2022年05月31日 18:41:00
