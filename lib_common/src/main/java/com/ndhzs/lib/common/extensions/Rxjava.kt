@@ -12,7 +12,7 @@ import io.reactivex.rxjava3.disposables.Disposable
  * ApiService.INSTANCE.getXXX()
  *     .subscribeOn(Schedulers.io())  // 线程切换
  *     .observeOn(AndroidSchedulers.mainThread())
- *     .catchApiExceptionOrMap {      // 当 errorCode 的值不为成功时抛错，并处理错误
+ *     .mapOrCatchApiException {      // 当 errorCode 的值不为成功时抛错，并处理错误
  *         // 处理 ApiException 错误
  *     }
  *     .safeSubscribeBy {             // 如果是网络连接错误，则这里会默认处理
@@ -98,28 +98,28 @@ fun <T: ApiStatue> Flowable<T>.catchApiException(
     }
 }
 
-fun <E: Any, T: ApiWrapper<E>> Single<T>.mpaOrCatchApiException(
+fun <E: Any, T: ApiWrapper<E>> Single<T>.mapOrCatchApiException(
   func: (ApiException) -> Unit
 ): Single<E> {
   return catchApiException(func)
     .map { it.data }
 }
 
-fun <E: Any, T: ApiWrapper<E>> Maybe<T>.mpaOrCatchApiException(
+fun <E: Any, T: ApiWrapper<E>> Maybe<T>.mapOrCatchApiException(
   func: (ApiException) -> Unit
 ): Maybe<E> {
   return catchApiException(func)
     .map { it.data }
 }
 
-fun <E: Any, T: ApiWrapper<E>> Observable<T>.mpaOrCatchApiException(
+fun <E: Any, T: ApiWrapper<E>> Observable<T>.mapOrCatchApiException(
   func: (ApiException) -> Unit
 ): Observable<E> {
   return catchApiException(func)
     .map { it.data }
 }
 
-fun <E: Any, T: ApiWrapper<E>> Flowable<T>.mpaOrCatchApiException(
+fun <E: Any, T: ApiWrapper<E>> Flowable<T>.mapOrCatchApiException(
   func: (ApiException) -> Unit
 ): Flowable<E> {
   return catchApiException(func)
@@ -130,6 +130,12 @@ fun <T: Any> Single<T>.safeSubscribeBy(
   onError: (Throwable) -> Unit = {},
   onSuccess: (T) -> Unit = {}
 ): Disposable = subscribe(onSuccess, onError)
+
+fun <T: Any> Maybe<T>.safeSubscribeBy(
+  onError: (Throwable) -> Unit = {},
+  onComplete: () -> Unit = {},
+  onSuccess: (T) -> Unit = {}
+): Disposable = subscribe(onSuccess, onError, onComplete)
 
 fun <T : Any> Observable<T>.safeSubscribeBy(
   onError: (Throwable) -> Unit = {},
