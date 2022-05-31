@@ -3,10 +3,12 @@ package com.ndhzs.module.system.page.viewmodel
 import com.ndhzs.lib.common.ui.BaseViewModel
 
 /**
- * ...
- * @author 985892345 (Guo Xiangrui)
- * @email 2767465918@qq.com
- * @date 2022/5/29 18:18
+ * @author 1446157077 (Watermelon02)
+ * @email 1446157077@qq.com
+ * @date 2022/5/29 18:11
  */
 class SystemViewModel : BaseViewModel() {
+    fun queryNavigation(){
+
+    }
 }
