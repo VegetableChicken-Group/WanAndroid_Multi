@@ -2,7 +2,7 @@ name: pr_master_ci CI
 
 on:
   pull_request:
-    branches: [ GuoXR/test/ci ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -24,7 +24,8 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew assembleRelease
 
-      - uses: actions/upload-artifact@v2
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
         with:
           name: upload-apk
           path: ${{github.workspace}}/module_app/build/outputs/apk/release/*.apk
