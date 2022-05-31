@@ -17,9 +17,9 @@ dependencies {
 // 插件的定义
 gradlePlugin {
   plugins {
-    create("module-debug") {
-      id = "module-debug"
-      implementationClass = "project.ModuleDebugProject"
-    }
+//    create("module-debug") {
+//      id = "module-debug"
+//      implementationClass = "project.ModuleDebugProject"
+//    }
   }
 }

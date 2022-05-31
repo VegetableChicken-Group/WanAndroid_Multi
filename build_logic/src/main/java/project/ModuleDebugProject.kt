@@ -16,11 +16,11 @@ import project.base.BaseApplicationProject
  * @email 2767465918@qq.com
  * @date 2022/5/28 12:23
  */
-class ModuleDebugProject : BaseApplicationProject(), Plugin<Project> {
+object ModuleDebugProject : BaseApplicationProject() {
   
-  override fun apply(target: Project) {
-    target.checkIsInDebug()
-    initProject(target)
+  override fun initProjectInternal() {
+    checkIsInDebug()
+    super.initProjectInternal()
   }
   
   override fun initProject() {

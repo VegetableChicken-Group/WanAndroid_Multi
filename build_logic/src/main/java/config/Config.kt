@@ -1,3 +1,5 @@
+@file:Suppress("ObjectPropertyName")
+
 package config
 
 import org.gradle.api.Project

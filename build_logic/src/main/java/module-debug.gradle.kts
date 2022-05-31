@@ -1,0 +1,3 @@
+import project.ModuleDebugProject
+
+ModuleDebugProject.initProject(project)

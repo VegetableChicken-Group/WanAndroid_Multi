@@ -5,8 +5,7 @@
     <application>
         <activity
             android:name=".page.TestActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
