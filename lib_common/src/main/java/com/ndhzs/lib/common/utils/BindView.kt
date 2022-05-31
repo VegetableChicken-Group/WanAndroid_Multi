@@ -27,6 +27,7 @@ import kotlin.reflect.KProperty
  *    kt 插件(被废弃) > 属性代理 > ButterKnife(被废弃) > DataBinding > ViewBinding
  *
  * 还有如果使用 DataBinding 和 ViewBinding 会因为 id 太长而劝退
+ * ViewBinding 是给所有布局都默认开启的，大项目严重拖垮编译速度
  * ```
  * **NOTE:** kt 直接通过 id 获取 View 的插件已经被废弃，禁止再使用！
  *

@@ -1,4 +1,5 @@
 import lib.dependCoroutines
+import lib.dependCoroutinesRx3
 import lib.dependRxjava
 
 plugins {
@@ -7,6 +8,7 @@ plugins {
 
 dependRxjava()
 dependCoroutines()
+dependCoroutinesRx3()
 
 dependencies {
   implementation(lib.Network.okhttp)

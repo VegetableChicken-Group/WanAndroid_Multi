@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.CallSuper
 import androidx.viewbinding.ViewBinding
 import com.ndhzs.lib.common.utils.GenericityUtils.getGenericClassFromSuperClass
 
@@ -25,11 +26,12 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
   protected val binding: VB
     get() = _binding!!
   
+  @CallSuper
   @Suppress("UNCHECKED_CAST")
   @Deprecated(
-    "不要重写该方法，请使用 onViewCreated() 代替",
-    ReplaceWith("onViewCreated(view, savedInstanceState)"),
-    DeprecationLevel.ERROR
+    "不建议重写该方法，请使用 onCreateViewBefore() 代替",
+    ReplaceWith("onCreateViewBefore(container, savedInstanceState)"),
+    DeprecationLevel.WARNING
   )
   override fun onCreateView(
     inflater: LayoutInflater,

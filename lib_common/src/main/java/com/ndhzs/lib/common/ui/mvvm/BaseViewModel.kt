@@ -1,4 +1,4 @@
-package com.ndhzs.lib.common.ui
+package com.ndhzs.lib.common.ui.mvvm
 
 import android.content.Context
 import androidx.annotation.CallSuper
