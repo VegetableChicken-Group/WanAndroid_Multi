@@ -10,5 +10,6 @@ import project.base.BaseLibraryProject
  */
 object ApiProject : BaseLibraryProject() {
   override fun initProject() {
+    // api 模块不主动依赖 lib_common，应尽量做到只有接口和简单逻辑
   }
 }
