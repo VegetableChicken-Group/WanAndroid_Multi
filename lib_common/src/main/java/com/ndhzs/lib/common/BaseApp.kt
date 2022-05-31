@@ -3,6 +3,7 @@ package com.ndhzs.lib.common
 import android.app.Application
 import android.content.Context
 import androidx.annotation.CallSuper
+import com.alibaba.android.arouter.BuildConfig
 import com.alibaba.android.arouter.launcher.ARouter
 
 /**
