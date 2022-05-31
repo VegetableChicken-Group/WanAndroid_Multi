@@ -14,6 +14,7 @@ import com.ndhzs.api.account.IAccountService
 import com.ndhzs.lib.account.network.LoginApiService
 import com.ndhzs.lib.common.BaseApp
 import com.ndhzs.lib.common.config.ACCOUNT_SERVICE
+import com.ndhzs.lib.common.extensions.getSp
 import com.ndhzs.lib.common.extensions.lazyUnlock
 import com.ndhzs.lib.common.extensions.mapOrThrowApiException
 import com.ndhzs.lib.common.extensions.throwApiExceptionIfFail
@@ -96,8 +97,7 @@ class AccountServiceImpl : IAccountService {
       .subscribeOn(Schedulers.io())
   }
   
-  private val mUserInfoSp =
-    BaseApp.appContext.getSharedPreferences("UserInfo", Context.MODE_PRIVATE)
+  private val mUserInfoSp = BaseApp.appContext.getSp("UserInfo")
   
   override fun init(context: Context) {
     mContext = context

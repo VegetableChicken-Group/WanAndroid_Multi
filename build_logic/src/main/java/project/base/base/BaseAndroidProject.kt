@@ -25,20 +25,18 @@ import lib.dependAndroidBase
 abstract class BaseAndroidProject : BaseProject() {
   
   override fun initProjectInternal() {
-    project.run {
-      dependencies {
-        if (isDependChildModule()) {
-          // 自动依赖自己目录下的子模块
-          dependChildModule()
-        }
+    dependencies {
+      if (isDependChildModule()) {
+        // 自动依赖自己目录下的子模块
+        dependChildModule()
       }
-      // 本来可以不依赖 Test，但每次那个 test 文件夹都报错，有时候又忘了删，强迫症
-      dependTestBase()
-      // 所有 Android 工程模块都需要
-      dependAndroidBase()
-      // 所有 Android 工程模块都需要依赖 ARouter
-      dependARouter()
     }
+    // 本来可以不依赖 Test，但每次那个 test 文件夹都报错，有时候又忘了删，强迫症
+    dependTestBase()
+    // 所有 Android 工程模块都需要
+    dependAndroidBase()
+    // 所有 Android 工程模块都需要依赖 ARouter
+    dependARouter()
     super.initProjectInternal()
   }
   
