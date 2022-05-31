@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 7.2.1" type="baseline" client="gradle" dependencies="false" name="AGP (7.2.1)" variant="fatal" version="7.2.1">
+
+    <issue
+        id="Instantiatable"
+        message="`App` must extend android.app.Application"
+        errorLine1="        android:name=&quot;.App&quot;"
+        errorLine2="                      ~~~~">
+        <location
+            file="src/main/AndroidManifest.xml"
+            line="6"
+            column="23"/>
+    </issue>
+
+</issues>
