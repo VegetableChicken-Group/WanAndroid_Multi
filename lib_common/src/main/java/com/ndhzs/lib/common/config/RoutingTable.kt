@@ -12,6 +12,9 @@ const val TEST_ENTRY = "/test/entry"
 const val TEST_SHOW = "/test/show/entry"
 const val TEST_SERVICE = "/test/service"
 
+const val SQUARE_ENTRY = "/square/entry"
+const val SQUARE_SHOW = "/square/show/entry"
+
 const val LOGIN_ENTRY = "/login/entry"
 
 const val ACCOUNT_SERVICE = "/account/service"

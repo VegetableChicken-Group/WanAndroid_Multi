@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.ndhzs.lib.common.config.SQUARE_SHOW
 import com.ndhzs.lib.common.ui.BaseFragment
 import com.ndhzs.module.square.R
 
@@ -13,7 +15,7 @@ import com.ndhzs.module.square.R
  * @date 2022/5/31 7:18
  * @Description
  */
-//@Route(path = HOME_SQUARE)
+@Route(path = SQUARE_SHOW)
 class SquareFragment : BaseFragment() {
 
     override fun onCreateView(
