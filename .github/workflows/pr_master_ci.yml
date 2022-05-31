@@ -25,7 +25,7 @@ jobs:
         run: ./gradlew assembleRelease
 
       - uses: actions/upload-artifact@v2
-          with:
-            name: upload-apk
-            path: ${{github.workspace}}/module_app/build/outputs/apk/release/*.apk
-            error: 打包失败！
+        with:
+          name: upload-apk
+          path: ${{github.workspace}}/module_app/build/outputs/apk/release/*.apk
+          error: 打包失败！
