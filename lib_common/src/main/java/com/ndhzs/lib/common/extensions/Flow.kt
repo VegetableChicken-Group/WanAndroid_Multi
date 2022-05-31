@@ -55,8 +55,8 @@ import kotlinx.coroutines.rx3.asFlow
  * 由于目前 Retrofit 官方没有直接给出 Flow 的 adapter，所以暂时使用 Observable 来转成 Flow
  * ```
  * FindApiServices.INSTANCE.getStudents(stu)
- *     .subscribeOn(Schedulers.io()) // 必加
- *     .asFlow()
+ *     .subscribeOn(Schedulers.io()) // 线程切换
+ *     .asFlow()                     // 转换成 Flow
  *     .mapOrCatchApiException {     // 出错
  *         toast("网络似乎开小差了")
  *     }.collectLaunch {             // 收集
