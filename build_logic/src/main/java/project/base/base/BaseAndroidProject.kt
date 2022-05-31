@@ -40,6 +40,9 @@ abstract class BaseAndroidProject : BaseProject() {
     super.initProjectInternal()
   }
   
+  /**
+   * 是否自动依赖自己目录下的子模块
+   */
   open fun isDependChildModule(): Boolean = true
   
   /**
