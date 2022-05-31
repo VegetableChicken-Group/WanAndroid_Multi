@@ -98,28 +98,28 @@ fun <T: ApiStatue> Flowable<T>.catchApiException(
     }
 }
 
-fun <E: Any, T: ApiWrapper<E>> Single<T>.mpaOrCatchApiException(
+fun <E: Any, T: ApiWrapper<E>> Single<T>.mapOrCatchApiException(
   func: (ApiException) -> Unit
 ): Single<E> {
   return catchApiException(func)
     .map { it.data }
 }
 
-fun <E: Any, T: ApiWrapper<E>> Maybe<T>.mpaOrCatchApiException(
+fun <E: Any, T: ApiWrapper<E>> Maybe<T>.mapOrCatchApiException(
   func: (ApiException) -> Unit
 ): Maybe<E> {
   return catchApiException(func)
     .map { it.data }
 }
 
-fun <E: Any, T: ApiWrapper<E>> Observable<T>.mpaOrCatchApiException(
+fun <E: Any, T: ApiWrapper<E>> Observable<T>.mapOrCatchApiException(
   func: (ApiException) -> Unit
 ): Observable<E> {
   return catchApiException(func)
     .map { it.data }
 }
 
-fun <E: Any, T: ApiWrapper<E>> Flowable<T>.mpaOrCatchApiException(
+fun <E: Any, T: ApiWrapper<E>> Flowable<T>.mapOrCatchApiException(
   func: (ApiException) -> Unit
 ): Flowable<E> {
   return catchApiException(func)
