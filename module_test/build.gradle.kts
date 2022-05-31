@@ -4,8 +4,8 @@ import lib.dependAndroidView
 import lib.dependLifecycleKtx
 
 plugins {
-//  id("module-manager")
-  id("module-debug")
+  id("module-manager")
+//  id("module-debug")
 }
 
 dependAndroidView()
