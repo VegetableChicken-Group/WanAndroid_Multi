@@ -1,11 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":lib_web:api_web")
-
-
-include(":lib_web")
-
-
 
 pluginManagement {
   includeBuild("build_logic")
