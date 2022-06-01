@@ -13,8 +13,9 @@ import com.ndhzs.module.square.R
  * @ClassName SquareFragment
  * @author Silence~ (Zhu Zhaoting)
  * @date 2022/5/31 7:18
- * @Description
+ * @Description 广场界面
  */
+
 @Route(path = SQUARE_SHOW)
 class SquareFragment : BaseFragment() {
 
