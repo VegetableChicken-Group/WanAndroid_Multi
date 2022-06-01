@@ -15,39 +15,40 @@ class ItemListBean {
     }
 
     class ItemBean{
-        /*"apkLink": "",
-        "audit": 1,
-        "author": "",
-        "canEdit": false,
-        "chapterId": 494,
-        "chapterName": "广场",
-        "collect": false,
-        "courseId": 13,
-        "desc": "",
-        "descMd": "",
-        "envelopePic": "",
-        "fresh": true,
-        "host": "",
-        "id": 22878,
-        "link": "https://juejin.cn/post/7103706223555379237",
-        "niceDate": "8小时前",
-        "niceShareDate": "8小时前",
-        "origin": "",
-        "prefix": "",
-        "projectLink": "",
-        "publishTime": 1654043816000,
-        "realSuperChapterId": 493,
-        "selfVisible": 0,
-        "shareDate": 1654043816000,
-        "shareUser": "goweii",
-        "superChapterId": 494,
-        "superChapterName": "广场Tab",
-        "tags": [],
-        "title": "并发编程-阻塞队列和线程池原理",
-        "type": 0,
-        "userId": 20382,
-        "visible": 0,
-        "zan": 0
-         */
+
+//        "apkLink": "",
+//        "audit": 1,
+//        "author": "",
+//        "canEdit": false,
+//        "chapterId": 494,
+        private var chapterName = "广场" //use
+        private var collect = false //use
+//        "courseId": 13,
+//        "desc": "",
+//        "descMd": "",
+//        "envelopePic": "",
+        private var fresh = true //use
+//        "host": "",
+//        "id": 22878,
+        private var link = "https://juejin.cn/post/7103706223555379237" //use
+        private var niceDate = "8小时前" //use
+//        "niceShareDate": "8小时前",
+//        "origin": "",
+//        "prefix": "",
+//        "projectLink": "",
+//        "publishTime": 1654043816000,
+//        "realSuperChapterId": 493,
+//        "selfVisible": 0,
+//        "shareDate": 1654043816000,
+        private var shareUser = "goweii" //use
+//        "superChapterId": 494,
+        private var superChapterName = "广场Tab" //use
+//        "tags": [],
+        private var title = "并发编程-阻塞队列和线程池原理" //use
+//        "type": 0,
+//        "userId": 20382,
+//        "visible": 0,
+//        "zan": 0
+
     }
 }
