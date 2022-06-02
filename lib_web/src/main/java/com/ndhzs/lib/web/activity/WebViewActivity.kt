@@ -7,11 +7,9 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.webkit.*
 import com.ndhzs.lib.common.extensions.lazyUnlock
 import com.ndhzs.lib.common.ui.BaseActivity
-import com.ndhzs.lib.web.R
 
 
 /**
@@ -26,7 +24,7 @@ import com.ndhzs.lib.web.R
  * @Description:    通用的网页加载页面
  */
 
-class BaseWebViewActivity : BaseActivity(){
+class WebViewActivity : BaseActivity() {
 
     companion object {
 
@@ -34,21 +32,21 @@ class BaseWebViewActivity : BaseActivity(){
         private const val titleExtra = "WanAndroid"
 
         //外部调用WebView的方法
-        fun start(context: Context, url : String, title : String = titleExtra ) {
+        fun start(context: Context, url : String, title : String = titleExtra) {
             context.startActivity(
-                Intent(context, BaseWebViewActivity::class.java).apply {
+                Intent(context, WebViewActivity::class.java).apply {
                     putExtra(webViewExtra, url)
-                    putExtra(titleExtra,title)
+                    putExtra(titleExtra, title)
                 }
             )
         }
     }
 
     private val url by lazyUnlock {
-        intent.getStringExtra(webViewExtra)
+        intent.getStringExtra(webViewExtra)!!
     }
     private val webViewTitle by lazyUnlock {
-        intent.getStringExtra(titleExtra)
+        intent.getStringExtra(titleExtra)!!
     }
 
     private val webView: WebView by lazyUnlock {
@@ -60,7 +58,7 @@ class BaseWebViewActivity : BaseActivity(){
         super.onCreate(savedInstanceState)
         setContentView(webView)
         initWebView()
-        webView.loadUrl(url!!)
+        webView.loadUrl(url)
     }
 
     /**
@@ -132,9 +130,7 @@ class BaseWebViewActivity : BaseActivity(){
             //获得WebView的标题
             override fun onReceivedTitle(view: WebView, webTitle: String) {
                 super.onReceivedTitle(view, webTitle)
-                title = webTitle.ifEmpty {
-                    webViewTitle
-                }
+                title = webViewTitle
             }
 
             // 获取页面加载的进度
@@ -186,5 +182,4 @@ class BaseWebViewActivity : BaseActivity(){
         webView.destroy()
         super.onDestroy()
     }
-
 }

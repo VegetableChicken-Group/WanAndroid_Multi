@@ -4,8 +4,8 @@ import com.ndhzs.build.logic.depend.dependAndroidView
 import com.ndhzs.build.logic.depend.dependLifecycleKtx
 
 plugins {
-//  id("module-manager")
-  id("module-debug")
+  id("module-manager")
+//  id("module-debug")
 }
 
 dependAndroidView()

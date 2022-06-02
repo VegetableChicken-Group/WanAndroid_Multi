@@ -3,7 +3,7 @@ package com.ndhzs.lib.web.service
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ndhzs.api.web.IWebViewService
-import com.ndhzs.lib.web.activity.BaseWebViewActivity
+import com.ndhzs.lib.web.activity.WebViewActivity
 import com.ndhzs.lib.common.config.WEB_SERVICE
 
 /**
@@ -22,11 +22,9 @@ import com.ndhzs.lib.common.config.WEB_SERVICE
 class WebViewServiceImpl : IWebViewService{
 
     override fun startWebView(context: Context, url: String) {
-        BaseWebViewActivity.start(context = context,url = url)
+        WebViewActivity.start(context = context, url = url)
     }
 
-    override fun init(context: Context?) {
+    override fun init(context: Context) {
     }
-
-
 }

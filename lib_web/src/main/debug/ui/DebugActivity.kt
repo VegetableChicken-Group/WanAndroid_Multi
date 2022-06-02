@@ -1,4 +1,4 @@
-package com.ndhzs.lib.web.debug
+package ui
 
 import android.os.Bundle
 import android.os.Handler
@@ -7,7 +7,6 @@ import android.webkit.WebView
 import com.ndhzs.api.web.IWebViewService
 import com.ndhzs.lib.common.service.ServiceManager
 import com.ndhzs.lib.common.ui.BaseActivity
-
 
 /**
  *
@@ -21,18 +20,12 @@ import com.ndhzs.lib.common.ui.BaseActivity
  * @Description:    调试用Activity
  */
 class DebugActivity : BaseActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Handler(Looper.myLooper()!!).postDelayed(
-            {
-            ServiceManager(IWebViewService::class)
-                .startWebView(
-                    this,
-                    "www.baidu.com"
-                )
-            },1000
-        )
+        ServiceManager(IWebViewService::class)
+            .startWebView(
+                this,
+                "https://www.wanandroid.com/"
+            )
     }
-
 }
