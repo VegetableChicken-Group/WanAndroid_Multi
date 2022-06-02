@@ -52,6 +52,10 @@ object ModuleDebugProject : BaseApplicationProject() {
    * 检查该模块是否处于 debug 状态
    */
   private fun Project.checkIsInDebug() {
+    if (!name.startsWith("module_") && name != "module_app") {
+      throw RuntimeException("该插件只能给 module 使用！")
+    }
+  
     if (plugins.hasPlugin("com.android.library")) {
       throw RuntimeException("开启单模块调试前，请先注释多模块插件！")
     }

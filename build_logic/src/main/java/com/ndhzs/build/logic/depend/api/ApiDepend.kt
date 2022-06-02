@@ -27,7 +27,6 @@ object ApiDepend {
   val account = ":lib_account:api_account" by parent
   val main = ":module_main:api_main" by parent
   val test = ":module_test:api_test" by parent
-  val web = ":lib_web:api_web" by parent
   
   private infix fun String.by(implPath: String): ApiDependUtils.IApiDependUtils = by { implPath }
   private infix fun String.by(implPath: String.() -> String): ApiDependUtils.IApiDependUtils {
@@ -49,9 +48,5 @@ fun Project.dependApiMain() {
 
 fun Project.dependApiTest() {
   ApiDepend.test.dependApiOnly(this)
-}
-
-fun Project.dependApiWeb() {
-  ApiDepend.web.dependApiOnly(this)
 }
 
