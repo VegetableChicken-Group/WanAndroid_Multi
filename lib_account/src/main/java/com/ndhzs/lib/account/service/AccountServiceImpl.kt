@@ -71,8 +71,10 @@ class AccountServiceImpl : IAccountService {
   ): Single<IAccountService.LoginBean> {
     return mApiService.login(username, password)
       .mapOrThrowApiException()
-      .doOnSuccess { mUserInfoLiveData.postValue(it.copy(password = password)) }
-      .subscribeOn(Schedulers.io())
+      .doOnSuccess {
+        // 网络请求来的不默认包含密码，所以自己加上
+        mUserInfoLiveData.postValue(it.copy(password = password))
+      }.subscribeOn(Schedulers.io())
   }
   
   override fun logout(): Completable {
@@ -93,8 +95,10 @@ class AccountServiceImpl : IAccountService {
   ): Single<IAccountService.LoginBean> {
     return mApiService.register(username, password, rePassword)
       .mapOrThrowApiException()
-      .doOnSuccess { mUserInfoLiveData.postValue(it.copy(password = password)) }
-      .subscribeOn(Schedulers.io())
+      .doOnSuccess {
+        // 网络请求来的不默认包含密码，所以自己加上
+        mUserInfoLiveData.postValue(it.copy(password = password))
+      }.subscribeOn(Schedulers.io())
   }
   
   private val mUserInfoSp = BaseApp.appContext.getSp("UserInfo")

@@ -1,7 +1,7 @@
 package com.ndhzs.lib.common.extensions
 
 import com.ndhzs.lib.common.network.ApiException
-import com.ndhzs.lib.common.network.ApiStatue
+import com.ndhzs.lib.common.network.ApiStatus
 import com.ndhzs.lib.common.network.ApiWrapper
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
@@ -55,8 +55,8 @@ import kotlinx.coroutines.rx3.asFlow
  * 由于目前 Retrofit 官方没有直接给出 Flow 的 adapter，所以暂时使用 Observable 来转成 Flow
  * ```
  * FindApiServices.INSTANCE.getStudents(stu)
- *     .subscribeOn(Schedulers.io()) // 必加
- *     .asFlow()
+ *     .subscribeOn(Schedulers.io()) // 线程切换
+ *     .asFlow()                     // 转换成 Flow
  *     .mapOrCatchApiException {     // 出错
  *         toast("网络似乎开小差了")
  *     }.collectLaunch {             // 收集
@@ -64,7 +64,7 @@ import kotlinx.coroutines.rx3.asFlow
  *     }
  * ```
  */
-fun <T: ApiStatue> Flow<T>.throwApiExceptionIfFail(): Flow<T> {
+fun <T: ApiStatus> Flow<T>.throwApiExceptionIfFail(): Flow<T> {
   return onEach { it.throwApiExceptionIfFail() }
 }
 
