@@ -1,4 +1,4 @@
-import project.*
+import com.ndhzs.build.logic.project.*
 
 /**
  * 不同模块分配不同的插件

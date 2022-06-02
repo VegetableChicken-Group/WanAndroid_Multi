@@ -1,6 +1,4 @@
-import lib.dependCoroutines
-import lib.dependCoroutinesRx3
-import lib.dependRxjava
+import com.ndhzs.build.logic.depend.*
 
 plugins {
   id("module-manager")
@@ -11,7 +9,7 @@ dependCoroutines()
 dependCoroutinesRx3()
 
 dependencies {
-  implementation(lib.Network.okhttp)
-  implementation(lib.Lifecycle.`lifecycle-reactivestreams-ktx`)
-  implementation(lib.Lifecycle.`livedata-ktx`)
+  implementation(Network.okhttp)
+  implementation(Lifecycle.`lifecycle-reactivestreams-ktx`)
+  implementation(Lifecycle.`livedata-ktx`)
 }

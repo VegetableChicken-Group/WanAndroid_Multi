@@ -13,9 +13,9 @@ import kotlin.jvm.Throws
 open class ApiWrapper<T> (
   @SerializedName("data")
   val data: T,
-) : Serializable, ApiStatue()
+) : Serializable, ApiStatus()
 
-open class ApiStatue(
+open class ApiStatus(
   @SerializedName("errorCode")
   val errorCode: Int = 0,
   @SerializedName("errorMsg")

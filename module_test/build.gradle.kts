@@ -1,11 +1,11 @@
-import api.dependApiMain
-import lib.dependAndroidKtx
-import lib.dependAndroidView
-import lib.dependLifecycleKtx
+import com.ndhzs.build.logic.depend.api.dependApiMain
+import com.ndhzs.build.logic.depend.dependAndroidKtx
+import com.ndhzs.build.logic.depend.dependAndroidView
+import com.ndhzs.build.logic.depend.dependLifecycleKtx
 
 plugins {
-  id("module-manager")
-//  id("module-debug")
+//  id("module-manager")
+  id("module-debug")
 }
 
 dependAndroidView()
