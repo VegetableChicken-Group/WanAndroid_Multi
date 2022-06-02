@@ -27,8 +27,7 @@ class TestServiceImpl : ITestService {
     return mDataLive.value
   }
   
-  override val liveData: LiveData<ITestService.Data>
-    get() = mDataLive
+  override val liveData: LiveData<ITestService.Data> get() = mDataLive
   
   override fun init(context: Context) {
   }

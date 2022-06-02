@@ -1,3 +1,4 @@
+import lib.dependCoroutines
 import api.dependApiTest
 import lib.dependAndroidKtx
 import lib.dependAndroidView
@@ -8,7 +9,7 @@ plugins {
 
 dependAndroidView()
 dependAndroidKtx()
-
+dependCoroutines()
 dependApiTest()
 
 dependencies {
