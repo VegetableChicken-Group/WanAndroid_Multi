@@ -1,7 +1,7 @@
 package com.ndhzs.lib.common.extensions
 
 import com.ndhzs.lib.common.network.ApiException
-import com.ndhzs.lib.common.network.ApiStatue
+import com.ndhzs.lib.common.network.ApiStatus
 import com.ndhzs.lib.common.network.ApiWrapper
 import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.Disposable
@@ -26,19 +26,19 @@ import io.reactivex.rxjava3.disposables.Disposable
  * @date 2022/5/30 10:12
  */
 
-fun <T: ApiStatue> Single<T>.throwApiExceptionIfFail(): Single<T> {
+fun <T: ApiStatus> Single<T>.throwApiExceptionIfFail(): Single<T> {
   return doOnSuccess { it.throwApiExceptionIfFail() }
 }
 
-fun <T: ApiStatue> Maybe<T>.throwApiExceptionIfFail(): Maybe<T> {
+fun <T: ApiStatus> Maybe<T>.throwApiExceptionIfFail(): Maybe<T> {
   return doOnSuccess { it.throwApiExceptionIfFail() }
 }
 
-fun <T: ApiStatue> Observable<T>.throwApiExceptionIfFail(): Observable<T> {
+fun <T: ApiStatus> Observable<T>.throwApiExceptionIfFail(): Observable<T> {
   return doOnNext { it.throwApiExceptionIfFail() }
 }
 
-fun <T: ApiStatue> Flowable<T>.throwApiExceptionIfFail(): Flowable<T> {
+fun <T: ApiStatus> Flowable<T>.throwApiExceptionIfFail(): Flowable<T> {
   return doOnNext { it.throwApiExceptionIfFail() }
 }
 
@@ -62,7 +62,7 @@ fun <E: Any, T: ApiWrapper<E>> Flowable<T>.mapOrThrowApiException(): Flowable<E>
     .map { it.data }
 }
 
-fun <T: ApiStatue> Single<T>.catchApiException(
+fun <T: ApiStatus> Single<T>.catchApiException(
   func: (ApiException) -> Unit
 ): Single<T> {
   return throwApiExceptionIfFail()
@@ -71,7 +71,7 @@ fun <T: ApiStatue> Single<T>.catchApiException(
     }
 }
 
-fun <T: ApiStatue> Maybe<T>.catchApiException(
+fun <T: ApiStatus> Maybe<T>.catchApiException(
   func: (ApiException) -> Unit
 ): Maybe<T> {
   return throwApiExceptionIfFail()
@@ -80,7 +80,7 @@ fun <T: ApiStatue> Maybe<T>.catchApiException(
     }
 }
 
-fun <T: ApiStatue> Observable<T>.catchApiException(
+fun <T: ApiStatus> Observable<T>.catchApiException(
   func: (ApiException) -> Unit
 ): Observable<T> {
   return throwApiExceptionIfFail()
@@ -89,7 +89,7 @@ fun <T: ApiStatue> Observable<T>.catchApiException(
     }
 }
 
-fun <T: ApiStatue> Flowable<T>.catchApiException(
+fun <T: ApiStatus> Flowable<T>.catchApiException(
   func: (ApiException) -> Unit
 ): Flowable<T> {
   return throwApiExceptionIfFail()

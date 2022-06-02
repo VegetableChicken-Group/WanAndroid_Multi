@@ -1,7 +1,7 @@
 package com.ndhzs.lib.common.extensions
 
 import com.ndhzs.lib.common.network.ApiException
-import com.ndhzs.lib.common.network.ApiStatue
+import com.ndhzs.lib.common.network.ApiStatus
 import com.ndhzs.lib.common.network.ApiWrapper
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
@@ -64,7 +64,7 @@ import kotlinx.coroutines.rx3.asFlow
  *     }
  * ```
  */
-fun <T: ApiStatue> Flow<T>.throwApiExceptionIfFail(): Flow<T> {
+fun <T: ApiStatus> Flow<T>.throwApiExceptionIfFail(): Flow<T> {
   return onEach { it.throwApiExceptionIfFail() }
 }
 
