@@ -1,5 +1,4 @@
-import lib.dependAndroidKtx
-import lib.dependAndroidView
+import lib.*
 
 plugins {
     id("module-manager")
@@ -8,3 +7,7 @@ plugins {
 
 dependAndroidView()
 dependAndroidKtx()
+dependNetwork()
+dependCoroutines()
+dependPaging()
+dependGlide()

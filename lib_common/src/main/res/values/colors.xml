@@ -14,4 +14,7 @@
     <color name="windowBackground">#FFFFFFFF</color>
     <color name="colorPrimaryDark">#D81B60</color>
 
+    <color name="red">#f44336</color>
+
+
 </resources>

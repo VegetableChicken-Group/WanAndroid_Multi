@@ -1,6 +1,11 @@
 package com.ndhzs.module.home.viewmodel
 
+import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.cachedIn
 import com.ndhzs.lib.common.ui.BaseViewModel
+import com.ndhzs.module.home.repo.source.HomePagingSource
 
 /**
  * com.ndhzs.module.home.viewmodel.HomeViewModel
@@ -10,4 +15,14 @@ import com.ndhzs.lib.common.ui.BaseViewModel
  * @since 2022/5/31 0:24
  **/
 class HomeViewModel : BaseViewModel() {
+    val pagingData = Pager(
+        config = PagingConfig(
+            pageSize = 10,
+            enablePlaceholders = false,
+            initialLoadSize = 10
+        ),
+        pagingSourceFactory = {
+            HomePagingSource()
+        }
+    ).flow.cachedIn(viewModelScope)
 }

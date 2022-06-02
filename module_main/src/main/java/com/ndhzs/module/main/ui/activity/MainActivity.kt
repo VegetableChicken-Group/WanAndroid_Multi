@@ -1,11 +1,10 @@
 package com.ndhzs.module.main.ui.activity
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import com.alibaba.android.arouter.launcher.ARouter
 import com.ndhzs.lib.common.config.HOME_PAGE
 import com.ndhzs.lib.common.extensions.setOnSingleClickListener
+import com.ndhzs.lib.common.service.ServiceManager
 import com.ndhzs.lib.common.ui.mvvm.BaseVmBindActivity
 import com.ndhzs.module.main.IMainService
 import com.ndhzs.module.main.R
@@ -21,18 +20,18 @@ class MainActivity : BaseVmBindActivity<MainViewModel, MainActivityMainBinding>(
         setSupportActionBar(binding.toolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_menu)
+            setHomeAsUpIndicator(R.drawable.ic_baseline_menu_24)
         }
         binding.vp2Main.adapter = MainVpAdapter(supportFragmentManager, lifecycle) {
             when (it) {
-                0 -> ARouter.getInstance().build(HOME_PAGE).navigation() as Fragment
+                0 -> ServiceManager.fragment(HOME_PAGE)
                 else -> error("state error")
             }
         }
         binding.floatingActionBtn.setOnSingleClickListener {
             lifecycleScope.launch {
-                ARouter.getInstance()
-                    .navigation(IMainService::class.java)
+                ServiceManager
+                    .invoke(IMainService::class)
                     .fabClickState
                     .emit(Unit)
             }
