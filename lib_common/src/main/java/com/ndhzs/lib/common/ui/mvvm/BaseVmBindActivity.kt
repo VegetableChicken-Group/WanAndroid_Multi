@@ -57,4 +57,5 @@ abstract class BaseVmBindActivity<VM : ViewModel, VB : ViewBinding>(
   override fun setContentView(layoutResID: Int) {
     super.setContentView(layoutResID)
   }
+
 }
