@@ -1,6 +1,5 @@
 package com.ndhzs.lib.common.network
 
-import android.util.Log
 import com.ndhzs.api.account.IAccountService
 import com.ndhzs.lib.common.extensions.lazyUnlock
 import com.ndhzs.lib.common.service.ServiceManager
@@ -31,7 +30,7 @@ import kotlin.reflect.KClass
  * ApiService.INSTANCE.getXXX()
  *     .subscribeOn(Schedulers.io())  // 线程切换
  *     .observeOn(AndroidSchedulers.mainThread())
- *     .catchApiExceptionOrMap {      // 当 errorCode 的值不为成功时抛错，并处理错误
+ *     .mapOrCatchApiException {      // 当 errorCode 的值不为成功时抛错，并处理错误
  *         // 处理 ApiException 错误
  *     }
  *     .safeSubscribeBy {             // 如果是网络连接错误，则这里会默认处理
@@ -46,6 +45,9 @@ import kotlin.reflect.KClass
  * @date 2022/5/29 22:30
  */
 object ApiGenerator {
+  
+  private val mAccountService = ServiceManager(IAccountService::class)
+  private val retrofit = getNewRetrofit(true) {}
   
   fun <T : Any> getApiService(clazz: KClass<T>): T {
     return retrofit.create(clazz.java)
@@ -71,14 +73,6 @@ object ApiGenerator {
       .addCallAdapterFactory(RxJava3CallAdapterFactory.createSynchronous())
       .apply { config.invoke(this) }
       .build()
-  }
-  
-  private val retrofit by lazyUnlock {
-    getNewRetrofit(true) {}
-  }
-  
-  private val mAccountService by lazyUnlock {
-    ServiceManager(IAccountService::class)
   }
   
   private fun OkHttpClient.Builder.defaultOkhttpConfig(isNeedCookie: Boolean): OkHttpClient {

@@ -9,7 +9,7 @@ import com.ndhzs.lib.common.extensions.asFlow
 import com.ndhzs.lib.common.extensions.getSp
 import com.ndhzs.lib.common.network.ApiException
 import com.ndhzs.lib.common.service.ServiceManager
-import com.ndhzs.lib.common.ui.BaseViewModel
+import com.ndhzs.lib.common.ui.mvvm.BaseViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.catch
@@ -38,7 +38,7 @@ class LoginViewModel : BaseViewModel() {
   private val mAccountService = ServiceManager(IAccountService::class)
   
   init {
-    mAccountService.observeUserInfo()
+    mAccountService.observeUserInfoFlow()
       .collectLaunch {
         if (it == null) {
           // 此时登出了账号，取消记住密码

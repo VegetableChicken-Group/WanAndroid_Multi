@@ -2,6 +2,7 @@ package ui
 
 import android.os.Bundle
 import com.ndhzs.api.test.ITestService
+import com.ndhzs.lib.common.network.ApiGenerator
 import com.ndhzs.lib.common.ui.BaseActivity
 import com.ndhzs.module.test.page.TestActivity
 
@@ -14,6 +15,7 @@ import com.ndhzs.module.test.page.TestActivity
 class DebugActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    ApiGenerator
     TestActivity.start(
       this,
       ITestService.Data(

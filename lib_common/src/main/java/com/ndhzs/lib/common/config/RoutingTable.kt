@@ -24,3 +24,7 @@ const val MAIN_SERVICE = "/main/service"
 
 // home 模块
 const val HOME_PAGE = "/home/page"
+
+// WebView 模块
+const val WEB_SERVICE = "/web/service"
+const val WEB_ENTRY = "/web/entry"
