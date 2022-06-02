@@ -70,7 +70,7 @@ class IndicatorView @JvmOverloads constructor(
     }
 
     fun bindBannerVp(viewPager2: ViewPager2, dataSize: Int) {
-        viewPager2.postDelayed(100) {
+        viewPager2.post {
             dotCount = dataSize
             viewPager2.registerOnPageChangeCallback(
                 object : ViewPager2.OnPageChangeCallback() {
@@ -89,9 +89,9 @@ class IndicatorView @JvmOverloads constructor(
         val height = MeasureSpec.getSize(heightMeasureSpec)
         var width = MeasureSpec.getSize(widthMeasureSpec)
         val widthMode = MeasureSpec.getMode(widthMeasureSpec)
-        radius = height / 2.toFloat()
-        firstDotX = x + radius
-        firstDotY = y + height / 2
+        radius = height / 2F
+        firstDotX = radius
+        firstDotY = height / 2F
         // wrap_content 自行计算宽度
         if (widthMode == MeasureSpec.AT_MOST) {
             width = (dotCount * radius * 2F + dotBetweenDistance * (dotCount - 1)).toInt()
