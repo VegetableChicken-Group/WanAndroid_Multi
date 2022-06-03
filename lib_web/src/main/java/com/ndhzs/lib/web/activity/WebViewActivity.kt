@@ -3,21 +3,23 @@ package com.ndhzs.lib.web.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.view.WindowInsets
-import android.view.WindowManager
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.webkit.*
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import com.ndhzs.lib.common.extensions.lazyUnlock
 import com.ndhzs.lib.common.ui.BaseActivity
 import com.ndhzs.lib.web.R
+import com.ndhzs.lib.web.helper.popup
 
 
 /**
@@ -59,10 +61,12 @@ class WebViewActivity : BaseActivity() {
 
     private val webView: WebView by R.id.wv_web.view()
     private val textView : TextView by R.id.tv_web_title.view()
+    private val toolbar : Toolbar by R.id.tl_web_toolbar.view()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+//        setSupportActionBar(toolbar)
 
         showStatusBar()
 
@@ -73,6 +77,44 @@ class WebViewActivity : BaseActivity() {
         initWebView()
         webView.loadUrl(url)
     }
+
+    /**
+     * 弹出菜单
+     */
+    private fun showMenu(view : View){
+        popup(view,R.menu.web_menu,
+            {
+                when(it.itemId){
+                    R.id.action_share -> {
+                        //分享网页
+                        shareWeb()
+                        true
+                    }
+                    R.id.action_open -> {
+                        //开启网页
+                        openWeb()
+                        true
+                    }
+                    else -> false
+                }
+            })
+    }
+
+    /**
+     * 分享
+     */
+    private fun shareWeb(){
+
+    }
+
+    /**
+     * 打开网页
+     */
+    private fun openWeb(){
+
+    }
+
+
 
     /**
      * 设置导航栏
