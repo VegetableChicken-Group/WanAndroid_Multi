@@ -1,7 +1,6 @@
 package com.ndhzs.lib.account.service
 
 import android.content.Context
-import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -12,7 +11,6 @@ import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersisto
 import com.google.gson.Gson
 import com.ndhzs.api.account.IAccountService
 import com.ndhzs.lib.account.network.LoginApiService
-import com.ndhzs.lib.common.BaseApp
 import com.ndhzs.lib.common.config.ACCOUNT_SERVICE
 import com.ndhzs.lib.common.extensions.getSp
 import com.ndhzs.lib.common.extensions.lazyUnlock
@@ -101,21 +99,20 @@ class AccountServiceImpl : IAccountService {
       }.subscribeOn(Schedulers.io())
   }
   
-  private val mUserInfoSp = BaseApp.appContext.getSp("UserInfo")
-  
   override fun init(context: Context) {
     mContext = context
+    val userinfoSp = context.getSp("UserInfo")
     val gson = Gson()
     val spKey = "LoginBean"
     // 从本地初始化数据
-    val userinfo = mUserInfoSp.getString(spKey, null)
+    val userinfo = userinfoSp.getString(spKey, null)
     val loginBean: IAccountService.LoginBean? =
       gson.fromJson(userinfo, IAccountService.LoginBean::class.java)
     if (loginBean != null) {
       mUserInfoLiveData.postValue(loginBean)
     }
     getUserInfoLiveData().observeForever {
-      mUserInfoSp.edit {
+      userinfoSp.edit {
         putString(spKey, gson.toJson(it))
       }
     }
