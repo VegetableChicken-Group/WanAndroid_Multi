@@ -3,13 +3,21 @@ package com.ndhzs.lib.web.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.webkit.*
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import com.ndhzs.lib.common.extensions.lazyUnlock
 import com.ndhzs.lib.common.ui.BaseActivity
+import com.ndhzs.lib.web.R
 
 
 /**
@@ -49,16 +57,40 @@ class WebViewActivity : BaseActivity() {
         intent.getStringExtra(titleExtra)!!
     }
 
-    private val webView: WebView by lazyUnlock {
-        WebView(this)
-    }
-
+    private val webView: WebView by R.id.wv_web.view()
+    private val textView : TextView by R.id.tv_web_title.view()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(webView)
+
+
+        showStatusBar()
+
+        //设置视图
+        setContentView(R.layout.web_activity)
+
+        //初始化WebView
         initWebView()
         webView.loadUrl(url)
+    }
+
+    /**
+     * 设置导航栏
+     */
+    private fun showStatusBar(){
+        val window = this.window
+        val decorView = window.decorView
+
+        WindowCompat.setDecorFitsSystemWindows(window, true)
+        val windowInsetsController = ViewCompat.getWindowInsetsController(decorView)
+        windowInsetsController?.isAppearanceLightStatusBars = true // 设置状态栏字体颜色为黑色
+
+        //设置状态栏背景颜色
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            window.statusBarColor = resources.getColor(com.ndhzs.lib.common.R.color.status,theme)
+        }else {
+            window.statusBarColor = resources.getColor(com.ndhzs.lib.common.R.color.status)
+        }
     }
 
     /**
@@ -130,7 +162,7 @@ class WebViewActivity : BaseActivity() {
             //获得WebView的标题
             override fun onReceivedTitle(view: WebView, webTitle: String) {
                 super.onReceivedTitle(view, webTitle)
-                title = webViewTitle
+                textView.text = webTitle
             }
 
             // 获取页面加载的进度
