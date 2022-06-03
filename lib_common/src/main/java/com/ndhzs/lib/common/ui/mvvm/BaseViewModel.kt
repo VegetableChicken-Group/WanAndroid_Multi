@@ -4,12 +4,13 @@ import android.content.Context
 import androidx.annotation.CallSuper
 import androidx.lifecycle.*
 import com.ndhzs.lib.common.BaseApp
-import io.reactivex.rxjava3.core.*
+import com.ndhzs.lib.common.extensions.RxjavaLifecycle
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-abstract class BaseViewModel : ViewModel() {
+abstract class BaseViewModel : ViewModel(), RxjavaLifecycle {
   
   val appContext: Context
     get() = BaseApp.appContext
@@ -31,7 +32,7 @@ abstract class BaseViewModel : ViewModel() {
   }
   
   /**
-   * 收集 Flow 并开启协程
+   * 开启协程并收集 Flow
    */
   protected fun <T> Flow<T>.collectLaunch(action: suspend (value: T) -> Unit) {
     viewModelScope.launch {
@@ -39,30 +40,10 @@ abstract class BaseViewModel : ViewModel() {
     }
   }
   
-  protected fun <T : Any> Single<T>.safeSubscribeBy(
-    onError: (Throwable) -> Unit = {},
-    onSuccess: (T) -> Unit = {}
-  ): Disposable = subscribe(onSuccess, onError).lifecycle()
-  
-  protected fun <T : Any> Maybe<T>.safeSubscribeBy(
-    onError: (Throwable) -> Unit = {},
-    onSuccess: (T) -> Unit = {}
-  ): Disposable = subscribe(onSuccess, onError).lifecycle()
-  
-  protected fun <T : Any> Observable<T>.safeSubscribeBy(
-    onError: (Throwable) -> Unit = {},
-    onComplete: () -> Unit = {},
-    onNext: (T) -> Unit = {}
-  ): Disposable = subscribe(onNext, onError, onComplete).lifecycle()
-  
-  protected fun <T : Any> Flowable<T>.safeSubscribeBy(
-    onError: (Throwable) -> Unit = {},
-    onComplete: () -> Unit = {},
-    onNext: (T) -> Unit = {}
-  ): Disposable = subscribe(onNext, onError, onComplete).lifecycle()
-  
-  protected fun Completable.safeSubscribeBy(
-    onError: (Throwable) -> Unit = {},
-    onComplete: () -> Unit = {}
-  ): Disposable = subscribe(onComplete, onError).lifecycle()
+  /**
+   * 实现 [RxjavaLifecycle] 的方向，用于带有生命周期的调用
+   */
+  override fun onAddRxjava(disposable: Disposable) {
+    mDisposableList.add(disposable)
+  }
 }

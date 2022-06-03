@@ -1,6 +1,7 @@
 package com.ndhzs.lib.common.ui
 
 import android.view.View
+import androidx.annotation.CallSuper
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -8,12 +9,22 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.ndhzs.lib.common.extensions.RxjavaLifecycle
 import com.ndhzs.lib.common.utils.BindView
+import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 @Suppress("UNCHECKED_CAST")
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : Fragment(), RxjavaLifecycle {
+  
+  @CallSuper
+  override fun onDestroyView() {
+    super.onDestroyView()
+    // 取消 Rxjava 流
+    mDisposableList.filter { !it.isDisposed }.forEach { it.dispose() }
+    mDisposableList.clear()
+  }
   
   /**
    * 在简单界面，使用这种方式来得到 View，避免使用 ViewBinding 大材小用
@@ -69,5 +80,11 @@ abstract class BaseFragment : Fragment() {
     lifecycleScope.launch {
       flowWithLifecycle(viewLifecycleOwner.lifecycle).collect { action.invoke(it) }
     }
+  }
+  
+  private val mDisposableList = mutableListOf<Disposable>()
+  
+  override fun onAddRxjava(disposable: Disposable) {
+    mDisposableList.add(disposable)
   }
 }
