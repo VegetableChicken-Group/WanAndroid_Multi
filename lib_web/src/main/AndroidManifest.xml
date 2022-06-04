@@ -3,13 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.ndhzs.lib.web">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <application android:usesCleartextTraffic="true"
         tools:targetApi="m" >
         <activity
             android:name=".activity.WebViewActivity"
-            android:exported="true"/>
+            android:exported="false" />
     </application>
 
 </manifest>

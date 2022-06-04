@@ -23,28 +23,25 @@ abstract class BaseApplicationProject : BaseAndroidProject() {
   }
   
   protected open fun initApplication() {
-    project.run {
-      apply(plugin = "com.android.application")
-      apply(plugin = "kotlin-android")
-      apply(plugin = "kotlin-kapt")
+    apply(plugin = "com.android.application")
+    apply(plugin = "kotlin-android")
+    apply(plugin = "kotlin-kapt")
+    extensions.configure(
+      "android",
+      Action<BaseAppModuleExtension> {
+        initAndroid(this)
+      }
+    )
   
-      extensions.configure(
-        "android",
-        Action<BaseAppModuleExtension> {
-          initAndroid(this)
+    extensions.configure(
+      "kapt",
+      Action<KaptExtension> {
+        arguments {
+          arg("AROUTER_MODULE_NAME", project.name)
+          arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录
         }
-      )
-  
-      extensions.configure(
-        "kapt",
-        Action<KaptExtension> {
-          arguments {
-            arg("AROUTER_MODULE_NAME", project.name)
-            arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录
-          }
-        }
-      )
-    }
+      }
+    )
   }
   
   // 配置 android 闭包
