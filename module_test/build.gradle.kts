@@ -21,3 +21,11 @@ dependencies {
   // 如果 build_logic 中已有，请直接使用
   // 可以通过 Ctrl + F 搜索项目关键词快速查看是否存在相同依赖
 }
+
+tasks.whenTaskAdded {
+  if (name == "assembleDebug") {
+    doFirst {
+      println("assembleDebug_first")
+    }
+  }
+}

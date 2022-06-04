@@ -47,6 +47,14 @@
     public static *** e(...);
 }
 
+# 这是 Android Gradle 自己生成的可以忽略的警告，
+# 可以查看 module_app/build/outputs/mapping/release/missing_rules.txt
+-dontwarn javax.lang.model.element.Element
+-dontwarn org.bouncycastle.jsse.provider.BouncyCastleJsseProvider
+-dontwarn org.conscrypt.Conscrypt
+-dontwarn org.conscrypt.ConscryptHostnameVerifier
+-dontwarn org.openjsse.net.ssl.OpenJSSE
+
 #---------------------------------2.第三方包-------------------------------
 ##
 ## 注意：
