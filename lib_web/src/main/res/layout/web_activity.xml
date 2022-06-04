@@ -21,6 +21,25 @@
             android:background="@color/status"
             app:titleTextColor="@color/white">
 
+
+                <ImageView
+                    android:id="@+id/iv_web_back"
+                    android:layout_marginStart="10dp"
+                    android:layout_gravity="start"
+                    android:src="@drawable/ic_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
+                <ImageView
+                    android:id="@+id/iv_web_more"
+                    android:layout_marginEnd="10dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+
                 <com.ndhzs.lib.web.widget.MyTextView
                     android:singleLine="true"
                     android:ellipsize="marquee"

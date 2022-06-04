@@ -3,20 +3,24 @@ package com.ndhzs.lib.web.activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.media.Image
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.webkit.*
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import com.ndhzs.lib.common.extensions.lazyUnlock
+import com.ndhzs.lib.common.extensions.toast
 import com.ndhzs.lib.common.ui.BaseActivity
 import com.ndhzs.lib.web.R
 import com.ndhzs.lib.web.helper.popup
@@ -61,21 +65,45 @@ class WebViewActivity : BaseActivity() {
 
     private val webView: WebView by R.id.wv_web.view()
     private val textView : TextView by R.id.tv_web_title.view()
-    private val toolbar : Toolbar by R.id.tl_web_toolbar.view()
+    private val backImage : ImageView by R.id.iv_web_back.view()
+    private val moreImage : ImageView by R.id.iv_web_more.view()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        setSupportActionBar(toolbar)
-
-        showStatusBar()
-
         //设置视图
         setContentView(R.layout.web_activity)
+
+        //显示标题栏
+        showStatusBar()
+
+        //设置标题按钮
+        setImageButton()
 
         //初始化WebView
         initWebView()
         webView.loadUrl(url)
+    }
+
+    /**
+     * 设置标题栏按钮
+     */
+    private fun setImageButton(){
+            //退出按钮
+            backImage.apply{
+                setOnClickListener {
+                    onBackPressed()
+                }
+            }
+
+
+            //更多按钮
+            moreImage.apply {
+                setOnClickListener {
+                    showMenu(it)
+                }
+            }
     }
 
     /**
@@ -104,14 +132,20 @@ class WebViewActivity : BaseActivity() {
      * 分享
      */
     private fun shareWeb(){
+        val sentIntent = Intent()
+            .setAction(Intent.ACTION_SEND)
+            .putExtra(Intent.EXTRA_TEXT,"玩Android分享【${textView.text}】：${webView.url}")
+            .setType("text/plain")
 
+        startActivity(Intent.createChooser(sentIntent,"分享"))
     }
 
     /**
      * 打开网页
      */
     private fun openWeb(){
-
+        val url = Uri.parse(url)
+        startActivity(Intent(Intent.ACTION_VIEW,url))
     }
 
 
