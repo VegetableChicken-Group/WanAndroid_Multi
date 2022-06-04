@@ -11,4 +11,5 @@
     <string name="night_mode">夜间模式</string>
     <string name="log_out">退出登录</string>
     <string name="system_settings">系统设置</string>
+    <string name="not_login">尚未登录</string>
 </resources>

@@ -1,7 +1,8 @@
 package com.ndhzs.module.main.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.ndhzs.lib.common.ui.BaseViewModel
+import com.ndhzs.lib.common.ui.mvvm.BaseViewModel
+import com.ndhzs.module.main.repo.web.MainWebService
 
 /**
  * com.ndhzs.module.main.viewmodel.MainViewModel
@@ -11,4 +12,5 @@ import com.ndhzs.lib.common.ui.BaseViewModel
  * @since 2022/5/29 13:43
  **/
 class MainViewModel : BaseViewModel() {
+    fun getUserInfo() = MainWebService.INSTANCE.getInfo()
 }

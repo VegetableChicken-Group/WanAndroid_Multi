@@ -31,6 +31,10 @@ class HomePagingSource : PagingSource<Int, HomeRvItemWrapper>() {
                         bannerData.data
                     )
                 )
+                // 置顶文章数据
+                val topData = HomeWebService.INSTANCE.getTopArticles()
+                topData.throwApiExceptionIfFail()
+                pageList.addAll(topData.data.map { HomeRvItemWrapper(HomeRvItemWrapper.Type.ARTICLE, it.apply { top = true }) })
             }
             val listData = HomeWebService.INSTANCE.getArticles(page = pos, pageSize = 10)
             listData.throwApiExceptionIfFail()

@@ -51,6 +51,7 @@ data class ArticleData(
     val userId: Int,
     val visible: Int,
     val zan: Int,
+    var top: Boolean? = false
 ) {
     data class Tag(
         val name: String,

@@ -15,12 +15,12 @@ import com.ndhzs.module.home.repo.bean.BannerData
  * @author 寒雨
  * @since 2022/6/2 11:02
  **/
-class BannerVpAdapter(private val data: List<BannerData>) : RecyclerView.Adapter<BannerVpAdapter.Holder>() {
+class BannerVpAdapter(private val data: List<BannerData>, private val onClick: BannerData.() -> Unit) : RecyclerView.Adapter<BannerVpAdapter.Holder>() {
     inner class Holder(val binding: ItemBannerItemBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.root.setOnSingleClickListener {
                 val data = data[calcItemPos(bindingAdapterPosition)]
-                // TODO 进入webView
+                data.onClick()
             }
         }
     }

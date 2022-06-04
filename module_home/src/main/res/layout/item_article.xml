@@ -3,8 +3,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="5dp"
+    android:paddingHorizontal="5dp"
+    android:paddingVertical="10dp"
     android:orientation="vertical"
+    android:background="?android:attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -19,7 +21,7 @@
 
     <ImageView
         android:id="@+id/homeButtonLike"
-        android:layout_margin="5dp"
+        android:layout_marginHorizontal="5dp"
         android:layout_gravity="bottom|end"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -39,11 +41,11 @@
             <TextView
                 android:layout_marginBottom="8dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginEnd="10dp"
                 android:textSize="11sp"
                 android:text="@string/top"
                 android:background="@drawable/red_tv_border"
                 android:id="@+id/tv_top"
+                android:visibility="gone"
                 tools:visibility="visible"
                 android:textColor="@color/red"
                 android:layout_width="wrap_content"
@@ -51,11 +53,12 @@
 
             <TextView
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:textSize="11sp"
                 android:background="@drawable/red_tv_border"
                 android:text="@string/new_text"
                 android:id="@+id/tv_new"
+                android:visibility="gone"
                 tools:visibility="visible"
                 android:textColor="@color/red"
                 android:layout_width="wrap_content"
@@ -63,7 +66,7 @@
 
             <TextView
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 android:textSize="11sp"
                 android:background="@drawable/accent_tv_border"
                 tools:text="本站发布"
@@ -77,6 +80,7 @@
             <TextView
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="8dp"
                 android:textSize="11sp"
                 tools:text="徐公"
                 android:textColor="#616161"
@@ -99,7 +103,6 @@
             tools:text="广场Tab / 自助"
             android:textSize="11sp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginHorizontal="8dp"
             android:id="@+id/homeRvLabel"
             android:layout_width="wrap_content"

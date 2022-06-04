@@ -4,11 +4,13 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.ndhzs.lib.common.extensions.setOnSingleClickListener
+import com.ndhzs.lib.common.extensions.visible
 import com.ndhzs.module.home.R
 import com.ndhzs.module.home.databinding.ItemArticleBinding
 import com.ndhzs.module.home.databinding.ItemBannerBinding
@@ -26,7 +28,9 @@ import com.ndhzs.module.home.utils.htmlDecode
  * @since 2022/6/1 21:03
  **/
 class HomeRvPagingAdapter(
-    private val onBannerInit: ItemBannerBinding.(List<BannerData>) -> Unit
+    private val onBannerInit: ItemBannerBinding.(List<BannerData>) -> Unit,
+    private val onArticleClick: ArticleData.() -> Unit,
+    private val onLikeBtnClick: ArticleData.(ImageView) -> Unit
 ) : PagingDataAdapter<HomeRvItemWrapper, HomeRvPagingAdapter.Holder>(DiffCallback()) {
 
     @Suppress("UNCHECKED_CAST")
@@ -35,7 +39,11 @@ class HomeRvPagingAdapter(
             if (binding is ItemArticleBinding) {
                 binding.root.setOnSingleClickListener {
                     val data = getItem(bindingAdapterPosition)!!.content as ArticleData
-                    // TODO 进入webView
+                    data.onArticleClick()
+                }
+                binding.homeButtonLike.setOnSingleClickListener {
+                    val data = getItem(bindingAdapterPosition)!!.content as ArticleData
+                    data.onLikeBtnClick(binding.homeButtonLike)
                 }
             } else if (binding is ItemBannerBinding) {
                 binding.root.post {
@@ -55,6 +63,16 @@ class HomeRvPagingAdapter(
                 HomeRvItemWrapper.Type.ARTICLE -> {
                     val d = data.content as ArticleData
                     this as ItemArticleBinding
+                    if (d.fresh) {
+                        tvNew.visible()
+                    }
+                    if (d.tags.isNotEmpty()) {
+                        tvTag.visible()
+                        tvTag.text = d.tags[0].name
+                    }
+                    if (d.top == true) {
+                        tvTop.visible()
+                    }
                     homeRvTitle.text = d.title.htmlDecode()
                     homeRvDate.text = d.niceDate
                     tvAuthor.text = d.author.ifEmpty { d.shareUser }
@@ -68,7 +86,6 @@ class HomeRvPagingAdapter(
                             clearColorFilter()
                         }
                     }
-
                 }
                 else -> {}
             }

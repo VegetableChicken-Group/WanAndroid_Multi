@@ -8,7 +8,7 @@
         <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:colorPrimaryDark">@color/colorPrimary</item>
 
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryVariant">@color/colorPrimary</item>
         <item name="colorOnPrimary">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>

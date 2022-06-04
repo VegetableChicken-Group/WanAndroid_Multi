@@ -1,6 +1,5 @@
 package com.ndhzs.module.main.widget
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
@@ -45,8 +44,7 @@ class ScaleDownShowBehavior(context: Context, attrs: AttributeSet) :
         dyConsumed: Int,
         dxUnconsumed: Int,
         dyUnconsumed: Int,
-        type: Int,
-        consumed: IntArray
+        type: Int
     ) {
         super.onNestedScroll(coordinatorLayout,
             child,
@@ -55,8 +53,7 @@ class ScaleDownShowBehavior(context: Context, attrs: AttributeSet) :
             dyConsumed,
             dxUnconsumed,
             dyUnconsumed,
-            type,
-            consumed)
+            type)
         if (dyConsumed > 0 && child.visibility == View.VISIBLE) {
             child.visibility = View.INVISIBLE
         } else if (dyConsumed < 0 && child.visibility != View.VISIBLE) {

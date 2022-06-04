@@ -15,6 +15,6 @@
     <color name="colorPrimaryDark">#D81B60</color>
 
     <color name="red">#f44336</color>
-
+    <color name="dark_gray">#424242</color>
 
 </resources>
