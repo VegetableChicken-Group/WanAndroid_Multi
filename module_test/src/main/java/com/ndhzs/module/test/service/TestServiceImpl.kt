@@ -17,19 +17,19 @@ import com.ndhzs.module.test.page.TestActivity
 class TestServiceImpl : ITestService {
   
   private val mDataLive = MutableLiveData<ITestService.Data>()
-  
+
   override fun startTestActivity(context: Context, data: ITestService.Data) {
     mDataLive.postValue(data)
     TestActivity.start(context, data)
   }
-  
+
   override fun getData(): ITestService.Data? {
     return mDataLive.value
   }
-  
+
   override val liveData: LiveData<ITestService.Data>
     get() = mDataLive
-  
+
   override fun init(context: Context) {
   }
 }
