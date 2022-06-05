@@ -8,7 +8,10 @@ import com.ndhzs.build.logic.depend.api.utils.ApiDependUtils
 import com.ndhzs.build.logic.depend.lib.dependLibCommon
 import org.gradle.api.Project
 import com.ndhzs.build.logic.project.base.BaseApplicationProject
+import groovy.lang.Closure
+import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.artifacts.ProjectDependency
+import org.gradle.kotlin.dsl.get
 
 /**
  * ...
@@ -16,17 +19,17 @@ import org.gradle.api.artifacts.ProjectDependency
  * @email 2767465918@qq.com
  * @date 2022/5/28 12:23
  */
-object ModuleDebugProject : BaseApplicationProject() {
+class ModuleDebugProject(project: Project) : BaseApplicationProject(project) {
   
   override fun initProjectInternal() {
     checkIsInDebug()
     super.initProjectInternal()
-    // 依赖 api 模块的实现模块
-    passOnApiImplDepend(project, project, hashSetOf(), hashSetOf())
   }
   
   override fun initProject() {
     dependLibCommon()
+    // 依赖 api 模块的实现模块
+    passOnApiImplDepend(project, project, hashSetOf(), hashSetOf())
   }
   
   override fun initAndroid(extension: BaseAppModuleExtension) {

@@ -10,7 +10,3 @@ dependAndroidView()
 dependAndroidKtx()
 
 dependApiTest()
-
-dependencies {
-  implementation(project(":module_test:api_test"))
-}

@@ -7,6 +7,7 @@ import org.gradle.api.Action
 import org.gradle.kotlin.dsl.apply
 import com.ndhzs.build.logic.project.base.base.BaseAndroidProject
 import com.ndhzs.build.logic.config.Config
+import org.gradle.api.Project
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
 /**
@@ -15,7 +16,7 @@ import org.jetbrains.kotlin.gradle.plugin.KaptExtension
  * @email 2767465918@qq.com
  * @date 2022/5/28 12:31
  */
-abstract class BaseApplicationProject : BaseAndroidProject() {
+abstract class BaseApplicationProject(project: Project) : BaseAndroidProject(project) {
   
   override fun initProjectInternal() {
     initApplication()
