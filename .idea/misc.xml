@@ -3,11 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_web/src/main/res/drawable/ic_back.xml" value="0.2475" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_web/src/main/res/drawable/ic_more.xml" value="0.2475" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_web/src/main/res/layout/web_activity.xml" value="0.3609375" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_web/src/main/res/menu/web_menu.xml" value="0.3609375" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/item_project_main.xml" value="0.25" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/project_fragment_content.xml" value="0.3609375" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/project_fragment_main.xml" value="0.3609375" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.216" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.216" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/drawable/ic_launcher_background.xml" value="0.2065" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/layout/layout_test.xml" value="0.19384057971014493" />
-        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_web/src/main/res/layout/activity_web_view.xml" value="0.3555253623188406" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_login/src/main/res/layout/activity_login.xml" value="0.2328125" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_main/src/main/res/drawable/ic_launcher_background.xml" value="0.2065" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_main/src/main/res/layout/activity_main.xml" value="0.215625" />
