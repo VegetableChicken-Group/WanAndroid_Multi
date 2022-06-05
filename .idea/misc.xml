@@ -23,4 +23,11 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
+  <component name="SuppressABINotification">
+    <option name="modulesWithSuppressedNotConfigured">
+      <set>
+        <option value="WanAndroid_Multi.module_test.api_test" />
+      </set>
+    </option>
+  </component>
 </project>

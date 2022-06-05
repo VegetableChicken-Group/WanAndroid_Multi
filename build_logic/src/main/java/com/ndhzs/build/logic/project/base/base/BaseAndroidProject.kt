@@ -14,6 +14,8 @@ import org.gradle.kotlin.dsl.project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import com.ndhzs.build.logic.config.Config
 import com.ndhzs.build.logic.depend.dependAndroidBase
+import gradle.kotlin.dsl.accessors._e98ba513b34f86980a981ef4cafb3d49.publishing
+import org.gradle.api.Project
 
 /**
  * ...
@@ -21,7 +23,7 @@ import com.ndhzs.build.logic.depend.dependAndroidBase
  * @email 2767465918@qq.com
  * @date 2022/5/28 12:34
  */
-abstract class BaseAndroidProject : BaseProject() {
+abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
   
   override fun initProjectInternal() {
     dependencies {
@@ -115,5 +117,11 @@ abstract class BaseAndroidProject : BaseProject() {
     }.forEach {
       "implementation"(project(":${name}:${it.name}"))
     }
+  }
+  
+  companion object {
+    val ignoreProjectCacheList = listOf<String>(
+    
+    )
   }
 }
