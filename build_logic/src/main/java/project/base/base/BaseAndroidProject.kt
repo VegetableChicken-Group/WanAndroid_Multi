@@ -14,6 +14,7 @@ import org.gradle.kotlin.dsl.project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 import config.Config
+import lib.Compose
 import lib.dependAndroidBase
 
 /**
@@ -85,6 +86,11 @@ abstract class BaseAndroidProject : BaseProject() {
     
     buildFeatures {
       viewBinding = true
+      compose = true
+    }
+
+    composeOptions {
+      kotlinCompilerExtensionVersion = Compose.compose_version
     }
     
     (this as ExtensionAware).extensions.configure(
