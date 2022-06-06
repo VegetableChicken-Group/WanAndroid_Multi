@@ -25,6 +25,8 @@
             <option value="$PROJECT_DIR$/lib_account" />
             <option value="$PROJECT_DIR$/lib_account/api_account" />
             <option value="$PROJECT_DIR$/lib_common" />
+            <option value="$PROJECT_DIR$/lib_web" />
+            <option value="$PROJECT_DIR$/lib_web/api_web" />
             <option value="$PROJECT_DIR$/module_app" />
             <option value="$PROJECT_DIR$/module_login" />
             <option value="$PROJECT_DIR$/module_main" />
