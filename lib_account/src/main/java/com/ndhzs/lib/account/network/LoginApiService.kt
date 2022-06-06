@@ -2,7 +2,7 @@ package com.ndhzs.lib.account.network
 
 import com.ndhzs.api.account.IAccountService
 import com.ndhzs.lib.common.network.ApiGenerator
-import com.ndhzs.lib.common.network.ApiStatue
+import com.ndhzs.lib.common.network.ApiStatus
 import com.ndhzs.lib.common.network.ApiWrapper
 import io.reactivex.rxjava3.core.Single
 import retrofit2.http.Field
@@ -27,7 +27,7 @@ interface LoginApiService {
   ): Single<ApiWrapper<IAccountService.LoginBean>>
   
   @GET("/user/logout/json")
-  fun logout(): Single<ApiStatue>
+  fun logout(): Single<ApiStatus>
   
   @POST("/user/register")
   @FormUrlEncoded

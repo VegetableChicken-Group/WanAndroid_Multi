@@ -1,7 +1,6 @@
-import lib.dependCoroutines
-import api.dependApiTest
-import lib.dependAndroidKtx
-import lib.dependAndroidView
+import com.ndhzs.build.logic.depend.api.dependApiTest
+import com.ndhzs.build.logic.depend.dependAndroidKtx
+import com.ndhzs.build.logic.depend.dependAndroidView
 
 plugins {
   id("module-manager")
@@ -9,9 +8,5 @@ plugins {
 
 dependAndroidView()
 dependAndroidKtx()
-dependCoroutines()
-dependApiTest()
 
-dependencies {
-  implementation(project(":module_test:api_test"))
-}
+dependApiTest()

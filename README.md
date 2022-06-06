@@ -31,6 +31,18 @@
 
 这里给出以前我写的教程：https://github.com/985892345/Git-Study
 
+分支命名规则：XXX/xxx
+
+- 前三个 XXX 需要表明是谁写的
+- 后三个 xxx 需要表明写的什么
+- 当然，第二个 xxx 还可以进行细分
+
+举例：
+
+- GuoXR/module_course2
+- GuoXR/feature/module_course2
+- GuoXR/bugfix/module_course2
+
 教程有些小瑕疵，但问题不大（懒得改了）
 
 test taolaoge1
