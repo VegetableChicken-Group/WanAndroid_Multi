@@ -1,6 +1,8 @@
 package com.ndhzs.lib.common.network
 
-import com.ndhzs.lib.common.BuildConfig
+
+import com.alibaba.android.arouter.BuildConfig
+
 
 /**
  * ...
