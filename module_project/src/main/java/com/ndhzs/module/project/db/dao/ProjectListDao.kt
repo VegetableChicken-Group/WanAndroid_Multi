@@ -1,4 +1,4 @@
-package com.ndhzs.module.project.db
+package com.ndhzs.module.project.db.dao
 
 import androidx.paging.PagingSource
 import androidx.room.Dao
@@ -26,10 +26,10 @@ interface ProjectListDao {
     suspend fun insertArticle(projectDataList : List<ProjectList>)
 
     @Query("SELECT * FROM tab_project WHERE id =:id")
-    fun queryLocalArticle(id: Int): PagingSource<Int, List<ProjectList>>
+    fun queryLocalList(id: Int): PagingSource<Int, ProjectList>
 
     @Query("DELETE FROM tab_project WHERE id=:id")
-    suspend fun clearArticleByType(id: Int)
+    suspend fun clearListById(id: Int)
 
 
 }

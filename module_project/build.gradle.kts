@@ -1,4 +1,4 @@
-import lib.*
+﻿import com.ndhzs.build.logic.depend.*
 
 plugins {
 //    id("module-manager")
@@ -13,7 +13,14 @@ android {
 
 dependAndroidView()
 dependAndroidKtx()
-dependGlide()
 dependNetwork()
 dependPaging()
+dependRxjava()
 dependRoom()
+dependRoomPaging()
+
+
+dependencies {
+    implementation("io.coil-kt:coil:2.1.0")
+    implementation("io.coil-kt:coil-gif:2.1.0")
+}

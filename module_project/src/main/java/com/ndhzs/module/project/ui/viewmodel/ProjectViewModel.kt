@@ -1,7 +1,25 @@
 package com.ndhzs.module.project.ui.viewmodel
 
+import android.annotation.SuppressLint
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.ndhzs.lib.common.extensions.catchApiException
+import com.ndhzs.lib.common.extensions.mapOrCatchApiException
+import com.ndhzs.lib.common.extensions.toast
 import com.ndhzs.lib.common.ui.mvvm.BaseViewModel
 import com.ndhzs.module.project.bean.ProjectList
+import com.ndhzs.module.project.bean.ProjectTree
+import com.ndhzs.module.project.repository.ProjectRepository
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 /**
  *
@@ -14,11 +32,37 @@ import com.ndhzs.module.project.bean.ProjectList
  * @Version:        1.0
  * @Description:    项目模块的ViewModel
  */
+
+@ExperimentalPagingApi
 class ProjectViewModel : BaseViewModel(){
 
-    val projectTree = mutableListOf<List<ProjectList>>()
-    val projectList = mutableListOf<List<ProjectList>>()
+    val projectTree = MutableLiveData<List<ProjectTree>>()
 
+    /**
+     * 获得项目的列表数据
+     */
+    fun getProjectList(cid : Int) : Flow<PagingData<ProjectList>> =
+        ProjectRepository
+            .getProjectList(cid)
+            .cachedIn(viewModelScope)
+
+
+    /**
+     * 获得项目分类
+     */
+    fun getProjectTree() {
+        ProjectRepository.getProjectTree()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .catchApiException {
+                toast(it.errorMsg)
+            }
+            .safeSubscribeBy{
+                if(it.data.isNotEmpty()){
+                    projectTree.value = it.data!!
+                }
+            }.lifecycle()
+    }
 
 
 

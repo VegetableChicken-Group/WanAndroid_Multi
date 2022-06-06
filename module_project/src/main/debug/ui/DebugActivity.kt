@@ -1,6 +1,10 @@
 package ui
 
+import android.os.Bundle
+import android.widget.ImageView
+import coil.load
 import com.ndhzs.lib.common.ui.BaseActivity
+import com.ndhzs.module.test.R
 
 /**
  *
@@ -14,4 +18,8 @@ import com.ndhzs.lib.common.ui.BaseActivity
  * @Description:    调试模式下Activity
  */
 class DebugActivity : BaseActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.project_debug)
+    }
 }

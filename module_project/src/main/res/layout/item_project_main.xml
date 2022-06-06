@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="projectItem"
+            type="com.ndhzs.module.project.bean.ProjectItem" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,6 +22,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                imageUrl="@{projectItem.pic}"
                 android:id="@+id/iv_project_pic"
                 android:layout_width="120dp"
                 android:layout_marginStart="10dp"
@@ -29,6 +32,7 @@
                 android:layout_height="160dp" />
 
             <TextView
+                android:text="@{projectItem.title}"
                 android:id="@+id/tv_project_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -43,6 +47,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:text="@{projectItem.subTitle}"
                 android:id="@+id/tv_sub_name"
                 android:layout_width="0dp"
                 android:layout_height="130dp"

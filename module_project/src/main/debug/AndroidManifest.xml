@@ -2,7 +2,7 @@
     package="com.ndhzs.module.test">
 
     <application
-        android:name="debug.DebugAPP"
+        android:name="com.ndhzs.lib.common.BaseApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="module_test"

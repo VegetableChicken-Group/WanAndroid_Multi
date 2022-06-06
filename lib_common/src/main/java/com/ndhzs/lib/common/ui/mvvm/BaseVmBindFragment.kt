@@ -24,5 +24,5 @@ abstract class BaseVmBindFragment<VM : ViewModel, DB : ViewBinding> : BaseBindFr
     }
   }
   
-  protected open fun getViewModelFactory(): ViewModelProvider.Factory? = null
+  protected open fun getViewModelFactory() : ViewModelProvider.Factory? = null
 }

@@ -3,7 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_common/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.248" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_common/src/main/res/drawable/ic_launcher_background.xml" value="0.248" />
         <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/item_project_main.xml" value="0.25" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/project_debug.xml" value="0.3609375" />
         <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/project_fragment_content.xml" value="0.3609375" />
         <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/project_fragment_main.xml" value="0.3609375" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.216" />

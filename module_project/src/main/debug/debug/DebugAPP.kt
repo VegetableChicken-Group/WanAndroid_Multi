@@ -1,5 +1,7 @@
 package debug
 
+import android.content.Context
+import androidx.annotation.CallSuper
 import com.ndhzs.lib.common.BaseApp
 
 /**
@@ -14,4 +16,14 @@ import com.ndhzs.lib.common.BaseApp
  * @Description:    调试模式下App
  */
 class DebugAPP : BaseApp(){
+    companion object {
+        lateinit var appContextDebug: Context
+            private set
+    }
+
+    @CallSuper
+    override fun onCreate() {
+        super.onCreate()
+        appContextDebug = this
+    }
 }

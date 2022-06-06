@@ -1,12 +1,13 @@
 package com.ndhzs.module.project.network
 
-import android.database.Observable
-import com.ndhzs.lib.common.extensions.lazyUnlock
+
 import com.ndhzs.lib.common.network.ApiGenerator
 import com.ndhzs.lib.common.network.ApiWrapper
 import com.ndhzs.module.project.bean.*
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Observable
+import kotlinx.coroutines.flow.Flow
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 /**
@@ -34,12 +35,15 @@ interface ApiServiceProject {
      * 获得项目分类
      */
     @GET("/project/tree/json")
-    fun getProjectTree() : Single<ApiWrapper<List<ProjectTree>>>
+    fun getProjectTree() : Observable<ApiWrapper<List<ProjectTree>>>
 
 
     /**
      * 获得项目列表
+     * @param path 页数
+     * @param cid
      */
-    @GET("/project/list/1/json")
-    fun getProjectList(@Query("cid") cid : Int) : Single<ApiWrapper<List<ProjectList>>>
+    @GET("/project/list/{path}/json")
+    suspend fun getProjectList(
+        @Path("path") path : Int,@Query("cid") cid : Int) : ApiWrapper<ProjectLists>
 }
