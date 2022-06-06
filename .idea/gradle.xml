@@ -29,6 +29,7 @@
             <option value="$PROJECT_DIR$/module_login" />
             <option value="$PROJECT_DIR$/module_main" />
             <option value="$PROJECT_DIR$/module_main/api_main" />
+            <option value="$PROJECT_DIR$/module_system" />
             <option value="$PROJECT_DIR$/module_test" />
             <option value="$PROJECT_DIR$/module_test/api_test" />
           </set>

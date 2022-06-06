@@ -1,4 +1,6 @@
-
+buildscript {
+    val compose_version by extra("1.1.0-beta01")
+}
 /**
  * 其实下面这个本来可以不需要的，但每次新建 Activity，都会自动加一个 classpath，
  * 导致编译失败，所以默认就加起吧，每次都去删那个 classpath 很麻烦

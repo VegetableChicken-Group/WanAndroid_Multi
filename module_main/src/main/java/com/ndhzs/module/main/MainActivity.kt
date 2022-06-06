@@ -6,6 +6,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ndhzs.api.test.ITestService
+import com.ndhzs.lib.common.config.SYSTEM_ENTRY
 import com.ndhzs.lib.common.config.TEST_ENTRY
 import com.ndhzs.lib.common.config.TEST_SHOW
 import com.ndhzs.lib.common.extensions.toast
@@ -21,15 +22,18 @@ class MainActivity : BaseActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_activity_main)
     
+//    mBtnOpenTestActivity.setOnClickListener {
+//      toast("启动 TestActivity")
+//      ServiceManager(ITestService::class)
+//        .startTestActivity(
+//          this,
+//          ITestService.Data(
+//            "123", "12345"
+//          )
+//        )
+//    }
     mBtnOpenTestActivity.setOnClickListener {
-      toast("启动 TestActivity")
-      ServiceManager(ITestService::class)
-        .startTestActivity(
-          this,
-          ITestService.Data(
-            "123", "12345"
-          )
-        )
+      ARouter.getInstance().build(SYSTEM_ENTRY).navigation()
     }
     
     // 观察 liveData
