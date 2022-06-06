@@ -4,6 +4,7 @@ import com.ndhzs.build.logic.depend.lib.dependLibCommon
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 import com.ndhzs.build.logic.project.base.BaseApplicationProject
+import org.gradle.api.Project
 
 /**
  * ...
@@ -11,7 +12,7 @@ import com.ndhzs.build.logic.project.base.BaseApplicationProject
  * @email 2767465918@qq.com
  * @date 2022/5/28 12:20
  */
-object AppProject : BaseApplicationProject() {
+class AppProject(project: Project) : BaseApplicationProject(project) {
   override fun initProject() {
     dependAllProject()
     dependLibCommon()

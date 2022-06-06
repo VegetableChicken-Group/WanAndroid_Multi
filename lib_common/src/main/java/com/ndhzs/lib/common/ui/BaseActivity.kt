@@ -15,7 +15,9 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.ndhzs.lib.common.extensions.RxjavaLifecycle
 import com.ndhzs.lib.common.utils.BindView
+import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -39,7 +41,7 @@ abstract class BaseActivity(
    * 不同布局该属性效果不同，请给合适的布局添加
    */
   private val isCancelStatusBar: Boolean = true
-) : AppCompatActivity() {
+) : AppCompatActivity(), RxjavaLifecycle {
   
   @CallSuper
   @SuppressLint("SourceLockedOrientationActivity")
@@ -53,6 +55,14 @@ abstract class BaseActivity(
     if (isCancelStatusBar) { // 沉浸式状态栏
       cancelStatusBar()
     }
+  }
+  
+  @CallSuper
+  override fun onDestroy() {
+    super.onDestroy()
+    // 取消 Rxjava 流
+    mDisposableList.filter { !it.isDisposed }.forEach { it.dispose() }
+    mDisposableList.clear()
   }
   
   private fun cancelStatusBar() {
@@ -117,5 +127,11 @@ abstract class BaseActivity(
     lifecycleScope.launch {
       flowWithLifecycle(lifecycle).collect { action.invoke(it) }
     }
+  }
+  
+  private val mDisposableList = mutableListOf<Disposable>()
+  
+  override fun onAddRxjava(disposable: Disposable) {
+    mDisposableList.add(disposable)
   }
 }

@@ -13,3 +13,10 @@ plugins {
 tasks.register<Delete>("clean") {
   delete(rootProject.buildDir)
 }
+
+tasks.register("cacheToLocalMaven") {
+  group = "publishing"
+  subprojects
+    .map { it.tasks.named("cacheToLocalMaven") }
+    .let { dependsOn(it) }
+}

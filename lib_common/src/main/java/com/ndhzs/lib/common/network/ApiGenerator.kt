@@ -1,8 +1,9 @@
 package com.ndhzs.lib.common.network
 
 import com.ndhzs.api.account.IAccountService
-import com.ndhzs.lib.common.extensions.lazyUnlock
 import com.ndhzs.lib.common.service.ServiceManager
+import com.ndhzs.lib.common.extensions.mapOrThrowApiException
+import com.ndhzs.lib.common.extensions.mapOrCatchApiException
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
@@ -11,12 +12,12 @@ import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
 /**
+ * 在 ApiService 接口中：（命名规则，以 ApiService 结尾）
  * ```
- * 在 ApiService 接口中：
  * interface ApiService {
  *
  *     @GET("/aaa/bbb")
- *     fun getXXX(): Single<ApiWrapper<Bean>> // 统一使用 ApiWrapper 包装
+ *     fun getXXX(): Single<ApiWrapper<Bean>> // 统一使用 ApiWrapper 或 ApiStatus 包装
  *
  *     companion object {
  *         val INSTANCE by lazy {
@@ -24,19 +25,33 @@ import kotlin.reflect.KClass
  *         }
  *     }
  * }
- *
+ * ```
  *
  * 示例代码：
+ * ```
  * ApiService.INSTANCE.getXXX()
  *     .subscribeOn(Schedulers.io())  // 线程切换
  *     .observeOn(AndroidSchedulers.mainThread())
  *     .mapOrCatchApiException {      // 当 errorCode 的值不为成功时抛错，并处理错误
  *         // 处理 ApiException 错误
  *     }
- *     .safeSubscribeBy {             // 如果是网络连接错误，则这里会默认处理
+ *     .unSafeSubscribeBy {             // 如果是网络连接错误，则这里会默认处理
  *         // 成功的时候
  *     }
- *     .lifeCycle() // ViewModel 中带有的自动回收，建议加上，但 ViewModel 对于 safeSubscribeBy 已经默认添加h
+ *     .lifeCycle() // ViewModel 中带有的自动回收，或者使用 ViewModel 里面的 safeSubscribeBy 方法
+ * ```
+ *
+ * [mapOrCatchApiException] 只会处理 [ApiException] ，如果你要处理其他网络错误，
+ * 把 [mapOrCatchApiException] 替换为 [mapOrThrowApiException]：
+ * ```
+ *     .mapOrThrowApiException()
+ *     .doOnError {
+ *         if (it is ApiException) {
+ *             // 处理 ApiException 错误
+ *         } else {
+ *             // 处理其他网络错误
+ *         }
+ *     }
  * ```
  *
  *
