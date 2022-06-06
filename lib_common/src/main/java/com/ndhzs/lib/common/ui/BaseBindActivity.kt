@@ -15,15 +15,8 @@ import com.ndhzs.lib.common.utils.GenericityUtils.getGenericClassFromSuperClass
  * @data 2021/6/2
  */
 abstract class BaseBindActivity<VB : ViewBinding>(
-  /**
-   * 是否锁定竖屏
-   */
-  isPortraitScreen: Boolean = true,
-  
-  /**
-   * 是否沉浸式状态栏
-   */
-  isCancelStatusBar: Boolean = true
+  isPortraitScreen: Boolean = true, // 作用请查看父类
+  isCancelStatusBar: Boolean = true // 作用请查看父类
 ) : BaseActivity(isPortraitScreen, isCancelStatusBar) {
   
   /**

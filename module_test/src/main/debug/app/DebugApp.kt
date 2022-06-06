@@ -9,4 +9,8 @@ import com.ndhzs.lib.common.BaseApp
  * @date 2022/5/28 0:22
  */
 class DebugApp : BaseApp() {
+  /**
+   * 如果你的模块需要自定义一些初始化任务，就继承 [BaseApp]
+   * 然后在 AndroidManifest 里写上：android:name="app.DebugApp"
+   */
 }

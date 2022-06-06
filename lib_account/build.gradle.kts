@@ -1,5 +1,4 @@
-import lib.dependNetwork
-import lib.dependRxjava
+import com.ndhzs.build.logic.depend.*
 
 plugins {
   id("module-manager")
