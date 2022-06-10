@@ -1,10 +1,16 @@
 package ui
 
+import android.app.Activity
 import android.os.Bundle
+import android.util.Log
+import androidx.fragment.app.FragmentManager
+import com.alibaba.android.arouter.launcher.ARouter
 //import com.ndhzs.api.test.ITestService
 import com.ndhzs.lib.common.network.ApiGenerator
+import com.ndhzs.lib.common.service.ServiceManager
 import com.ndhzs.lib.common.ui.BaseActivity
-import com.ndhzs.module.test.page.TestActivity
+import com.ndhzs.module.system.R
+import com.ndhzs.module.system.page.ui.ContainerFragment
 
 /**
  * ...
@@ -15,13 +21,8 @@ import com.ndhzs.module.test.page.TestActivity
 class DebugActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    ApiGenerator
-//    TestActivity.start(
-//      this,
-//      ITestService.Data(
-//        "123", "12345"
-//      )
-//    )
-//    finish()
+    setContentView(R.layout.activity_debug)
+    val fragment = ServiceManager.fragment("/system/container")
+    supportFragmentManager.beginTransaction().replace(R.id.debug_fragment,fragment).commit()
   }
 }

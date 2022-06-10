@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".page.ui.NavigationFragment">
 
-    <com.google.android.material.tabs.TabLayout
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/navigation_tab"
         android:layout_width="0dp"
         android:layout_height="match_parent"

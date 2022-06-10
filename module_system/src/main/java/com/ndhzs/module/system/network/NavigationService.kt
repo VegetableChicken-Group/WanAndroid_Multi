@@ -14,7 +14,7 @@ import retrofit2.http.GET
  */
 interface NavigationService {
     @GET("/navi/json")
-    fun getNavigation(): Single<ApiWrapper<Navigation>>
+    fun getNavigation(): Single<Navigation>
 
     companion object {
         val INSTANCE by lazy {

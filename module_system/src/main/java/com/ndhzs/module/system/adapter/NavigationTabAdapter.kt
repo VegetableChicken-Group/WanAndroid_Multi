@@ -14,13 +14,13 @@ import com.ndhzs.module.system.databinding.ItemNavigationTabBinding
  * email : 1446157077@qq.com
  * date : 2022/6/6 17:28
  */
-class NavigationTabAdapter(private val chapters: Navigation,val layoutManager: RecyclerView.LayoutManager) :
+class NavigationTabAdapter(private val chapters: Navigation,val recyclerView: RecyclerView) :
     RecyclerView.Adapter<NavigationTabAdapter.ViewHolder>() {
     inner class ViewHolder(val binding: ItemNavigationTabBinding) :
         RecyclerView.ViewHolder(binding.root){
             init {
                 binding.root.setOnClickListener {
-                    layoutManager.scrollToPosition(absoluteAdapterPosition)
+                    recyclerView.smoothScrollToPosition(absoluteAdapterPosition)
                 }
             }
         }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ndhzs.lib.common.ui.mvvm.BaseVmBindFragment
@@ -20,6 +21,7 @@ import com.ndhzs.module.system.page.viewmodel.SystemViewModel
 @Route(path = "/system/container")
 class ContainerFragment : BaseVmBindFragment<SystemViewModel, FragmentContainerBinding>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Log.d("testTag", "onViewCreated: ")
         val adapter = SystemFragmentStateAdapter(this)
         binding.containerVp.adapter = adapter
         TabLayoutMediator(binding.containerTab, binding.containerVp) { tab, position ->
