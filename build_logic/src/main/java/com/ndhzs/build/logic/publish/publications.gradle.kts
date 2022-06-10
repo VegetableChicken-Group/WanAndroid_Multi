@@ -2,30 +2,23 @@ package com.ndhzs.build.logic.publish
 
 import com.android.build.gradle.LibraryExtension
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import java.net.URI
 
 plugins {
   `maven-publish`
 }
 
 if (plugins.hasPlugin("com.android.application")) {
-  extensions.configure(
-    "android",
-    Action<BaseAppModuleExtension> {
-      publishing {
-        singleVariant("debug")
-      }
+  extensions.configure<BaseAppModuleExtension> {
+    publishing {
+      singleVariant("debug")
     }
-  )
+  }
 } else if (plugins.hasPlugin("com.android.library")) {
-  extensions.configure(
-    "android",
-    Action<LibraryExtension> {
-      publishing {
-        singleVariant("debug")
-      }
+  extensions.configure<LibraryExtension> {
+    publishing {
+      singleVariant("debug")
     }
-  )
+  }
 } else {
   throw RuntimeException("只允许给 application 和 library 进行缓存，如有其他模块，请额外实现逻辑！")
 }
