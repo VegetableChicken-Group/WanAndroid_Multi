@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingHorizontal="5dp"
+    android:paddingVertical="10dp"
+    android:orientation="vertical"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_margin="4dp"
+        tools:text="2021-11-21 21:22"
+        android:textSize="11sp"
+        android:layout_gravity="end"
+        android:id="@+id/homeRvDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:id="@+id/homeButtonLike"
+        android:layout_marginHorizontal="5dp"
+        android:layout_gravity="bottom|end"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_like"
+        tools:tint="@color/collect_icon_tint"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:textSize="11sp"
+                android:text="@string/top"
+                android:background="@drawable/red_tv_border"
+                android:id="@+id/tv_top"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:textColor="@color/red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="10dp"
+                android:textSize="11sp"
+                android:background="@drawable/red_tv_border"
+                android:text="@string/new_text"
+                android:id="@+id/tv_new"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:textColor="@color/red"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="10dp"
+                android:textSize="11sp"
+                android:background="@drawable/accent_tv_border"
+                tools:text="本站发布"
+                android:id="@+id/tv_tag"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:textColor="@color/colorAccent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="8dp"
+                android:textSize="11sp"
+                tools:text="徐公"
+                android:textColor="#616161"
+                android:id="@+id/tv_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_marginBottom="4dp"
+            android:layout_marginHorizontal="8dp"
+            android:textSize="15sp"
+            android:textColor="@color/black"
+            tools:text="Android原生PDF功能实现"
+            android:id="@+id/homeRvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            tools:text="广场Tab / 自助"
+            android:textSize="11sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="8dp"
+            android:id="@+id/homeRvLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</FrameLayout>

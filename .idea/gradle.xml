@@ -28,6 +28,7 @@
             <option value="$PROJECT_DIR$/lib_web" />
             <option value="$PROJECT_DIR$/lib_web/api_web" />
             <option value="$PROJECT_DIR$/module_app" />
+            <option value="$PROJECT_DIR$/module_home" />
             <option value="$PROJECT_DIR$/module_login" />
             <option value="$PROJECT_DIR$/module_main" />
             <option value="$PROJECT_DIR$/module_main/api_main" />
