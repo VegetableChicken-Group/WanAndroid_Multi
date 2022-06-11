@@ -18,6 +18,5 @@ dependApiAccount()
 dependApiTest()
 
 dependencies {
-  implementation(project(":module_test:api_test"))
   implementation(com.ndhzs.build.logic.depend.Network.okhttp)
 }

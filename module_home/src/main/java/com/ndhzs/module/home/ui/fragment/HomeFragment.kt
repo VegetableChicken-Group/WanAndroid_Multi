@@ -5,6 +5,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -98,6 +100,7 @@ class HomeFragment : BaseVmBindFragment<HomeViewModel, FragmentHomeBinding>() {
             })
         binding.rvHome.apply {
             layoutManager = LinearLayoutManager(requireContext())
+            layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.home_fade_in))
             this.adapter = adapter
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
         }

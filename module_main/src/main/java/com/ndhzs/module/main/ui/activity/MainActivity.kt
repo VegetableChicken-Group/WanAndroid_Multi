@@ -69,8 +69,7 @@ class MainActivity : BaseVmBindActivity<MainViewModel, MainActivityMainBinding>(
         })
         binding.floatingActionBtn.setOnSingleClickListener {
             lifecycleScope.launch {
-                ServiceManager
-                    .invoke(IMainService::class)
+                ServiceManager(IMainService::class)
                     .fabClickState
                     .emit(Unit)
             }
@@ -84,7 +83,7 @@ class MainActivity : BaseVmBindActivity<MainViewModel, MainActivityMainBinding>(
                 val avatar = findViewById<ImageView>(R.id.siv_user)
                 val name = findViewById<TextView>(R.id.tv_user)
                 val tvInfo = findViewById<TextView>(R.id.tv_info)
-                val service = ServiceManager.invoke(IAccountService::class)
+                val service = ServiceManager(IAccountService::class)
                 avatar.setOnClickListener {
                     Log.d("Test", "(MainActivity.kt:87) ==> ${service.isLogin()}")
                     ServiceManager.activity(LOGIN_ENTRY)
@@ -110,8 +109,8 @@ class MainActivity : BaseVmBindActivity<MainViewModel, MainActivityMainBinding>(
         binding.navView.setNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.logout -> {
-                    if (!ServiceManager.invoke(IAccountService::class).isLogin()) {
-                        ServiceManager.invoke(IAccountService::class)
+                    if (!ServiceManager(IAccountService::class).isLogin()) {
+                        ServiceManager(IAccountService::class)
                             .logout().safeSubscribeBy {
                                 "登出成功".toast()
                             }
