@@ -3,10 +3,11 @@
 package com.ndhzs.build.logic.project.base
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
-import org.gradle.api.Action
 import org.gradle.kotlin.dsl.apply
 import com.ndhzs.build.logic.project.base.base.BaseAndroidProject
 import com.ndhzs.build.logic.config.Config
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
 /**
@@ -15,7 +16,7 @@ import org.jetbrains.kotlin.gradle.plugin.KaptExtension
  * @email 2767465918@qq.com
  * @date 2022/5/28 12:31
  */
-abstract class BaseApplicationProject : BaseAndroidProject() {
+abstract class BaseApplicationProject(project: Project) : BaseAndroidProject(project) {
   
   override fun initProjectInternal() {
     initApplication()
@@ -26,22 +27,17 @@ abstract class BaseApplicationProject : BaseAndroidProject() {
     apply(plugin = "com.android.application")
     apply(plugin = "kotlin-android")
     apply(plugin = "kotlin-kapt")
-    extensions.configure(
-      "android",
-      Action<BaseAppModuleExtension> {
-        initAndroid(this)
-      }
-    )
+    
+    extensions.configure<BaseAppModuleExtension> {
+      initAndroid(this)
+    }
   
-    extensions.configure(
-      "kapt",
-      Action<KaptExtension> {
-        arguments {
-          arg("AROUTER_MODULE_NAME", project.name)
-          arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录
-        }
+    extensions.configure<KaptExtension> {
+      arguments {
+        arg("AROUTER_MODULE_NAME", project.name)
+        arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录
       }
-    )
+    }
   }
   
   // 配置 android 闭包

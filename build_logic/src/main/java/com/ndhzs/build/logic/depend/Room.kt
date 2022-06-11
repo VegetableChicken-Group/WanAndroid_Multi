@@ -15,7 +15,7 @@ object Room {
   const val room_version = "2.4.2"
   
   const val `room-runtime` = "androidx.room:room-runtime:$room_version"
-  const val `room-compiler` = "androidx.room:room-runtime:$room_version"
+  const val `room-compiler` = "androidx.room:room-compiler:$room_version"
   
   // https://developer.android.google.cn/kotlin/ktx?hl=zh_cn#room
   const val `room-ktx` = "androidx.room:room-ktx:$room_version"

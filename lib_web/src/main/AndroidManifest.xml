@@ -5,11 +5,9 @@
 
     <application android:usesCleartextTraffic="true"
         tools:targetApi="m" >
-
         <activity
             android:name=".activity.WebViewActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>

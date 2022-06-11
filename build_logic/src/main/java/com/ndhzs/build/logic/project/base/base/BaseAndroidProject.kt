@@ -5,7 +5,6 @@ package com.ndhzs.build.logic.project.base.base
 import com.android.build.api.dsl.*
 import com.ndhzs.build.logic.depend.dependARouter
 import com.ndhzs.build.logic.depend.dependTestBase
-import org.gradle.api.Action
 import org.gradle.api.JavaVersion
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.DependencyHandlerScope
@@ -14,6 +13,8 @@ import org.gradle.kotlin.dsl.project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import com.ndhzs.build.logic.config.Config
 import com.ndhzs.build.logic.depend.dependAndroidBase
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 
 /**
  * ...
@@ -21,7 +22,7 @@ import com.ndhzs.build.logic.depend.dependAndroidBase
  * @email 2767465918@qq.com
  * @date 2022/5/28 12:34
  */
-abstract class BaseAndroidProject : BaseProject() {
+abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
   
   override fun initProjectInternal() {
     dependencies {
@@ -55,6 +56,7 @@ abstract class BaseAndroidProject : BaseProject() {
     compileSdk = Config.compileSdk
     defaultConfig {
       minSdk = Config.minSdk
+      testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
       release {
@@ -89,12 +91,9 @@ abstract class BaseAndroidProject : BaseProject() {
       viewBinding = true
     }
     
-    (this as ExtensionAware).extensions.configure(
-      "kotlinOptions",
-      Action<KotlinJvmOptions> {
-        jvmTarget = "1.8"
-      }
-    )
+    (this as ExtensionAware).extensions.configure<KotlinJvmOptions> {
+      jvmTarget = "1.8"
+    }
   }
   
   /**

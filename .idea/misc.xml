@@ -1,42 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ASMIdeaPluginConfiguration">
-    <asm skipDebug="false" skipFrames="false" skipCode="false" expandFrames="false" />
-    <groovy codeStyle="LEGACY" />
-  </component>
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_web/src/main/res/drawable/ic_back.xml" value="0.2475" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_web/src/main/res/drawable/ic_more.xml" value="0.2475" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_web/src/main/res/layout/web_activity.xml" value="0.3609375" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/lib_web/src/main/res/menu/web_menu.xml" value="0.3609375" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/item_project_main.xml" value="0.25" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/project_fragment_content.xml" value="0.3609375" />
+        <entry key="..\:/AndroidStudio/WanAndroid_Multi/module_project/src/main/res/layout/project_fragment_main.xml" value="0.3609375" />
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.216" />
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/drawable/ic_baseline_lock_24.xml" value="0.216" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/drawable/ic_launcher_background.xml" value="0.2065" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/lib_common/src/main/res/layout/layout_test.xml" value="0.19384057971014493" />
+        <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_login/src/main/res/layout/activity_login.xml" value="0.2328125" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_main/src/main/res/drawable/ic_launcher_background.xml" value="0.2065" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_main/src/main/res/layout/activity_main.xml" value="0.215625" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_main/src/main/res/layout/main_activity_main.xml" value="0.18135764944275581" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_test/src/main/res/layout/test_activity_test.xml" value="0.3129528985507246" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_test/src/main/res/layout/test_fragment_show.xml" value="0.3129528985507246" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_home/src/main/res/drawable/accent_tv_border.xml" value="0.1045" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_home/src/main/res/drawable/ic_like.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_home/src/main/res/drawable/ic_not_like.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_home/src/main/res/drawable/top_tv_border.xml" value="0.1045" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_home/src/main/res/layout/fragment_home.xml" value="0.1125" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_home/src/main/res/layout/item_article.xml" value="0.264" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_home/src/main/res/layout/item_banner.xml" value="0.2" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_home/src/main/res/layout/item_banner_item.xml" value="0.22826086956521738" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_home/src/main/res/layout/item_bannner.xml" value="0.1721311475409836" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/baseline_account_circle_18.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/baseline_account_circle_20.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/baseline_account_circle_24.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/ic_arrow_upward_white_24dp.xml" value="0.113" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/ic_baseline_exit_to_app_24.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1095" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/ic_outline_nights_stay_24.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/ic_outline_settings_24.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/drawable/ic_share.xml" value="0.1" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/layout/main_activity_main.xml" value="0.176" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/layout/nav_header.xml" value="0.4" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/menu/bottom_nav.xml" value="0.25364583333333335" />
-        <entry key="..\:/ColdRain_Moro/AndroidProject/WanAndroid_Multi/module_main/src/main/res/menu/nav.xml" value="0.2526041666666667" />
       </map>
     </option>
   </component>
@@ -45,5 +28,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="SuppressABINotification">
+    <option name="modulesWithSuppressedNotConfigured">
+      <set>
+        <option value="WanAndroid_Multi.module_test.api_test" />
+      </set>
+    </option>
   </component>
 </project>
