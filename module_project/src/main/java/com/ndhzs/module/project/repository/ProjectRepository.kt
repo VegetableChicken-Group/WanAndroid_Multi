@@ -69,19 +69,19 @@ object ProjectRepository {
     fun getProjectList(cid : Int) : Flow<PagingData<ProjectList>> {
 
 
-        //TODO : 多个分页导致数据混合，需要另作处理
+        //TODO : 多个分页导致数据混合，所有数据全部加载进数据库，需要另作处理
         //Paging 数据库和网络请求结合
-        return Pager(
-            config = config,
-            remoteMediator = ProjectRemoteMediator(service,db,cid),
-            pagingSourceFactory = pagingSourceFactory
-        ).flow
-
-        //Paging 网络请求
 //        return Pager(
 //            config = config,
-//            pagingSourceFactory = {ProjectDataSource(ApiServiceProject.Instance,cid)}
+//            remoteMediator = ProjectRemoteMediator(service,db,cid),
+//            pagingSourceFactory = pagingSourceFactory
 //        ).flow
+
+        //Paging 网络请求
+        return Pager(
+            config = config,
+            pagingSourceFactory = {ProjectDataSource(ApiServiceProject.Instance,cid)}
+        ).flow
     }
 
 }

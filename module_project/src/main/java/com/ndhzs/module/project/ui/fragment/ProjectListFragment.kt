@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.progressindicator.LinearProgressIndicator
+import com.ndhzs.api.web.IWebViewService
 import com.ndhzs.lib.common.extensions.invisible
 import com.ndhzs.lib.common.extensions.toast
 import com.ndhzs.lib.common.extensions.toastLong
 import com.ndhzs.lib.common.extensions.visible
+import com.ndhzs.lib.common.service.ServiceManager
 import com.ndhzs.lib.common.ui.mvvm.BaseVmBindFragment
 import com.ndhzs.module.project.adapter.ProjectListAdapter
 import com.ndhzs.module.project.adapter.ProjectLoadStateAdapter
@@ -51,7 +53,10 @@ class ProjectListFragment(private val cid : Int) : BaseVmBindFragment<ProjectVie
 
     private val progressIndicator : LinearProgressIndicator by R.id.lpi_project_append.view()
 
-    private val mAdapter = ProjectListAdapter()
+    private val mAdapter = ProjectListAdapter{
+        ServiceManager(IWebViewService::class)
+            .startWebView(requireContext(),it)
+    }
 
 
     @SuppressLint("UnsafeRepeatOnLifecycleDetector")

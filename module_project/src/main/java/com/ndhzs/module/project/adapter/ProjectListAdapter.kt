@@ -26,7 +26,7 @@ import com.ndhzs.module.test.databinding.ItemProjectMainBinding
  * @Version:        1.0
  * @Description:    项目的Paging Adapter
  */
-class ProjectListAdapter : PagingDataAdapter<ProjectList,ProjectListAdapter.ViewHolder>(COMPARATOR){
+class ProjectListAdapter (private val onItemClick : (url : String) -> Unit) : PagingDataAdapter<ProjectList,ProjectListAdapter.ViewHolder>(COMPARATOR){
 
 
     companion object{
@@ -57,9 +57,15 @@ class ProjectListAdapter : PagingDataAdapter<ProjectList,ProjectListAdapter.View
         return ViewHolder(view)
     }
 
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+    inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
         private val mBinding : ItemProjectMainBinding? = DataBindingUtil.bind(itemView)
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick(getItem(bindingAdapterPosition)!!.link)
+            }
+        }
         fun bind(projectItem: ProjectItem){
             if(mBinding != null){
                 mBinding.projectItem = projectItem

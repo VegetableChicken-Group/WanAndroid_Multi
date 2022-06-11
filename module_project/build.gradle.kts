@@ -1,4 +1,5 @@
 ﻿import com.ndhzs.build.logic.depend.*
+import com.ndhzs.build.logic.depend.api.dependApiWeb
 
 plugins {
 //    id("module-manager")
@@ -18,7 +19,7 @@ dependPaging()
 dependRxjava()
 dependRoom()
 dependRoomPaging()
-
+dependApiWeb()
 
 dependencies {
     implementation("io.coil-kt:coil:2.1.0")
