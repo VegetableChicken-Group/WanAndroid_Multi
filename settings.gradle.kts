@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":module_home")
+
+
 
 pluginManagement {
   includeBuild("build_logic")
