@@ -50,6 +50,7 @@ class ProjectListFragment(private val cid : Int) : BaseVmBindFragment<ProjectVie
     private val refreshLayout : SwipeRefreshLayout by R.id.srl_project_content.view()
 
     private val progressIndicator : LinearProgressIndicator by R.id.lpi_project_append.view()
+
     private val mAdapter = ProjectListAdapter()
 
 

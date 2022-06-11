@@ -11,9 +11,12 @@ interface RemoteKeyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(remoteKey: List<RemoteKey>)
 
-    @Query("SELECT * FROM tab_remote_key WHERE id = :id ")
-    suspend fun remoteKeysId(id: Int): RemoteKey?
+    @Query("SELECT * FROM tab_remote_key WHERE projectId = :projectId ")
+    suspend fun remoteKeysId(projectId: Int): RemoteKey?
 
-    @Query("DELETE FROM tab_remote_key WHERE id =:id")
-    suspend fun clearRemoteKeys(id: Int)
+    @Query("DELETE FROM tab_remote_key WHERE projectId =:projectId")
+    suspend fun clearRemoteKeysId(projectId: Int)
+
+    @Query("DELETE FROM tab_remote_key")
+    suspend fun clearRemoteKeys()
 }

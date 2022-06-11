@@ -23,13 +23,19 @@ import com.ndhzs.module.project.bean.ProjectList
 interface ProjectListDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertArticle(projectDataList : List<ProjectList>)
+    suspend fun insertProjects(projectDataList : List<ProjectList>)
 
     @Query("SELECT * FROM tab_project WHERE id =:id")
-    fun queryLocalList(id: Int): PagingSource<Int, ProjectList>
+    fun queryLocalList(id : Int): PagingSource<Int, ProjectList>
+
+    @Query("SELECT * FROM tab_project ")
+    fun queryLocalList(): PagingSource<Int, ProjectList>
 
     @Query("DELETE FROM tab_project WHERE id=:id")
     suspend fun clearListById(id: Int)
+
+    @Query("DELETE FROM tab_project")
+    suspend fun clearList()
 
 
 }

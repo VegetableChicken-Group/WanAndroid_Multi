@@ -27,7 +27,7 @@ import com.ndhzs.module.project.db.dao.RemoteKeyDao
 
 @Database(
     entities = [ProjectList::class,RemoteKey::class],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 
@@ -44,6 +44,8 @@ abstract class ProjectDataBase : RoomDatabase() {
 
         fun get(context: Context) : ProjectDataBase{
             return instance ?: Room.databaseBuilder(context.applicationContext  ,ProjectDataBase::class.java, DB_NAME)
+                .allowMainThreadQueries()
+                .fallbackToDestructiveMigration()
                 .build()
                 .also {
                     instance = it

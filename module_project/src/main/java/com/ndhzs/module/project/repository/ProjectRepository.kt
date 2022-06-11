@@ -15,6 +15,7 @@ import com.ndhzs.module.project.bean.ProjectList
 import com.ndhzs.module.project.bean.ProjectTree
 import com.ndhzs.module.project.db.ProjectDataBase
 import com.ndhzs.module.project.network.ApiServiceProject
+import com.ndhzs.module.project.repository.inDb.ProjectRemoteMediator
 import debug.DebugAPP
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Observable
@@ -36,7 +37,7 @@ import kotlinx.coroutines.flow.Flow
 @ExperimentalPagingApi
 object ProjectRepository {
 
-    private var mPath = 0
+    private var mId = 0
 
     private val service = ApiServiceProject.Instance
 
@@ -60,22 +61,27 @@ object ProjectRepository {
         return service.getProjectTree()
     }
 
-    private val pagingSourceFactory = { db.projectListDao().queryLocalList(mPath) }
+    private val pagingSourceFactory = { db.projectListDao().queryLocalList() }
 
     /**
      * 请求项目列表
      */
     fun getProjectList(cid : Int) : Flow<PagingData<ProjectList>> {
 
-//        return Pager(
-//            config = config,
-//            remoteMediator = ProjectRemoteMediator(service,db,1),
-//            pagingSourceFactory = pagingSourceFactory
-//        ).flow
+
+        //TODO : 多个分页导致数据混合，需要另作处理
+        //Paging 数据库和网络请求结合
         return Pager(
             config = config,
-            pagingSourceFactory = {ProjectDataSource(ApiServiceProject.Instance,cid)}
+            remoteMediator = ProjectRemoteMediator(service,db,cid),
+            pagingSourceFactory = pagingSourceFactory
         ).flow
+
+        //Paging 网络请求
+//        return Pager(
+//            config = config,
+//            pagingSourceFactory = {ProjectDataSource(ApiServiceProject.Instance,cid)}
+//        ).flow
     }
 
 }
