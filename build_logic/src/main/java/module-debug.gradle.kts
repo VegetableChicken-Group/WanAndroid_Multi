@@ -1,8 +1,8 @@
 import com.ndhzs.build.logic.project.ModuleDebugProject
 
-// 不允许执行单模块调试
-fun isNotAllowDebugModule(): Boolean {
-  return gradle.startParameter.taskNames.any {
+// 允许执行单模块调试
+fun isAllowDebugModule(): Boolean {
+  return !gradle.startParameter.taskNames.any {
     it == "assembleRelease" // gradle 直接打包
       || it == "assembleDebug"
       || it == ":module_app:assembleRelease"
@@ -12,8 +12,8 @@ fun isNotAllowDebugModule(): Boolean {
   }
 }
 
-isNotAllowDebugModule().run {
-  if (this) cancelDebugModule() else doDebugModule()
+isAllowDebugModule().run {
+  if (this) doDebugModule() else cancelDebugModule()
 }
 
 // 允许执行单模块调试

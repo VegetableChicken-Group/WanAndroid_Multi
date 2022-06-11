@@ -5,7 +5,6 @@ package com.ndhzs.build.logic.project.base.base
 import com.android.build.api.dsl.*
 import com.ndhzs.build.logic.depend.dependARouter
 import com.ndhzs.build.logic.depend.dependTestBase
-import org.gradle.api.Action
 import org.gradle.api.JavaVersion
 import org.gradle.api.plugins.ExtensionAware
 import org.gradle.kotlin.dsl.DependencyHandlerScope
@@ -14,8 +13,8 @@ import org.gradle.kotlin.dsl.project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import com.ndhzs.build.logic.config.Config
 import com.ndhzs.build.logic.depend.dependAndroidBase
-import gradle.kotlin.dsl.accessors._e98ba513b34f86980a981ef4cafb3d49.publishing
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 
 /**
  * ...
@@ -57,6 +56,7 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
     compileSdk = Config.compileSdk
     defaultConfig {
       minSdk = Config.minSdk
+      testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
       release {
@@ -91,12 +91,9 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
       viewBinding = true
     }
     
-    (this as ExtensionAware).extensions.configure(
-      "kotlinOptions",
-      Action<KotlinJvmOptions> {
-        jvmTarget = "1.8"
-      }
-    )
+    (this as ExtensionAware).extensions.configure<KotlinJvmOptions> {
+      jvmTarget = "1.8"
+    }
   }
   
   /**
@@ -117,11 +114,5 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
     }.forEach {
       "implementation"(project(":${name}:${it.name}"))
     }
-  }
-  
-  companion object {
-    val ignoreProjectCacheList = listOf<String>(
-    
-    )
   }
 }

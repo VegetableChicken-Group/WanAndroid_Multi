@@ -10,7 +10,7 @@ plugins {
 dependAndroidView()
 dependAndroidKtx()
 dependLifecycleKtx()
-// 还有其他比如协程、Reteofit、Glide 等，可以去 build_logic 中寻找
+// 还有其他比如协程、Retrofit、Glide 等，可以去 build_logic 中寻找
 // 基本上能用到的全都有依赖方式
 
 dependApiMain()
