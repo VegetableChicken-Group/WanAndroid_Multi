@@ -100,12 +100,12 @@ class HomeFragment : BaseVmBindFragment<HomeViewModel, FragmentHomeBinding>() {
             })
         binding.rvHome.apply {
             layoutManager = LinearLayoutManager(requireContext())
-            layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.home_fade_in))
             this.adapter = adapter
             addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
         }
         viewModel.pagingData.collectLaunch {
             adapter.submitData(it)
+            binding.rvHome.layoutAnimation = LayoutAnimationController(AnimationUtils.loadAnimation(requireContext(), R.anim.home_fade_in))
         }
         adapter.addLoadStateListener {
             when (it.refresh) {
