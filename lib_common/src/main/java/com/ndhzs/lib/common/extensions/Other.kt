@@ -1,5 +1,9 @@
 package com.ndhzs.lib.common.extensions
 
+import android.graphics.drawable.Drawable
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
 import com.ndhzs.lib.common.BaseApp
 
 /**
@@ -25,3 +29,15 @@ fun Int.dp2sp(): Float = dp2spF() * this
 
 fun Float.dp2spF(): Float = BaseApp.appContext.resources.displayMetrics.scaledDensity * this
 fun Float.dp2sp(): Float = dp2spF() * this
+
+val Int.color: Int
+  get() = ContextCompat.getColor(BaseApp.appContext, this)
+
+val Int.string: String
+  get() = BaseApp.appContext.getString(this)
+
+val Int.drawable: Drawable
+  get() = BaseApp.appContext.getDrawable(this)!!
+
+val Int.dimen: Float
+  get() = BaseApp.appContext.resources.getDimension(this)
