@@ -9,18 +9,14 @@ import android.net.NetworkCapabilities
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.webkit.*
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.widget.PopupMenu
-import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import com.ndhzs.lib.common.extensions.lazyUnlock
-import com.ndhzs.lib.common.extensions.toast
 import com.ndhzs.lib.common.ui.BaseActivity
 import com.ndhzs.lib.web.R
 import com.ndhzs.lib.web.helper.popup
@@ -58,9 +54,6 @@ class WebViewActivity : BaseActivity() {
 
     private val url by lazyUnlock {
         intent.getStringExtra(webViewExtra)!!
-    }
-    private val webViewTitle by lazyUnlock {
-        intent.getStringExtra(titleExtra)!!
     }
 
     private val webView: WebView by R.id.wv_web.view()
@@ -162,11 +155,7 @@ class WebViewActivity : BaseActivity() {
         windowInsetsController?.isAppearanceLightStatusBars = true // 设置状态栏字体颜色为黑色
 
         //设置状态栏背景颜色
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.statusBarColor = resources.getColor(com.ndhzs.lib.common.R.color.status,theme)
-        }else {
-            window.statusBarColor = resources.getColor(com.ndhzs.lib.common.R.color.status)
-        }
+        window.statusBarColor = ContextCompat.getColor(this, com.ndhzs.lib.common.R.color.status)
     }
 
     /**

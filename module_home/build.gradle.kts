@@ -8,12 +8,12 @@ plugins {
 
 dependAndroidView()
 dependAndroidKtx()
+dependLifecycleKtx()
+
 dependNetwork()
 dependCoroutines()
 dependPaging()
 dependGlide()
-dependApiMain()
 
-dependencies {
-    implementation(project(":lib_web:api_web"))
-}
+dependApiMain()
+dependApiWeb()

@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="20dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="100dp"
             app:srcCompat="@drawable/ic_arrow_upward_white_24dp"
             tools:ignore="ContentDescription"
             app:layout_behavior="com.ndhzs.module.main.widget.ScaleDownShowBehavior" />
