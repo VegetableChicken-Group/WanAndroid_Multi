@@ -28,12 +28,7 @@ class ScaleDownShowBehavior(context: Context, attrs: AttributeSet) :
         type: Int,
     ): Boolean {
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL ||
-                super.onStartNestedScroll(coordinatorLayout,
-                    child,
-                    directTargetChild,
-                    target,
-                    axes,
-                    type)
+            super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes, type)
     }
 
     override fun onNestedScroll(
@@ -46,14 +41,6 @@ class ScaleDownShowBehavior(context: Context, attrs: AttributeSet) :
         dyUnconsumed: Int,
         type: Int
     ) {
-        super.onNestedScroll(coordinatorLayout,
-            child,
-            target,
-            dxConsumed,
-            dyConsumed,
-            dxUnconsumed,
-            dyUnconsumed,
-            type)
         if (dyConsumed > 0 && child.visibility == View.VISIBLE) {
             child.visibility = View.INVISIBLE
         } else if (dyConsumed < 0 && child.visibility != View.VISIBLE) {

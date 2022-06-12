@@ -1,6 +1,7 @@
 package com.ndhzs.module.home.utils
 
 import android.text.Html
+import android.text.Html.FROM_HTML_MODE_LEGACY
 import android.text.Spanned
 
 /**
@@ -10,4 +11,4 @@ import android.text.Spanned
  * @author 寒雨
  * @since 2022/6/2 1:34
  **/
-fun String.htmlDecode(): Spanned = Html.fromHtml(this)
+fun String.htmlDecode(): Spanned = Html.fromHtml(this, FROM_HTML_MODE_LEGACY)
