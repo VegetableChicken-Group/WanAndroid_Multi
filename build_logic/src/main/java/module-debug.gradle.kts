@@ -3,10 +3,9 @@ import com.ndhzs.build.logic.project.ModuleDebugProject
 // 允许执行单模块调试
 fun isAllowDebugModule(): Boolean {
   return !gradle.startParameter.taskNames.any {
-    it == "assembleRelease" // gradle 直接打包
-      || it == "assembleDebug"
-      || it == ":module_app:assembleRelease"
-      || it == ":module_app:assembleDebug"
+    // 注意：这里面的是取反，即满足下面条件的不执行单模块调试
+    it.contains("assembleRelease")
+      || it.contains("assembleDebug") && !it.contains(project.name)
       || it == "publishModuleCachePublicationToMavenRepository" // 本地缓存任务
       || it == "cacheToLocalMaven"
   }
