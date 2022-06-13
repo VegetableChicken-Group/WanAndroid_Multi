@@ -46,8 +46,8 @@ abstract class Cache(private val project: Project) {
   * 下面是内部使用的变量和函数
   * */
   
-  internal val excludeList = mutableListOf<String>()
-  internal val excludeFuncList = mutableListOf<(Project) -> Boolean>()
+  private val excludeList = mutableListOf<String>()
+  private val excludeFuncList = mutableListOf<(Project) -> Boolean>()
   
   // 这里的地址要与 settings.gradle.kts 向对应
   internal val localMavenUri: URI = File(project.rootProject.buildDir, "maven").toURI()
@@ -101,6 +101,9 @@ abstract class Cache(private val project: Project) {
     return !isExists
   }
   
+  /**
+   * 得到本地缓存的文件夹，因为有版本的原因，所以可能会为空
+   */
   internal fun getLocalMavenFile(): File {
     return File(localMavenUri).resolve("${localMavenGroup}/${project.name}/${localMavenVersion}")
   }

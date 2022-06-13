@@ -19,6 +19,12 @@ const val LOGIN_ENTRY = "/login/entry"
 // account 模块
 const val ACCOUNT_SERVICE = "/account/service"
 
+// main 模块
+const val MAIN_SERVICE = "/main/service"
+
+// home 模块
+const val HOME_PAGE = "/home/page"
+
 // WebView 模块
 const val WEB_SERVICE = "/web/service"
 const val WEB_ENTRY = "/web/entry"
