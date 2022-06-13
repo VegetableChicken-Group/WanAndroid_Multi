@@ -27,6 +27,8 @@
         <entry key="module_system/src/main/res/layout/item_navigation_article.xml" value="0.1" />
         <entry key="module_system/src/main/res/layout/item_navigation_chapter.xml" value="0.15520833333333334" />
         <entry key="module_system/src/main/res/layout/item_navigation_tab.xml" value="0.15416666666666667" />
+        <entry key="module_system/src/main/res/layout/item_system_child.xml" value="0.1421875" />
+        <entry key="module_system/src/main/res/layout/item_system_title.xml" value="0.1859375" />
       </map>
     </option>
   </component>

@@ -1,4 +1,5 @@
 import com.ndhzs.build.logic.depend.*
+import com.ndhzs.build.logic.depend.api.dependApiWeb
 
 plugins {
     id("module-debug")
@@ -13,6 +14,7 @@ dependRxjava()
 dependAndroidView()
 dependAndroidKtx()
 dependLifecycleKtx()
+dependApiWeb()
 
 dependencies {
     // 这里面写只有自己模块才会用到的依赖

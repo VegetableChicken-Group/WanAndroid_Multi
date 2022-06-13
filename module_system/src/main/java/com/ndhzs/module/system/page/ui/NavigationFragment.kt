@@ -29,10 +29,10 @@ class NavigationFragment : BaseVmBindFragment<NavigationViewModel, FragmentNavig
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         //从ViewModel获取Navigation界面展示的数据，传入左右两边的Rv
         viewModel.getNavigation {
-            binding.navigationRv.adapter = NavigationChapterAdapter(it)
+            binding.navigationRv.adapter = NavigationChapterAdapter(it,requireActivity())
+            binding.navigationTab.adapter = NavigationTabAdapter(it, binding.navigationRv)
             setNavigationRvListener()
             setNavigationTabListener()
-            binding.navigationTab.adapter = NavigationTabAdapter(it, binding.navigationRv)
         }
     }
 

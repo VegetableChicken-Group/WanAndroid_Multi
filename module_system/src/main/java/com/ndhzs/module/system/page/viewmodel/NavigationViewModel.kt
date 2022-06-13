@@ -44,15 +44,4 @@ class NavigationViewModel : ViewModel() {
             }
         } else return successAction(navigation!!)
     }
-
-    fun getArticlesSortedByChapter(articles: List<Navigation.Data.Article>): HashMap<String, ArrayList<Navigation.Data.Article>> {
-        val chapters = HashMap<String, ArrayList<Navigation.Data.Article>>()
-        for (article in articles) {
-            if (!chapters.containsKey(article.chapterName)) {
-                chapters[article.chapterName] = ArrayList()
-            }
-            chapters[article.chapterName]?.add(article)
-        }
-        return chapters
-    }
 }
