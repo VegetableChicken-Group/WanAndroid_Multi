@@ -142,7 +142,7 @@ fun <E : Any, T : ApiWrapper<E>> Flowable<T>.mapOrCatchApiException(
 /**
  * 其实这个命名是直接抄的掌邮的，这个 safe 的意思是如果直接使用一个形参的 subscribe(onSuccess)，
  * 在收到上游错误时 Rxjava 会把错误直接抛给整个应用来处理，如果你没有配置 Rxjava 的全局报错，应用会直接闪退，
- * safe 就是指这个安全问题，目前因为生命周期问题，所以改名
+ * safe 就是指这个安全问题，目前因为生命周期问题，所以改名 unsafe
  */
 
 fun <T : Any> Single<T>.unSafeSubscribeBy(

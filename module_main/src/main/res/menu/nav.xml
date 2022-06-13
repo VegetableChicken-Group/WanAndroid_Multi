@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/points"
+            android:icon="@drawable/points"
+            android:title="@string/my_points" />
+        <item
+            android:id="@+id/collection"
+            android:icon="@drawable/like"
+            android:title="@string/my_collections" />
+        <item
+            android:id="@+id/share"
+            android:icon="@drawable/ic_share"
+            android:title="@string/my_share" />
+        <item
+            android:id="@+id/todo"
+            android:icon="@drawable/todo"
+            android:title="@string/todo" />
+        <item
+            android:id="@+id/night_mode"
+            android:icon="@drawable/ic_outline_nights_stay_24"
+            android:title="@string/night_mode" />
+        <item
+            android:id="@+id/system_settings"
+            android:icon="@drawable/ic_outline_settings_24"
+            android:title="@string/system_settings" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/ic_baseline_exit_to_app_24"
+            android:title="@string/log_out" />
+    </group>
+</menu>

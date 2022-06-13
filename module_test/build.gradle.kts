@@ -10,7 +10,7 @@ plugins {
 dependAndroidView()
 dependAndroidKtx()
 dependLifecycleKtx()
-// 还有其他比如协程、Reteofit、Glide 等，可以去 build_logic 中寻找
+// 还有其他比如协程、Retrofit、Glide 等，可以去 build_logic 中寻找
 // 基本上能用到的全都有依赖方式
 
 dependApiMain()
@@ -22,8 +22,8 @@ dependencies {
 }
 
 cache {
-  isAllowSelfUseCache = false // 是否允许自身使用缓存，默认是允许的
-  isNeedCreateNewCache = false // 是否需要创建自己的缓存，默认是允许的
+  isAllowSelfUseCache = true // 是否允许自身使用缓存，默认是允许的
+  isNeedCreateNewCache = true // 是否需要创建自己的缓存，默认是允许的
   
   exclude("xxx") // 对名字叫 xxx 的不替换缓存
   

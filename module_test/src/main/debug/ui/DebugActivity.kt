@@ -2,7 +2,6 @@ package ui
 
 import android.os.Bundle
 import com.ndhzs.lib.common.ui.BaseActivity
-import com.ndhzs.module.test.page.TestActivity
 
 /**
  * ...
