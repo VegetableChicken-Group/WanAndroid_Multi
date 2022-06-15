@@ -43,10 +43,13 @@ class LoginViewModel : BaseViewModel() {
         if (it == null) {
           // 此时登出了账号，取消记住密码
           changeRememberPassword(false)
-        }
-        _username.value = it?.username
-        if (isRememberPassword()) {
-          _password.value = it?.password
+          _username.value = null
+          _password.value = null
+        } else {
+          _username.value = it.username
+          if (isRememberPassword()) {
+            _password.value = it.password
+          }
         }
       }
   }

@@ -35,11 +35,11 @@ abstract class BaseFragment : Fragment(), RxjavaLifecycle {
    *           // 进行初始化的设置
    *        }
    *
-   * 方便程度比较：
-   *    kt 插件(被废弃) > 属性代理 > ButterKnife(被废弃) > DataBinding > ViewBinding
+   * 代替 findViewById 的方法有：
+   *    kt 插件(被废弃)、属性代理、ButterKnife(被废弃)、DataBinding、ViewBinding
    *
-   * 还有如果使用 DataBinding 和 ViewBinding 会因为 id 太长而劝退
-   * ViewBinding 是给所有布局都默认开启的，大项目严重拖垮编译速度
+   * 如果使用 DataBinding 和 ViewBinding 会因为 id 太长而劝退
+   * ViewBinding 是给所有布局都默认开启的，大项目会严重拖垮编译速度
    * ```
    */
   protected fun <T : View> Int.view() = BindView<T>(this) { this@BaseFragment }
@@ -84,6 +84,9 @@ abstract class BaseFragment : Fragment(), RxjavaLifecycle {
   
   private val mDisposableList = mutableListOf<Disposable>()
   
+  /**
+   * 实现 [RxjavaLifecycle] 的方法，用于带有生命周期的调用
+   */
   override fun onAddRxjava(disposable: Disposable) {
     mDisposableList.add(disposable)
   }

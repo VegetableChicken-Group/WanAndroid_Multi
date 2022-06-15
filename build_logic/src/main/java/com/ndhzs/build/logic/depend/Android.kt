@@ -14,7 +14,7 @@ object Android {
   // 基础库
   const val appcompat = "androidx.appcompat:appcompat:1.4.1"
   
-  // 官方控件控件库
+  // 官方控件库
   const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
   const val recyclerview = "androidx.recyclerview:recyclerview:1.2.1"
   const val cardview = "androidx.cardview:cardview:1.0.0"
@@ -23,7 +23,7 @@ object Android {
   const val swiperefreshlayout = "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
   const val flexbox = "com.google.android.flexbox:flexbox:3.0.0"
   
-  // 官方扩展
+  // 官方扩展库
   // https://developer.android.google.cn/kotlin/ktx?hl=zh_cn#core
   const val `core-ktx` = "androidx.core:core-ktx:1.7.0"
   // https://developer.android.google.cn/kotlin/ktx/extensions-list?hl=zh_cn#androidxcollection
@@ -32,10 +32,6 @@ object Android {
   const val `fragment-ktx` = "androidx.fragment:fragment-ktx:1.4.1"
   // https://developer.android.google.cn/kotlin/ktx/extensions-list?hl=zh_cn#androidxactivity
   const val `activity-ktx` = "androidx.activity:activity-ktx:1.4.0"
-  
-  // WorkManger
-  // https://developer.android.google.cn/kotlin/ktx?hl=zh_cn#workmanager
-  const val `work-runtime-ktx` = "androidx.work:work-runtime-ktx:2.7.1"
 }
 
 /**
@@ -65,11 +61,5 @@ fun Project.dependAndroidKtx() {
     "implementation"(Android.`collection-ktx`)
     "implementation"(Android.`fragment-ktx`)
     "implementation"(Android.`activity-ktx`)
-  }
-}
-
-fun Project.dependWorkManger() {
-  dependencies {
-    "implementation"(Android.`work-runtime-ktx`)
   }
 }
