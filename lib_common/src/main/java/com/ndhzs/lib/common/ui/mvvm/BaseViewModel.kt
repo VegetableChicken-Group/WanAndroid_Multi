@@ -17,6 +17,7 @@ abstract class BaseViewModel : ViewModel(), RxjavaLifecycle {
   
   private val mDisposableList = mutableListOf<Disposable>()
   
+  @Deprecated("ViewModel 中建议使用已拥有生命周期的 safeSubscribeBy() 方法，lifecycle() 方法将不再使用")
   protected fun Disposable.lifecycle(): Disposable {
     mDisposableList.add(this)
     return this
