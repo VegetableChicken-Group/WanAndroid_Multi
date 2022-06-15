@@ -7,7 +7,7 @@ import io.reactivex.rxjava3.core.*
 import io.reactivex.rxjava3.disposables.Disposable
 
 /**
- * 示例代码：
+ * # 示例代码
  * ```
  * ApiService.INSTANCE.getXXX()
  *     .subscribeOn(Schedulers.io())  // 线程切换
@@ -21,8 +21,11 @@ import io.reactivex.rxjava3.disposables.Disposable
  *     .lifeCycle() // ViewModel 中带有的自动回收，或者使用 ViewModel 里面的 safeSubscribeBy 方法
  * ```
  *
- * [mapOrCatchApiException] 只会处理 [ApiException] ，如果你要处理其他网络错误，
- * 把 [mapOrCatchApiException] 替换为 [mapOrThrowApiException]：
+ * # 其他注意事项
+ * ## Rxjava 的下游没任何输出（怎么处理断网时的 HttpException）
+ *
+ * 大概率是你直接用了 [mapOrCatchApiException]，而它只会处理 [ApiException] ，如果你要处理其他网络错误，
+ * 请把 [mapOrCatchApiException] 替换为 [mapOrThrowApiException]：
  * ```
  *     .mapOrThrowApiException()
  *     .doOnError {
@@ -140,35 +143,35 @@ fun <E : Any, T : ApiWrapper<E>> Flowable<T>.mapOrCatchApiException(
 }
 
 /**
- * 其实这个命名是直接抄的掌邮的，这个 safe 的意思是如果直接使用一个形参的 subscribe(onSuccess)，
+ * 其实这个命名是直接抄的掌邮的，最开始这个 safe 的意思是如果直接使用一个形参的 subscribe(onSuccess)，
  * 在收到上游错误时 Rxjava 会把错误直接抛给整个应用来处理，如果你没有配置 Rxjava 的全局报错，应用会直接闪退，
  * safe 就是指这个安全问题，目前因为生命周期问题，所以改名 unsafe
  */
 
-fun <T : Any> Single<T>.unSafeSubscribeBy(
+fun <T : Any> Single<T>.unsafeSubscribeBy(
   onError: (Throwable) -> Unit = {},
   onSuccess: (T) -> Unit = {}
 ): Disposable = subscribe(onSuccess, onError)
 
-fun <T : Any> Maybe<T>.unSafeSubscribeBy(
+fun <T : Any> Maybe<T>.unsafeSubscribeBy(
   onError: (Throwable) -> Unit = {},
   onComplete: () -> Unit = {},
   onSuccess: (T) -> Unit = {}
 ): Disposable = subscribe(onSuccess, onError, onComplete)
 
-fun <T : Any> Observable<T>.unSafeSubscribeBy(
+fun <T : Any> Observable<T>.unsafeSubscribeBy(
   onError: (Throwable) -> Unit = {},
   onComplete: () -> Unit = {},
   onNext: (T) -> Unit = {}
 ): Disposable = subscribe(onNext, onError, onComplete)
 
-fun <T : Any> Flowable<T>.unSafeSubscribeBy(
+fun <T : Any> Flowable<T>.unsafeSubscribeBy(
   onError: (Throwable) -> Unit = {},
   onComplete: () -> Unit = {},
   onNext: (T) -> Unit = {}
 ): Disposable = subscribe(onNext, onError, onComplete)
 
-fun Completable.unSafeSubscribeBy(
+fun Completable.unsafeSubscribeBy(
   onError: (Throwable) -> Unit = {},
   onComplete: () -> Unit = {},
 ): Disposable = subscribe(onComplete, onError)
@@ -188,7 +191,7 @@ interface RxjavaLifecycle {
   @Deprecated(
     "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy代替",
     ReplaceWith("safeSubscribeBy()"))
-  fun <T : Any> Single<T>.unSafeSubscribeBy(
+  fun <T : Any> Single<T>.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},
     onSuccess: (T) -> Unit = {}
   ): Disposable = subscribe(onSuccess, onError)
@@ -202,7 +205,7 @@ interface RxjavaLifecycle {
   @Deprecated(
     "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy 代替",
     ReplaceWith("safeSubscribeBy()"))
-  fun <T : Any> Maybe<T>.unSafeSubscribeBy(
+  fun <T : Any> Maybe<T>.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},
     onComplete: () -> Unit = {},
     onSuccess: (T) -> Unit = {}
@@ -217,7 +220,7 @@ interface RxjavaLifecycle {
   @Deprecated(
     "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy 代替",
     ReplaceWith("safeSubscribeBy()"))
-  fun <T : Any> Observable<T>.unSafeSubscribeBy(
+  fun <T : Any> Observable<T>.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},
     onComplete: () -> Unit = {},
     onNext: (T) -> Unit = {}
@@ -232,7 +235,7 @@ interface RxjavaLifecycle {
   @Deprecated(
     "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy 代替",
     ReplaceWith("safeSubscribeBy()"))
-  fun <T : Any> Flowable<T>.unSafeSubscribeBy(
+  fun <T : Any> Flowable<T>.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},
     onComplete: () -> Unit = {},
     onNext: (T) -> Unit = {}
@@ -246,7 +249,7 @@ interface RxjavaLifecycle {
   @Deprecated(
     "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy 代替",
     ReplaceWith("safeSubscribeBy()"))
-  fun Completable.unSafeSubscribeBy(
+  fun Completable.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},
     onComplete: () -> Unit = {},
   ): Disposable = subscribe(onComplete, onError)
