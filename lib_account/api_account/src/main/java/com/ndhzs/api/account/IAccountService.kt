@@ -74,7 +74,7 @@ interface IAccountService : IProvider, CookieJar {
    *
    * 回调的数据为 null 时，说明退出了登录
    *
-   * 注意生命周期问题！
+   * # 注意生命周期问题！请配合 safeSubscribeBy() 一起使用
    */
   fun observeUserInfoUnsafe(): Observable<Result<LoginBean?>> {
     return observeUserInfoFlow().map { Result.success(it) }.asObservable()
@@ -85,7 +85,7 @@ interface IAccountService : IProvider, CookieJar {
    *
    * 1、Flow 更适合在 ViewModel 层、 Activity 和 Fragment 层 使用
    *
-   * 2、对于 Repository 层更推荐使用 [observeUserInfo]，因为 Flow 远不及 Rxjava 好处理复杂的数据流
+   * 2、对于 Repository 层更推荐使用 [observeUserInfoUnsafe]，因为 Flow 远不及 Rxjava 好处理复杂的数据流
    *
    * 3、如果你想对于不同学号返回给下游不同的 Flow，操作符为 switchMap（flatMap 并不会自动关闭上一个转换的 Flow），
    * 但目前该操作符被废弃，新操作符 flatMapLatest 还在测验阶段，

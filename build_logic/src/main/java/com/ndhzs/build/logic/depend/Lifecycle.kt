@@ -43,7 +43,6 @@ fun Project.dependLifecycleKtx() {
     "implementation"(Lifecycle.`viewmodel-ktx`)
     "implementation"(Lifecycle.`livedata-ktx`)
     "implementation"(Lifecycle.`runtime-ktx`)
-    "implementation"(Lifecycle.`lifecycle-reactivestreams-ktx`)
     "kapt"(Lifecycle.`lifecycle-compiler`)
   }
 }

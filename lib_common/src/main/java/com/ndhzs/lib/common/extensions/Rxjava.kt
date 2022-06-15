@@ -181,6 +181,9 @@ fun Completable.unsafeSubscribeBy(
  */
 interface RxjavaLifecycle {
   
+  /**
+   * 请把他们放在一个数组中，并在合适的时候关闭
+   */
   fun onAddRxjava(disposable: Disposable)
   
   fun <T : Any> Single<T>.safeSubscribeBy(
@@ -189,7 +192,7 @@ interface RxjavaLifecycle {
   ): Disposable = subscribe(onSuccess, onError).also { onAddRxjava(it) }
   
   @Deprecated(
-    "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy代替",
+    "该类已实现 Rxjava 的生命周期，请使用 safeSubscribeBy() 代替",
     ReplaceWith("safeSubscribeBy()"))
   fun <T : Any> Single<T>.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},
@@ -203,7 +206,7 @@ interface RxjavaLifecycle {
   ): Disposable = subscribe(onSuccess, onError).also { onAddRxjava(it) }
   
   @Deprecated(
-    "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy 代替",
+    "该类已实现 Rxjava 的生命周期，请使用 safeSubscribeBy() 代替",
     ReplaceWith("safeSubscribeBy()"))
   fun <T : Any> Maybe<T>.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},
@@ -218,7 +221,7 @@ interface RxjavaLifecycle {
   ): Disposable = subscribe(onNext, onError, onComplete).also { onAddRxjava(it) }
   
   @Deprecated(
-    "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy 代替",
+    "该类已实现 Rxjava 的生命周期，请使用 safeSubscribeBy() 代替",
     ReplaceWith("safeSubscribeBy()"))
   fun <T : Any> Observable<T>.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},
@@ -233,7 +236,7 @@ interface RxjavaLifecycle {
   ): Disposable = subscribe(onNext, onError, onComplete).also { onAddRxjava(it) }
   
   @Deprecated(
-    "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy 代替",
+    "该类已实现 Rxjava 的生命周期，请使用 safeSubscribeBy() 代替",
     ReplaceWith("safeSubscribeBy()"))
   fun <T : Any> Flowable<T>.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},
@@ -247,7 +250,7 @@ interface RxjavaLifecycle {
   ): Disposable = subscribe(onComplete, onError).also { onAddRxjava(it) }
   
   @Deprecated(
-    "该类支持已实现 Rxjava 的生命周期，请使用 safeSubscribeBy 代替",
+    "该类已实现 Rxjava 的生命周期，请使用 safeSubscribeBy() 代替",
     ReplaceWith("safeSubscribeBy()"))
   fun Completable.unsafeSubscribeBy(
     onError: (Throwable) -> Unit = {},

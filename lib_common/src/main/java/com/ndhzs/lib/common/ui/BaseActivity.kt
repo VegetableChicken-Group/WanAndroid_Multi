@@ -36,8 +36,8 @@ abstract class BaseActivity(
   /**
    * 是否沉浸式状态栏
    *
-   * 注意，沉浸式后，状态栏不会再有东西占位，界面会默认上移
-   * 可以给根布局加上 android:fitsSystemWindows=true
+   * 注意，沉浸式后，状态栏不会再有东西占位，界面会默认上移，
+   * 可以给根布局加上 android:fitsSystemWindows=true，
    * 不同布局该属性效果不同，请给合适的布局添加
    */
   private val isCancelStatusBar: Boolean = true
@@ -88,11 +88,11 @@ abstract class BaseActivity(
    *           // 进行初始化的设置
    *        }
    *
-   * 方便程度比较：
-   *    kt 插件(被废弃) > 属性代理 > ButterKnife(被废弃) > DataBinding > ViewBinding
+   * 代替 findViewById 的方法有：
+   *    kt 插件(被废弃)、属性代理、ButterKnife(被废弃)、DataBinding、ViewBinding
    *
-   * 还有如果使用 DataBinding 和 ViewBinding 会因为 id 太长而劝退
-   * ViewBinding 是给所有布局都默认开启的，大项目严重拖垮编译速度
+   * 如果使用 DataBinding 和 ViewBinding 会因为 id 太长而劝退
+   * ViewBinding 是给所有布局都默认开启的，大项目会严重拖垮编译速度
    * ```
    */
   protected fun <T: View> Int.view() = BindView<T>(
@@ -131,6 +131,9 @@ abstract class BaseActivity(
   
   private val mDisposableList = mutableListOf<Disposable>()
   
+  /**
+   * 实现 [RxjavaLifecycle] 的方法，用于带有生命周期的调用
+   */
   override fun onAddRxjava(disposable: Disposable) {
     mDisposableList.add(disposable)
   }
