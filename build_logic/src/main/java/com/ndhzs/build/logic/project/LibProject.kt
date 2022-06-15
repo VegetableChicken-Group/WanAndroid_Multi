@@ -15,6 +15,9 @@ class LibProject(project: Project) : BaseLibraryProject(project) {
     dependLibCommon()
   }
   
+  /**
+   * 不需要依赖自己模块下的子模块时在这里写上，但只提供测试使用，请测试后取消
+   */
   override fun isDependChildModule(): Boolean {
 //    if (name == "lib_account") {
 //      println(name)

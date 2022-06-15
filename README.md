@@ -23,6 +23,9 @@
 
 对于多模块开发，我写了一篇[教程](md/多模块指南.md)，看懂并实践后就可以正式开发
 
+如果只想看多模块构建相关代码，请查看 [`Framework`](https://github.com/VegetableChicken-Group/WanAndroid_Multi/tree/framework) 
+分支，多模块相关问题将在该分支上进行维护，`master` 分支用于 `wanAndroid` 项目开发
+
 
 
 ### 分支开发练习
@@ -30,6 +33,8 @@
 多人开发中使用多分支尤为重要
 
 这里给出以前我写的教程：https://github.com/985892345/Git-Study
+
+教程有些小瑕疵，但问题不大（懒得改了）
 
 分支命名规则：XXX/xxx
 
@@ -43,4 +48,3 @@
 - GuoXR/feature/module_course2
 - GuoXR/bugfix/module_course2
 
-教程有些小瑕疵，但问题不大（懒得改了）
