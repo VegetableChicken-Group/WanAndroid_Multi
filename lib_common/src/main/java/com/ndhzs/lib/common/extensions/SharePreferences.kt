@@ -12,7 +12,7 @@ import com.ndhzs.lib.common.BaseApp
  */
 
 /**
- * 快捷得到方式
+ * SharedPreferences 快捷得到方式
  */
 fun Context.getSp(name: String): SharedPreferences {
   return getSharedPreferences(name, Context.MODE_PRIVATE)
@@ -23,7 +23,7 @@ fun Context.getSp(name: String): SharedPreferences {
  *
  * 请在下面写上传递的 key 值，以 SP_模块名_作用名 开头命名，后面还可以细分
  *
- * 注意：这个是给整个应用全局使用的！
+ * ## 注意：这个是给整个应用全局使用的！
  */
 val defaultSp: SharedPreferences
   get() = BaseApp.appContext.getSharedPreferences("defaultSp", Context.MODE_PRIVATE)
