@@ -12,40 +12,47 @@ import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
 /**
- * 在 ApiService 接口中：（命名规则，以 ApiService 结尾）
+ * # 用法
+ * ## 命名规则
+ * XXXApiService 接口，命名规则，以 ApiService 结尾
+ *
+ * ## 接口模板
  * ```
- * interface ApiService {
+ * interface XXXApiService {
  *
  *     @GET("/aaa/bbb")
- *     fun getXXX(): Single<ApiWrapper<Bean>> // 统一使用 ApiWrapper 或 ApiStatus 包装
+ *     fun getXXX(): Single<ApiWrapper<Bean>>
+ *     // 统一使用 ApiWrapper 或 ApiStatus 包装，注意 Bean 类要去掉 data 字段，不然会报 json 错误
  *
  *     companion object {
  *         val INSTANCE by lazy {
- *             ApiGenerator.getApiService(ApiService::class)
+ *             ApiGenerator.getXXXApiService(XXXApiService::class)
  *         }
  *     }
  * }
  * ```
  *
- * 示例代码：
+ * ## 示例代码
  * ```
  * ApiService.INSTANCE.getXXX()
  *     .subscribeOn(Schedulers.io())  // 线程切换
  *     .observeOn(AndroidSchedulers.mainThread())
  *     .mapOrCatchApiException {      // 当 errorCode 的值不为成功时抛错，并处理错误
- *         // 处理 ApiException 错误
+ *         // 处理 ApiException 错误，注意：这里并不会处理断网时的 HttpException
  *     }
- *     .unSafeSubscribeBy {             // 如果是网络连接错误，则这里会默认处理
+ *     .safeSubscribeBy {            // 如果是网络连接错误，则这里会默认处理
  *         // 成功的时候
  *     }
- *     .lifeCycle() // ViewModel 中带有的自动回收，或者使用 ViewModel 里面的 safeSubscribeBy 方法
  * ```
  *
- * [mapOrCatchApiException] 只会处理 [ApiException] ，如果你要处理其他网络错误，
- * 把 [mapOrCatchApiException] 替换为 [mapOrThrowApiException]：
+ * # 其他注意事项
+ * ## Rxjava 或 Flow 的下游没任何输出（怎么处理断网时的 HttpException）
+ *
+ * 大概率是你直接用了 [mapOrCatchApiException]，而它只会处理 [ApiException]，如果你要处理其他网络错误，
+ * 请把 [mapOrCatchApiException] 替换为 [mapOrThrowApiException]：
  * ```
  *     .mapOrThrowApiException()
- *     .doOnError {
+ *     .doOnError {                    // Flow 操作符为 catch
  *         if (it is ApiException) {
  *             // 处理 ApiException 错误
  *         } else {
