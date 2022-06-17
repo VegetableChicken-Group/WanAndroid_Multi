@@ -17,14 +17,14 @@
             <com.google.android.material.tabs.TabLayout
                 app:tabTextColor="#D8D8D8"
                 app:tabSelectedTextColor="@color/white"
-                android:id="@+id/container_tab"
+                android:id="@+id/system_chapter_tab"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_scrollFlags="scroll"/>
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/container_vp"
+            android:id="@+id/system_chapter_vp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />

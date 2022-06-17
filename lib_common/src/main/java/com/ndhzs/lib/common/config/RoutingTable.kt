@@ -28,3 +28,9 @@ const val HOME_PAGE = "/home/page"
 // WebView 模块
 const val WEB_SERVICE = "/web/service"
 const val WEB_ENTRY = "/web/entry"
+
+//system模块
+const val SYSTEM_SYSTEM = "/system/system"
+const val SYSTEM_SYSTEM_ARTICLE = "/system/systemArticle"
+const val SYSTEM_NAVIGATION = "/system/navigation"
+const val SYSTEM_CONTAINER = "/system/container"

@@ -1,16 +1,14 @@
 package com.ndhzs.module.system.page.viewmodel
 
-import android.os.Binder
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import com.ndhzs.lib.common.network.ApiWrapper
 import com.ndhzs.module.system.bean.Navigation
 import com.ndhzs.module.system.network.NavigationService
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.SingleObserver
 import io.reactivex.rxjava3.disposables.Disposable
 import io.reactivex.rxjava3.schedulers.Schedulers
-import kotlin.collections.ArrayList
+import okhttp3.internal.wait
 
 /**==
 author : Watermelon02
@@ -42,6 +40,6 @@ class NavigationViewModel : ViewModel() {
                         })
                 } else successAction(navigation!!)
             }
-        } else return successAction(navigation!!)
+        } else successAction(navigation!!)
     }
 }

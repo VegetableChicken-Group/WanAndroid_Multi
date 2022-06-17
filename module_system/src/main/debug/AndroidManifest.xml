@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WanAndroid_Multi">
         <activity
+            android:name=".page.ui.SystemChapterActivity"
+            android:exported="false" />
+        <activity
             android:name="ui.DebugActivity"
             android:exported="true">
             <intent-filter>

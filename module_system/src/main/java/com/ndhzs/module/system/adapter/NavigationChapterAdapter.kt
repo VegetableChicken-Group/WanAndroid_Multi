@@ -23,9 +23,9 @@ import kotlin.random.nextInt
  * email : 1446157077@qq.com
  * date : 2022/5/31 18:19
  */
-class NavigationChapterAdapter(private val chapters: Navigation,private val activity:Activity) :
+class NavigationChapterAdapter(private val chapters: Navigation) :
     RecyclerView.Adapter<NavigationChapterAdapter.ViewHolder>() {
-    private val textColorList = listOf("#2E027A", "#0A3173", "#FFCC65","#000000")
+    private val textColorList = listOf("#7E57C2", "#EC407A", "#FFA726","#000000")
     inner class ViewHolder(val binding: ItemNavigationChapterBinding) :
         RecyclerView.ViewHolder(binding.root)
 
@@ -51,7 +51,7 @@ class NavigationChapterAdapter(private val chapters: Navigation,private val acti
             articleBinding.itemNavigationArticleText.setTextColor(Color.parseColor(textColorList[Random.nextInt(0..3)]))
             articleBinding.itemNavigationArticleText.click = {
                 ServiceManager(IWebViewService::class).startWebView(
-                    activity,
+                    appContext,
                     article.link
                 )
             }

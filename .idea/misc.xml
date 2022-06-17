@@ -21,9 +21,14 @@
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_test/src/main/res/layout/test_activity_test.xml" value="0.3129528985507246" />
         <entry key="..\:/Android_Studio/Project/Other/WanAndroid_Multi/module_test/src/main/res/layout/test_fragment_show.xml" value="0.3129528985507246" />
         <entry key="module_system/src/main/res/layout/activity_debug.xml" value="0.1859375" />
+        <entry key="module_system/src/main/res/layout/activity_system_article.xml" value="0.14114583333333333" />
+        <entry key="module_system/src/main/res/layout/activity_system_chapter.xml" value="0.28894927536231885" />
+        <entry key="module_system/src/main/res/layout/fragment_article.xml" value="0.22135416666666666" />
         <entry key="module_system/src/main/res/layout/fragment_container.xml" value="0.18697916666666667" />
         <entry key="module_system/src/main/res/layout/fragment_navigation.xml" value="0.15520833333333334" />
         <entry key="module_system/src/main/res/layout/fragment_system.xml" value="0.1" />
+        <entry key="module_system/src/main/res/layout/fragment_system_article.xml" value="0.28894927536231885" />
+        <entry key="module_system/src/main/res/layout/item_article.xml" value="0.22135416666666666" />
         <entry key="module_system/src/main/res/layout/item_navigation_article.xml" value="0.1" />
         <entry key="module_system/src/main/res/layout/item_navigation_chapter.xml" value="0.15520833333333334" />
         <entry key="module_system/src/main/res/layout/item_navigation_tab.xml" value="0.15416666666666667" />

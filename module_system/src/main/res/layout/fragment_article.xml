@@ -5,18 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/system_refresh"
+        android:id="@+id/article_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/system_rv"
+            android:id="@+id/article_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/system_fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </FrameLayout>
