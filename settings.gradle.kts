@@ -4,6 +4,7 @@ include(":module_home")
 
 
 
+
 pluginManagement {
   includeBuild("build_logic")
   repositories {
@@ -11,8 +12,8 @@ pluginManagement {
     maven { url = uri("https://maven.aliyun.com/repository/google") }
     maven { url = uri("https://jitpack.io") }
     gradlePluginPortal()
-    google()
     mavenCentral()
+    google()
   }
 }
 dependencyResolutionManagement {

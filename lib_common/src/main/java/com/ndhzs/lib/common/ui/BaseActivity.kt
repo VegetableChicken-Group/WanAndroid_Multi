@@ -15,10 +15,14 @@ import androidx.fragment.app.commit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.ndhzs.lib.common.extensions.LaunchLifecycleCatcher
 import com.ndhzs.lib.common.extensions.RxjavaLifecycle
+import com.ndhzs.lib.common.extensions.launchLifecycle
+import com.ndhzs.lib.common.extensions.launchLifecycleCaught
 import com.ndhzs.lib.common.utils.BindView
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 /**
@@ -95,7 +99,7 @@ abstract class BaseActivity(
    * ViewBinding 是给所有布局都默认开启的，大项目会严重拖垮编译速度
    * ```
    */
-  protected fun <T: View> Int.view() = BindView<T>(
+  protected fun <T : View> Int.view() = BindView<T>(
     this,
     BindView.GetActivity { this@BaseActivity }
   )
@@ -123,9 +127,9 @@ abstract class BaseActivity(
   /**
    * 结合生命周期收集 Flow 方法
    */
-  protected fun <T> Flow<T>.collectLaunch(action: suspend (value: T) -> Unit) {
-    lifecycleScope.launch {
-      flowWithLifecycle(lifecycle).collect { action.invoke(it) }
+  protected fun <T> Flow<T>.collectLaunch(action: suspend (value: T) -> Unit): LaunchLifecycleCatcher {
+    return launchLifecycle {
+      collect { action.invoke(it) }
     }
   }
   

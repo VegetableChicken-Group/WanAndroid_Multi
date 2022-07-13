@@ -11,7 +11,6 @@ import org.gradle.kotlin.dsl.dependencies
  */
 @Suppress("MemberVisibilityCanBePrivate", "ObjectPropertyName", "SpellCheckingInspection")
 object WorkManger {
-  // WorkManger
   // https://developer.android.google.cn/kotlin/ktx?hl=zh_cn#workmanager
   const val `work-runtime-ktx` = "androidx.work:work-runtime-ktx:2.7.1"
 }

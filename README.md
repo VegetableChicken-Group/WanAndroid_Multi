@@ -48,3 +48,13 @@
 - GuoXR/feature/module_course2
 - GuoXR/bugfix/module_course2
 
+
+
+### pr练习
+该项目中以 `master` 作为主分支，主分支有以下规定：
+
+- 只能读，不能写，即只能 `pull`，不能 `push`	
+- 可用于本地 `merge` 操作
+- 主分支只能采用 `pr` 的方式来推进
+
+具体的操作教程可以看：[`pr` 教程](md/pr教程.md)

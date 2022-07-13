@@ -10,6 +10,7 @@
               <build path="$PROJECT_DIR$/build_logic" name="build_logic">
                 <projects>
                   <project path="$PROJECT_DIR$/build_logic" />
+                  <project path="$PROJECT_DIR$/build_logic/convention" />
                 </projects>
               </build>
             </builds>
@@ -22,6 +23,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/build_logic" />
+            <option value="$PROJECT_DIR$/build_logic/convention" />
             <option value="$PROJECT_DIR$/lib_account" />
             <option value="$PROJECT_DIR$/lib_account/api_account" />
             <option value="$PROJECT_DIR$/lib_common" />
