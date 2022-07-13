@@ -51,7 +51,7 @@ import kotlinx.coroutines.rx3.asFlow
  * }.onCompletion {             // 结束
  *     //...
  * }.mapOrCatchApiException {   // 出错
- *     toast("网络似乎开小差了")  // 请注意：这里只会抓取 ApiException，如果是没连接网络而抛出的 HttpException 是不会被抓取的
+ *     toast("数据出错了")        // 请注意：这里只会抓取 ApiException，如果是没连接网络而抛出的 HttpException 是不会被抓取的
  * }.collectLaunch {            // 收集
  *     _studentData.emit(it)
  * }
@@ -75,7 +75,7 @@ import kotlinx.coroutines.rx3.asFlow
  *
  * ## 网络请求怎么直接返回 Flow?
  *
- * 由于目前 Retrofit 官方没有直接给出 Flow 的 adapter，如果有必要使用 Flow的话，
+ * 由于目前 Retrofit 官方没有直接给出 Flow 的 adapter，如果有必要使用 Flow 的话，
  * 可以暂时使用 Observable 来转成 Flow
  *
  * **需要先引入依赖：dependCoroutinesRx3()**

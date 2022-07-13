@@ -11,6 +11,7 @@ import org.gradle.kotlin.dsl.dependencies
  */
 @Suppress("MemberVisibilityCanBePrivate", "ObjectPropertyName", "SpellCheckingInspection")
 object PhotoView {
+  // https://github.com/Baseflow/PhotoView
   const val photoView = "com.github.chrisbanes:PhotoView:2.3.0"
 }
 

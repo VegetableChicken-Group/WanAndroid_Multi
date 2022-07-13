@@ -1,6 +1,7 @@
 import com.ndhzs.build.logic.depend.api.dependApiMain
 import com.ndhzs.build.logic.depend.dependAndroidKtx
 import com.ndhzs.build.logic.depend.dependAndroidView
+import com.ndhzs.build.logic.depend.dependHilt
 import com.ndhzs.build.logic.depend.dependLifecycleKtx
 
 plugins {
@@ -14,6 +15,8 @@ dependLifecycleKtx()
 // 基本上能用到的全都有依赖方式
 
 dependApiMain()
+
+dependHilt()
 
 dependencies {
   // 这里面写只有自己模块才会用到的额外依赖

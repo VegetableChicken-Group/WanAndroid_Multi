@@ -49,7 +49,7 @@ abstract class Cache(private val project: Project) {
   private val excludeList = mutableListOf<String>()
   private val excludeFuncList = mutableListOf<(Project) -> Boolean>()
   
-  // 这里的地址要与 settings.gradle.kts 向对应
+  // 这里的地址要与 settings.gradle.kts 相对应
   internal val localMavenUri: URI = File(project.rootProject.buildDir, "maven").toURI()
   internal val localMavenGroup = "cache"
   internal val localMavenVersion = project.projectDir.size() // 暂时以文件大小作为版本号，考虑过 MD5，但可能耗时

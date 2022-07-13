@@ -12,7 +12,7 @@ import org.gradle.kotlin.dsl.dependencies
 @Suppress("MemberVisibilityCanBePrivate", "ObjectPropertyName", "SpellCheckingInspection")
 object Android {
   // 基础库
-  const val appcompat = "androidx.appcompat:appcompat:1.4.1"
+  const val appcompat = "androidx.appcompat:appcompat:1.4.2"
   
   // 官方控件库
   const val constraintlayout = "androidx.constraintlayout:constraintlayout:2.1.3"
@@ -25,7 +25,7 @@ object Android {
   
   // 官方扩展库
   // https://developer.android.google.cn/kotlin/ktx?hl=zh_cn#core
-  const val `core-ktx` = "androidx.core:core-ktx:1.7.0"
+  const val `core-ktx` = "androidx.core:core-ktx:1.8.0"
   // https://developer.android.google.cn/kotlin/ktx/extensions-list?hl=zh_cn#androidxcollection
   const val `collection-ktx` = "androidx.collection:collection-ktx:1.2.0"
   // https://developer.android.google.cn/kotlin/ktx/extensions-list?hl=zh_cn#androidxfragmentapp

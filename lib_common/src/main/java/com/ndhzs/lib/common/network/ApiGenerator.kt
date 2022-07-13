@@ -5,6 +5,7 @@ import com.ndhzs.lib.common.service.ServiceManager
 import com.ndhzs.lib.common.extensions.mapOrThrowApiException
 import com.ndhzs.lib.common.extensions.mapOrCatchApiException
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -103,6 +104,7 @@ object ApiGenerator {
     if (isNeedCookie) {
       cookieJar(mAccountService) // 给每条请求增加 cookie
     }
+    addInterceptor(HttpLoggingInterceptor())
     return build()
   }
 }
