@@ -1,4 +1,4 @@
-import com.ndhzs.build.logic.project.*
+import com.ndhzs.convention.project.*
 
 /**
  * 不同模块分配不同的插件
@@ -14,6 +14,6 @@ when {
 }
 
 plugins {
-  id("com.ndhzs.build.logic.publish.publications")
+  id("com.ndhzs.convention.publish.publications")
 }
 

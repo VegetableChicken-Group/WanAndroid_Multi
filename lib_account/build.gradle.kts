@@ -1,4 +1,4 @@
-import com.ndhzs.build.logic.depend.*
+import com.ndhzs.convention.depend.*
 
 plugins {
   id("module-manager")

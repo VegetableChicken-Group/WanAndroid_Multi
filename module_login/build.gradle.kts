@@ -1,14 +1,10 @@
-import com.ndhzs.build.logic.depend.api.dependApiAccount
-import com.ndhzs.build.logic.depend.*
+import com.ndhzs.convention.depend.api.dependApiAccount
+import com.ndhzs.convention.depend.*
 
 plugins {
   id("module-manager")
 //  id("module-debug")
 }
-
-dependAndroidView()
-dependAndroidKtx()
-dependLifecycleKtx()
 
 dependNetwork()
 dependRxjava()

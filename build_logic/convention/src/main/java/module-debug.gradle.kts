@@ -1,4 +1,4 @@
-import com.ndhzs.build.logic.project.ModuleDebugProject
+import com.ndhzs.convention.project.ModuleDebugProject
 
 // 允许执行单模块调试
 fun isAllowDebugModule(): Boolean {
@@ -19,7 +19,7 @@ isAllowDebugModule().run {
 fun doDebugModule() {
   ModuleDebugProject(project).apply()
   plugins {
-    id("com.ndhzs.build.logic.publish.publications")
+    id("com.ndhzs.convention.publish.publications")
   }
 }
 
