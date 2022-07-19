@@ -1,6 +1,5 @@
 package com.ndhzs.module.main.viewmodel
 
-import androidx.lifecycle.ViewModel
 import com.ndhzs.lib.common.ui.mvvm.BaseViewModel
 import com.ndhzs.module.main.repo.web.MainWebService
 
