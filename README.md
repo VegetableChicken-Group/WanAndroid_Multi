@@ -50,6 +50,41 @@
 
 
 
+### commit 提交规范
+
+```
+[type]title
+describtion
+```
+
+其中 `type` 有如下约定：
+
+- fix：修护 bug
+- feature：新增需求
+- optimize：优化代码
+- release：版本升级
+- style：代码格式修改，一般是添加注释
+- document：文档更新
+- ......
+
+如果觉得这些不能完整的表述你的的提交分类，可以使用 github 的表情包：[gitmoji | An emoji guide for your commit messages](https://gitmoji.dev/)，提交信息都很全，网页翻译一下
+
+使用时建议再下载这个插件：
+
+![image-20220719123913736](https://img-1307243988.cos.ap-chengdu.myqcloud.com/typora-after-22-7-19/image-20220719123913736.png)
+
+使用时在 commit 窗口点击一下就可以快速添加表情包到 commit 的头部
+
+![image-20220719124131226](https://img-1307243988.cos.ap-chengdu.myqcloud.com/typora-after-22-7-19/image-20220719124131226.png)
+
+##### 注意事项
+
+如果手写的话，这个 `:memo:` 后要空一格！
+
+缺点也很明显，就是 idea 的 Git 窗口并没有支持这个表情包的显示，**对于掌邮能否使用，还需要进一步讨论！**
+
+
+
 ### pr练习
 该项目中以 `master` 作为主分支，主分支有以下规定：
 
