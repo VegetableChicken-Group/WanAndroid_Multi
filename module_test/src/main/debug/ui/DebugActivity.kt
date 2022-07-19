@@ -1,7 +1,9 @@
 package ui
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import com.ndhzs.lib.common.ui.BaseActivity
+import kotlinx.coroutines.launch
 
 /**
  * ...

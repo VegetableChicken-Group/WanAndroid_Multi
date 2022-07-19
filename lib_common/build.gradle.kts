@@ -1,4 +1,4 @@
-import com.ndhzs.build.logic.depend.api.dependApiAccount
+import com.ndhzs.convention.depend.api.dependApiAccount
 
 plugins {
   id("module-manager")

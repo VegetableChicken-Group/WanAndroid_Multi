@@ -1,19 +1,12 @@
-import com.ndhzs.build.logic.depend.api.dependApiMain
-import com.ndhzs.build.logic.depend.dependAndroidKtx
-import com.ndhzs.build.logic.depend.dependAndroidView
-import com.ndhzs.build.logic.depend.dependHilt
-import com.ndhzs.build.logic.depend.dependLifecycleKtx
+import com.ndhzs.convention.depend.api.dependApiMain
+import com.ndhzs.convention.depend.dependHilt
 
 plugins {
   id("module-debug")
 }
 
-dependAndroidView()
-dependAndroidKtx()
-dependLifecycleKtx()
 // 还有其他比如协程、Retrofit、Glide 等，可以去 build_logic 中寻找
 // 基本上能用到的全都有依赖方式
-
 dependApiMain()
 
 dependHilt()

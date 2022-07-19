@@ -1,12 +1,7 @@
-import com.ndhzs.build.logic.depend.api.dependApiTest
-import com.ndhzs.build.logic.depend.dependAndroidKtx
-import com.ndhzs.build.logic.depend.dependAndroidView
+import com.ndhzs.convention.depend.api.dependApiTest
 
 plugins {
   id("module-manager")
 }
-
-dependAndroidView()
-dependAndroidKtx()
 
 dependApiTest()
