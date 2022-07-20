@@ -69,11 +69,11 @@ describtion
 
 如果觉得这些不能完整的表述你的的提交分类，可以使用 github 的表情包：[gitmoji | An emoji guide for your commit messages](https://gitmoji.dev/)，提交信息都很全，网页翻译一下
 
-使用时建议再下载这个插件：
+使用时再建议下载这个插件：
 
 ![image-20220719123913736](https://img-1307243988.cos.ap-chengdu.myqcloud.com/typora-after-22-7-19/image-20220719123913736.png)
 
-使用时在 commit 窗口点击一下就可以快速添加表情包到 commit 的头部
+在 commit 窗口点击一下就可以快速添加表情包到 commit 的头部
 
 ![image-20220719124131226](https://img-1307243988.cos.ap-chengdu.myqcloud.com/typora-after-22-7-19/image-20220719124131226.png)
 
@@ -81,7 +81,7 @@ describtion
 
 如果手写的话，这个 `:memo:` 后要空一格！
 
-缺点也很明显，就是 idea 的 Git 窗口并没有支持这个表情包的显示，**对于掌邮能否使用，还需要进一步讨论！**
+缺点也很明显，就是 idea 的 Git 窗口并没有支持这个表情包的显示，**对于掌邮已经允许使用**
 
 
 
