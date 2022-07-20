@@ -12,18 +12,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import com.ndhzs.lib.common.extensions.LaunchLifecycleCatcher
+import androidx.lifecycle.LifecycleOwner
 import com.ndhzs.lib.common.extensions.RxjavaLifecycle
-import com.ndhzs.lib.common.extensions.launchLifecycle
-import com.ndhzs.lib.common.extensions.launchLifecycleCaught
-import com.ndhzs.lib.common.utils.BindView
 import io.reactivex.rxjava3.disposables.Disposable
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 /**
  *@author 985892345
@@ -45,7 +36,7 @@ abstract class BaseActivity(
    * 不同布局该属性效果不同，请给合适的布局添加
    */
   private val isCancelStatusBar: Boolean = true
-) : AppCompatActivity(), RxjavaLifecycle {
+) : AppCompatActivity(), BaseUi, RxjavaLifecycle {
   
   @CallSuper
   @SuppressLint("SourceLockedOrientationActivity")
@@ -84,27 +75,6 @@ abstract class BaseActivity(
   }
   
   /**
-   * 在简单界面，使用这种方式来得到 View，避免使用 ViewBinding 大材小用
-   * ```
-   * 使用方法：
-   *    val mTvNum: TextView by R.id.xxx.view()
-   *        .addInitialize {
-   *           // 进行初始化的设置
-   *        }
-   *
-   * 代替 findViewById 的方法有：
-   *    kt 插件(被废弃)、属性代理、ButterKnife(被废弃)、DataBinding、ViewBinding
-   *
-   * 如果使用 DataBinding 和 ViewBinding 会因为 id 太长而劝退
-   * ViewBinding 是给所有布局都默认开启的，大项目会严重拖垮编译速度
-   * ```
-   */
-  protected fun <T : View> Int.view() = BindView<T>(
-    this,
-    BindView.GetActivity { this@BaseActivity }
-  )
-  
-  /**
    * 替换 Fragment 的正确用法。
    * 如果不按照正确方式使用，会造成 ViewModel 失效，
    * 你可以写个 demo 看看在屏幕翻转后 Fragment 的 ViewModel 的 hashcode() 值是不是同一个
@@ -120,19 +90,6 @@ abstract class BaseActivity(
     return fragment
   }
   
-  protected fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
-    observe(this@BaseActivity, observer)
-  }
-  
-  /**
-   * 结合生命周期收集 Flow 方法
-   */
-  protected fun <T> Flow<T>.collectLaunch(action: suspend (value: T) -> Unit): LaunchLifecycleCatcher {
-    return launchLifecycle {
-      collect { action.invoke(it) }
-    }
-  }
-  
   private val mDisposableList = mutableListOf<Disposable>()
   
   /**
@@ -141,4 +98,9 @@ abstract class BaseActivity(
   override fun onAddRxjava(disposable: Disposable) {
     mDisposableList.add(disposable)
   }
+  
+  override val rootView: View
+    get() = window.decorView
+  
+  override fun getViewLifecycleOwner(): LifecycleOwner = this
 }

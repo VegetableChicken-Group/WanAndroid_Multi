@@ -1,22 +1,37 @@
 package com.ndhzs.lib.common.extensions
 
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
 /**
  * 用于代替 lifecycleScope.launch 的更好的方法
  *
  * 有以下作用：
- * - 使用 repeatOnLifecycle() 配合生命周期，在不需要时自动挂起协程（比如进入后台不可见时主动挂起协程）
- * - 返回 [LaunchLifecycleCatcher]，如果你想捕获异常，可以直接调用 .catch()，并且在你不捕获异常时会将异常往上抛出
+ * - 返回 [LaunchCatcher]，如果你想捕获异常，可以直接调用 .catch()，并且在你不捕获异常时会将异常往上抛出
+ *
+ * ## 背景：
+ * 如果你想抓取 launch 的异常，只能像下面这样写
+ * ```
+ * lifecycleScope.launch(
+ *   CoroutineExceptionHandler { context, exception ->
+ *     exception.printStackTrace()
+ *   }
+ * ) {
+ *   // ......
+ * }
+ * ```
+ * 很明显就能看出这样写很不优雅，如果是想 rxjava 一样优雅就好了
+ *
+ * 那该怎么实现呢？
+ *
+ * 思路很简单，就是让函数返回一个对象，借助 launch 会不是立马处理的特性，我们可以在返回的对象中设置异常的捕获
  *
  * ## 有三种情况：
  * ### 一、链式调用并处理异常
  * ```
- * launchLifecycle {
+ * launchCatch {
  *   // 网络请求
  * }.catch {
  *   // 处理错误
@@ -28,7 +43,7 @@ import kotlinx.coroutines.launch
  *
  * ### 二、直接调用不捕获异常
  * ```
- * launchLifecycle {
+ * launchCatch {
  *   // 网络请求
  * }
  * ```
@@ -38,7 +53,7 @@ import kotlinx.coroutines.launch
  *
  * ### 三、调用与异常捕获分开
  * ```
- * val catcher = launchLifecycle {
+ * val catcher = launchCatch {
  *   // 网络请求
  * }
  * ... // 中间间隔一些代码
@@ -53,46 +68,27 @@ import kotlinx.coroutines.launch
  *
  * ```
  */
-fun LifecycleOwner.launchLifecycle(action: suspend () -> Unit): LaunchLifecycleCatcher {
+fun LifecycleOwner.launchCatch(action: suspend () -> Unit): LaunchCatcher {
   // 这里使用匿名子类来实现调用 protected 方法
-  val catcher = object : LaunchLifecycleCatcher() {
+  val catcher = object : LaunchCatcher() {
     fun tryEmitInternal(e: Exception) = tryEmit(e)
     fun finishInternal() = finish()
   }
   lifecycleScope.launch {
-    repeatOnLifecycle(Lifecycle.State.STARTED) {
-      try {
-        action.invoke()
-      } catch (e: Exception) {
-        catcher.tryEmitInternal(e)
-      }
-      catcher.finishInternal()
+    try {
+      action.invoke()
+    } catch (e: Exception) {
+      catcher.tryEmitInternal(e)
     }
+    catcher.finishInternal()
   }
   return catcher
 }
 
 /**
- * 用于代替 lifecycleScope.launch 的更好的方法
- *
- * 注：该方法 [launchLifecycle] 类似，但已默认捕捉异常，并且不做任何处理
+ * [launchCatch] 异常的捕获者
  */
-fun LifecycleOwner.launchLifecycleCaught(action: suspend () -> Unit) {
-  lifecycleScope.launch {
-    repeatOnLifecycle(Lifecycle.State.STARTED) {
-      try {
-        action.invoke()
-      } catch (e: Exception) {
-        e.printStackTrace()
-      }
-    }
-  }
-}
-
-/**
- * [launchLifecycle] 异常的捕获者
- */
-open class LaunchLifecycleCatcher {
+open class LaunchCatcher {
   
   private var mCatchAction: ((Exception) -> Unit)? = null
   private var mIsFinish = false
