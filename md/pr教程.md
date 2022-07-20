@@ -43,3 +43,7 @@
       >   >  注意：与 `Squash and merge` 一样，合并后需要删除源分支，不然下次合并很容易出问题（才写完这个 `pr` 流程去 `pr` 合并进 `master` 就出问题了 :( ）
   >
   > 总结一下：无脑选择 `Create a merge commit` 即可
+
+
+
+由于 `framework` 分支与 `master` 分支相差甚远，所以只能我自己手动合并进 `master` 再上传 github，所以没有使用 pr，有点违反约定，但为了继续维护 `framework` 分支，所以这是没办法的办法（
