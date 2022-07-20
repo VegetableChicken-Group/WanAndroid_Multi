@@ -71,7 +71,7 @@ class LoginActivity : BaseVmBindActivity<LoginViewModel, ActivityLoginBinding>()
       binding.loginEtPassword.setText(it)
     }
     
-    viewModel.loginEvent.collectLaunch {
+    viewModel.loginEvent.collectSuspend {
       when (it) {
         is LoginViewModel.LoginEvent.ApiFail -> {
           toast(it.error.errorMsg)
