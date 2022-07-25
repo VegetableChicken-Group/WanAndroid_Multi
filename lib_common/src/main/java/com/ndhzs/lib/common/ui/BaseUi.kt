@@ -54,6 +54,12 @@ interface BaseUi {
     observe(getViewLifecycleOwner(), observer)
   }
   
+  fun <T> Flow<T>.collectLaunch(action: suspend (value: T) -> Unit) {
+    getViewLifecycleOwner().launch {
+      collect { action.invoke(it) }
+    }
+  }
+  
   /**
    * 结合生命周期收集 Flow 方法，在进入后台的时候会自动挂起
    *
