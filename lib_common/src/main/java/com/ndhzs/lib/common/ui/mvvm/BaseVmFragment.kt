@@ -1,11 +1,15 @@
 package com.ndhzs.lib.common.ui.mvvm
 
+import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ndhzs.lib.common.ui.BaseFragment
 import com.ndhzs.lib.common.utils.GenericityUtils.getGenericClassFromSuperClass
 
-abstract class BaseVmFragment<VM : ViewModel> : BaseFragment() {
+abstract class BaseVmFragment<VM : ViewModel> : BaseFragment {
+  
+  constructor() : super()
+  constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
   
   @Suppress("UNCHECKED_CAST")
   protected val viewModel by lazy(LazyThreadSafetyMode.NONE) {
