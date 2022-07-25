@@ -1,6 +1,5 @@
 package com.ndhzs.convention.project
 
-import com.ndhzs.convention.depend.lib.dependLibCommon
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 import com.ndhzs.convention.project.base.BaseApplicationProject
@@ -15,7 +14,6 @@ import org.gradle.api.Project
 class AppProject(project: Project) : BaseApplicationProject(project) {
   override fun initProject() {
     dependAllProject()
-    dependLibCommon()
   }
   
   /**

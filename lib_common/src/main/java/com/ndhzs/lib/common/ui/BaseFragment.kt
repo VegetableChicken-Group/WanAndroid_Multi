@@ -3,6 +3,7 @@ package com.ndhzs.lib.common.ui
 import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
@@ -10,7 +11,10 @@ import com.ndhzs.lib.common.extensions.RxjavaLifecycle
 import io.reactivex.rxjava3.disposables.Disposable
 
 @Suppress("UNCHECKED_CAST")
-abstract class BaseFragment : Fragment(), BaseUi, RxjavaLifecycle {
+abstract class BaseFragment : Fragment, BaseUi, RxjavaLifecycle {
+  
+  constructor() : super()
+  constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
   
   @CallSuper
   override fun onDestroyView() {

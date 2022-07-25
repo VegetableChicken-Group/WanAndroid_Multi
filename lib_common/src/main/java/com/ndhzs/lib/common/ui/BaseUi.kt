@@ -5,8 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.whenStarted
-import com.ndhzs.lib.common.extensions.LaunchCatcher
-import com.ndhzs.lib.common.extensions.launchCatch
+import com.ndhzs.lib.common.extensions.launch
 import com.ndhzs.lib.common.utils.BindView
 import kotlinx.coroutines.flow.Flow
 
@@ -59,9 +58,11 @@ interface BaseUi {
    * 结合生命周期收集 Flow 方法，在进入后台的时候会自动挂起
    *
    * 该方法会在界面进入后台后自动挂起下游，即下游不处理数据，但上游仍会发送数据
+   *
+   * [launchWhenStarted() 内部使用的 whenStarted()，点击跳转去掘金学习](https://juejin.cn/post/6992746840605065229)
    */
-  fun <T> Flow<T>.collectSuspend(action: suspend (value: T) -> Unit): LaunchCatcher {
-    return getViewLifecycleOwner().launchCatch {
+  fun <T> Flow<T>.collectSuspend(action: suspend (value: T) -> Unit) {
+    getViewLifecycleOwner().launch {
       getViewLifecycleOwner().whenStarted {
         collect { action.invoke(it) }
       }
@@ -78,8 +79,8 @@ interface BaseUi {
    * **注意:** 该方法请在合适的需求下使用，因为会有数据倒灌（粘性事件）的问题，即每次进入前台都会重新发送数据
    * （适用于一直观察的情况，比如我一直观察学号是否改变、观察位置是否变化等，这些并不是只收集一次数据，而是会一直收集数据）
    */
-  fun <T> Flow<T>.collectRestart(action: suspend (value: T) -> Unit): LaunchCatcher {
-    return getViewLifecycleOwner().launchCatch {
+  fun <T> Flow<T>.collectRestart(action: suspend (value: T) -> Unit) {
+    getViewLifecycleOwner().launch {
       flowWithLifecycle(getViewLifecycleOwner().lifecycle).collect { action.invoke(it) }
     }
   }
