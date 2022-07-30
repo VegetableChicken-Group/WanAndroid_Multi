@@ -6,9 +6,11 @@ import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.kotlin.dsl.apply
 import com.ndhzs.convention.project.base.base.BaseAndroidProject
 import com.ndhzs.convention.config.Config
+import com.ndhzs.convention.depend.debugDependCodeLocator
+import com.ndhzs.convention.depend.debugDependLeakCanary
+import com.ndhzs.convention.depend.debugDependPandora
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
 /**
  * ...
@@ -21,6 +23,9 @@ abstract class BaseApplicationProject(project: Project) : BaseAndroidProject(pro
   override fun initProjectInternal() {
     initApplication()
     super.initProjectInternal()
+    debugDependLeakCanary() // 依赖 LeakCancry，检查内存泄漏
+    debugDependPandora() // 依赖 Pandora，一个界面检查工具 https://github.com/whataa/pandora
+    debugDependCodeLocator() // 字节在用的极其强大的调试工具：https://github.com/bytedance/CodeLocator
   }
   
   protected open fun initApplication() {

@@ -22,6 +22,8 @@ buildscript {
   dependencies {
     classpath(libs.android.gradlePlugin)
     classpath(libs.kotlin.gradlePlugin)
-    classpath(libs.hilt.gradlePlugin)
+    /*
+     * 注意，如果某第三方库需要使用到 classpath，正确写法是把它写在 build-logic 的 build.gradle 中
+     * */
   }
 }

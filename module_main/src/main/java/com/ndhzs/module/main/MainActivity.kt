@@ -17,8 +17,6 @@ class MainActivity : BaseActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main_activity_main)
     
-    com.ndhzs.lib.common.R.dimen.test
-    
     mBtnOpenTestActivity.setOnClickListener {
       toast("启动 TestActivity")
       ServiceManager(ITestService::class)

@@ -14,6 +14,6 @@ when {
 }
 
 plugins {
-  id("com.ndhzs.convention.publish.publications")
+//  id("com.ndhzs.convention.publish.publications")
 }
 
