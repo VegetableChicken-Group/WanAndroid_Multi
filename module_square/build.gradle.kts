@@ -20,7 +20,7 @@ dependCoroutines()
 // 主流模块都已经设置了方法来依赖，输入: dependXXX() 查看更多依赖
 
 dependencies {
-    implementation("androidx.constraintlayout:constraintlayout:2.0.4")
-    implementation("androidx.recyclerview:recyclerview:1.2.0-alpha01")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.3")
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
     // 这里面写只有自己模块才会用到的依赖
 }
