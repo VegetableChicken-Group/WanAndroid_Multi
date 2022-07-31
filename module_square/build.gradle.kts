@@ -6,6 +6,13 @@ plugins {
     id("module-debug")
 }
 
+android {
+    buildFeatures {
+        viewBinding = true
+        dataBinding = true
+    }
+}
+
 // 如果该模块要使用网络请求，就调用该方法
 dependNetwork()
 // 如果该模块要使用协程
