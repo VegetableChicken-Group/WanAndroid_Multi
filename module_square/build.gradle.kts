@@ -14,5 +14,6 @@ dependCoroutines()
 
 dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.0.4")
+    implementation("androidx.recyclerview:recyclerview:1.2.0-alpha01")
     // 这里面写只有自己模块才会用到的依赖
 }
