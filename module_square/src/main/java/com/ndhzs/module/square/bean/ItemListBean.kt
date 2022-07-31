@@ -16,39 +16,39 @@ class ItemListBean {
 
     class ItemBean{
 
-//        "apkLink": "",
-//        "audit": 1,
-//        "author": "",
-//        "canEdit": false,
-//        "chapterId": 494,
-        private var chapterName = "广场" //use
-        private var collect = false //use
-//        "courseId": 13,
-//        "desc": "",
-//        "descMd": "",
-//        "envelopePic": "",
-        private var fresh = true //use
-//        "host": "",
-//        "id": 22878,
-        private var link = "https://juejin.cn/post/7103706223555379237" //use
-        private var niceDate = "8小时前" //use
-//        "niceShareDate": "8小时前",
-//        "origin": "",
-//        "prefix": "",
-//        "projectLink": "",
-//        "publishTime": 1654043816000,
-//        "realSuperChapterId": 493,
-//        "selfVisible": 0,
-//        "shareDate": 1654043816000,
-        private var shareUser = "goweii" //use
-//        "superChapterId": 494,
-        private var superChapterName = "广场Tab" //use
-//        "tags": [],
-        private var title = "并发编程-阻塞队列和线程池原理" //use
-//        "type": 0,
-//        "userId": 20382,
-//        "visible": 0,
-//        "zan": 0
+        var apkLink = ""
+        var audit = 1
+        var author = ""
+        var canEdit = false
+        var chapterId = 494
+        var chapterName = "广场" //use
+        var collect = false //use
+        var courseId = 13
+        var desc = ""
+        var descMd = ""
+        var envelopePic = ""
+        var fresh = true //use
+        var host = ""
+        var id = 22878
+        var link = "https://juejin.cn/post/7103706223555379237" //use
+        var niceDate = "8小时前" //use
+        var niceShareDate = "8小时前"
+        var origin = ""
+        var prefix = ""
+        var projectLink = ""
+        var publishTime = 1654043816000
+        var realSuperChapterId = 493
+        var selfVisible = 0
+        var shareDate = 1654043816000
+        var shareUser = "goweii" //use
+        var superChapterId = 494
+        var superChapterName = "广场Tab" //use
+        //var tags = []
+        var title = "并发编程-阻塞队列和线程池原理" //use
+        var type = 0
+        var userId = 20382
+        var visible = 0
+        var zan = 0
 
     }
 }
