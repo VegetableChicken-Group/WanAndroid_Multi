@@ -5,6 +5,7 @@ import com.ndhzs.lib.common.network.ApiGenerator
 import com.ndhzs.lib.common.network.ApiWrapper
 import com.ndhzs.module.square.bean.ItemListBean
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 /**
  * @ClassName SquareApiService
@@ -19,6 +20,6 @@ interface SquareApiService {
         }
     }
 
-    @GET("https://wanandroid.com/user_article/list/0/json")
-    fun getSquareItemList(): Observable<ApiWrapper<ItemListBean>> // 统一使用 ApiWrapper 包装
+    @GET("https://wanandroid.com/user_article/list/{page}/json")
+    fun getSquareItemList(@Path("page") page : Int): Observable<ApiWrapper<ItemListBean>> // 统一使用ApiWrapper包装
 }
