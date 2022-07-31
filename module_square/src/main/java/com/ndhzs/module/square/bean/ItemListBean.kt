@@ -1,5 +1,8 @@
 package com.ndhzs.module.square.bean
 
+import java.util.*
+import kotlin.collections.ArrayList
+
 /**
  * @ClassName ItemBean
  * @author Silence~
@@ -7,15 +10,21 @@ package com.ndhzs.module.square.bean
  * @Description 储存广场界面中每一个item的数据
  */
 class ItemListBean {
-    private lateinit var itemList: List<ArrayList<ItemBean>>
-    private var curPage = 0
+    var data = Data()
+    var errorCode = 0
+    var errorMsg = ""
 
-    fun getTranslateResult() : List<ArrayList<ItemBean>>{
-        return itemList
+    class Data {
+        var datas = ArrayList<ArrayList<Item>>()
+        var curPage = 0
+        var offset = 0
+        var over = false
+        var pageCount = 202
+        var size = 20
+        var total = 4027
     }
 
-    class ItemBean{
-
+    class Item{
         var apkLink = ""
         var audit = 1
         var author = ""
@@ -43,12 +52,11 @@ class ItemListBean {
         var shareUser = "goweii" //use
         var superChapterId = 494
         var superChapterName = "广场Tab" //use
-        //var tags = []
+        var tags = ArrayList<Objects>()
         var title = "并发编程-阻塞队列和线程池原理" //use
         var type = 0
         var userId = 20382
         var visible = 0
         var zan = 0
-
     }
 }
