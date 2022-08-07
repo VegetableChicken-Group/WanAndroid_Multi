@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":module_home")
-
-
 
 
 pluginManagement {
