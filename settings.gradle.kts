@@ -19,7 +19,7 @@ pluginManagement {
 dependencyResolutionManagement {
   repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
   repositories {
-    maven { url = uri("$rootDir/build/maven") }
+    maven { url = uri("$rootDir/build/maven") } // 本地模块缓存文件夹
     maven { url = uri("https://maven.aliyun.com/repository/public") }
     maven { url = uri("https://maven.aliyun.com/repository/google") }
     maven { url = uri("https://jitpack.io") }

@@ -3,15 +3,18 @@ package com.ndhzs.module.test.page
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.core.content.edit
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ndhzs.api.test.ITestService
 import com.ndhzs.lib.common.config.TEST_ENTRY
-import com.ndhzs.lib.common.extensions.SP_TEST_DEMO
-import com.ndhzs.lib.common.extensions.defaultSp
-import com.ndhzs.lib.common.extensions.lazyUnlock
+import com.ndhzs.lib.common.extensions.*
 import com.ndhzs.lib.common.ui.BaseActivity
 import com.ndhzs.module.test.R
+import kotlinx.coroutines.launch
 
 @Route(path = TEST_ENTRY)
 class TestActivity : BaseActivity() {
@@ -38,5 +41,19 @@ class TestActivity : BaseActivity() {
     defaultSp.edit {
       putString(SP_TEST_DEMO, mData.stuNum)
     }
+    
+    launchCatch {
+      throw RuntimeException()
+    }.catch {
+//      Log.d("ggg", "(TestActivity.kt:46) -> 抓取成功")
+    }
+    
+    lifecycleScope.launch {
+      repeatOnLifecycle(Lifecycle.State.STARTED) {
+      
+      }
+      Log.d("ggg", "(TestActivity.kt:48) -> launch 中")
+    }
+    Log.d("ggg", "(TestActivity.kt:50) -> launch 后")
   }
 }

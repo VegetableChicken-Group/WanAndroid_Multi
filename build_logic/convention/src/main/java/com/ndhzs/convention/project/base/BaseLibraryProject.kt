@@ -8,7 +8,6 @@ import com.ndhzs.convention.project.base.base.BaseAndroidProject
 import com.ndhzs.convention.config.Config
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 
 /**
  * ...
@@ -39,6 +38,7 @@ abstract class BaseLibraryProject(project: Project) : BaseAndroidProject(project
       uniformConfigAndroid()
       defaultConfig {
         targetSdk = Config.targetSdk
+        consumerProguardFiles.add(projectDir.resolve("consumer-rules.pro"))
       }
     }
   }

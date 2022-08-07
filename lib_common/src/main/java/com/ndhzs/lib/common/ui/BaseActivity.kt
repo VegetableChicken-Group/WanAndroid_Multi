@@ -8,10 +8,10 @@ import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.ndhzs.lib.common.extensions.RxjavaLifecycle
 import io.reactivex.rxjava3.disposables.Disposable
@@ -38,11 +38,17 @@ abstract class BaseActivity(
   private val isCancelStatusBar: Boolean = true
 ) : AppCompatActivity(), BaseUi, RxjavaLifecycle {
   
+  /**
+   * 是否处于转屏或异常重建后的 Activity 状态
+   */
+  protected var mIsActivityRebuilt = false
+    private set
+  
   @CallSuper
   @SuppressLint("SourceLockedOrientationActivity")
   override fun onCreate(savedInstanceState: Bundle?) {
+    mIsActivityRebuilt = savedInstanceState != null
     super.onCreate(savedInstanceState)
-    
     if (isPortraitScreen) { // 锁定竖屏
       requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
@@ -69,8 +75,8 @@ abstract class BaseActivity(
     // 可以给根布局加上 android:fitsSystemWindows=true
     // 不同布局该属性效果不同，请给合适的布局添加
     WindowCompat.setDecorFitsSystemWindows(window, false)
-    val windowInsetsController = ViewCompat.getWindowInsetsController(decorView)
-    windowInsetsController?.isAppearanceLightStatusBars = true // 设置状态栏字体颜色为黑色
+    val windowInsetsController = WindowCompat.getInsetsController(window, decorView)
+    windowInsetsController.isAppearanceLightStatusBars = true // 设置状态栏字体颜色为黑色
     window.statusBarColor = Color.TRANSPARENT //把状态栏颜色设置成透明
   }
   
@@ -78,16 +84,32 @@ abstract class BaseActivity(
    * 替换 Fragment 的正确用法。
    * 如果不按照正确方式使用，会造成 ViewModel 失效，
    * 你可以写个 demo 看看在屏幕翻转后 Fragment 的 ViewModel 的 hashcode() 值是不是同一个
+   *
+   * 其实不是很建议你在 Activity 中拿到这个 Fragment 对象，Fragment 一般是不能直接暴露方法让外面调用的
    */
-  protected inline fun <reified F : Fragment> replaceFragment(@IdRes id: Int, func: () -> F): F {
-    var fragment = supportFragmentManager.findFragmentById(id)
-    if (fragment !is F) {
-      fragment = func.invoke()
-      supportFragmentManager.commit {
-        replace(id, fragment)
+  protected fun <F : Fragment> replaceFragment(
+    @IdRes id: Int,
+    func: FragmentTransaction.() -> F
+  ) {
+    if (lifecycle.currentState == Lifecycle.State.CREATED) {
+      // 处于 onCreate 时
+      if (mIsActivityRebuilt) {
+        // 如果此时 Activity 处于重建状态，Fragment 会自动恢复，不能重复提交而改变之前的状态
+        // 因为存在重建前你在 onCreate 中提交的 Fragment 在后面因为点击事件而被替换掉，
+        // 如果你在这里进行提交，就会导致本来被取消了的 界面 重新出现
+      } else {
+        // Activity 正常被创建，即没有被异常摧毁
+        supportFragmentManager.beginTransaction()
+          .apply { replace(id, func.invoke(this)) }
+          .commit()
       }
+    } else {
+      // 除了 onCreate 外的其他生命周期，直接提交即可，一般也遇不到在 onStart 等生命周期中提交 Fragment
+      // 如果你要判断是否重复提交同类型的 Fragment，这是不好判断的，因为 reified 关键字如果匹配到 超类 Fragment 就会导致判断错误
+      supportFragmentManager.beginTransaction()
+        .apply { replace(id, func.invoke(this)) }
+        .commit()
     }
-    return fragment
   }
   
   private val mDisposableList = mutableListOf<Disposable>()
@@ -95,12 +117,12 @@ abstract class BaseActivity(
   /**
    * 实现 [RxjavaLifecycle] 的方法，用于带有生命周期的调用
    */
-  override fun onAddRxjava(disposable: Disposable) {
+  final override fun onAddRxjava(disposable: Disposable) {
     mDisposableList.add(disposable)
   }
   
-  override val rootView: View
+  final override val rootView: View
     get() = window.decorView
   
-  override fun getViewLifecycleOwner(): LifecycleOwner = this
+  final override fun getViewLifecycleOwner(): LifecycleOwner = this
 }

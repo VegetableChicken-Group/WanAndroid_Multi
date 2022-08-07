@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface BaseUi {
   /**
-   * 跟布局
+   * 根布局
    */
   val rootView: View
   
