@@ -1,4 +1,4 @@
-package com.ndhzs.lib.common.utils
+package com.ndhzs.lib.common.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

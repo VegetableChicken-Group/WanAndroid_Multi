@@ -38,7 +38,7 @@ class AppProject(project: Project) : BaseApplicationProject(project) {
         // 5.根 gradle 导入了的模块
         it.isDirectory
           && it.name != "module_app"
-          && "(lib_.+)|(module_.+)".toRegex().matches(it.name)
+          && "(lib_.+)|(module_.+)|(api_.+)".toRegex().matches(it.name)
           && it.name !in excludeList
           && includeProjects.contains(it.name)
       }.forEach {

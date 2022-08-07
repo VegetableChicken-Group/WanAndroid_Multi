@@ -49,4 +49,12 @@ abstract class BaseBindActivity<VB : ViewBinding>(
   override fun setContentView(layoutResID: Int) {
     super.setContentView(layoutResID)
   }
+  
+  @Deprecated(
+    "打个标记，因为使用了 ViewBinding，防止你忘记删除这个",
+    level = DeprecationLevel.ERROR, replaceWith = ReplaceWith("")
+  )
+  override fun setContentView(view: View) {
+    super.setContentView(view)
+  }
 }

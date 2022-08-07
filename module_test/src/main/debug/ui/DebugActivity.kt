@@ -1,9 +1,9 @@
 package ui
 
 import android.os.Bundle
-import androidx.lifecycle.lifecycleScope
+import com.ndhzs.api.test.ITestService
 import com.ndhzs.lib.common.ui.BaseActivity
-import kotlinx.coroutines.launch
+import com.ndhzs.module.test.page.TestActivity
 
 /**
  * ...
@@ -14,12 +14,12 @@ import kotlinx.coroutines.launch
 class DebugActivity : BaseActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-//    TestActivity.start(
-//      this,
-//      ITestService.Data(
-//        "123", "12345"
-//      )
-//    )
-//    finish()
+    TestActivity.start(
+      this,
+      ITestService.Data(
+        "123", "12345"
+      )
+    )
+    finish()
   }
 }

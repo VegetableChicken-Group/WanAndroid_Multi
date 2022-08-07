@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.Flow
  */
 interface BaseUi {
   /**
-   * 跟布局
+   * 根布局
    */
   val rootView: View
   
@@ -52,6 +52,12 @@ interface BaseUi {
    */
   fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
     observe(getViewLifecycleOwner(), observer)
+  }
+  
+  fun <T> Flow<T>.collectLaunch(action: suspend (value: T) -> Unit) {
+    getViewLifecycleOwner().launch {
+      collect { action.invoke(it) }
+    }
   }
   
   /**

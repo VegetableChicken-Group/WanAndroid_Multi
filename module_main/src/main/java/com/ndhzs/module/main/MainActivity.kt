@@ -8,7 +8,7 @@ import com.ndhzs.lib.common.extensions.toast
 import com.ndhzs.lib.common.service.ServiceManager
 import com.ndhzs.lib.common.ui.BaseActivity
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(isPortraitScreen = false) {
   
   private val mBtnOpenTestActivity: Button by R.id.main_btn_open_test_activity.view()
   private val mBtnShowFragment: Button by R.id.main_btn_show_test_show_fragment.view()
@@ -32,7 +32,7 @@ class MainActivity : BaseActivity() {
     ServiceManager(ITestService::class).liveData.observe {
       // ......
     }
-
+  
     mBtnShowFragment.setOnClickListener {
       replaceFragment(R.id.main_fcv_show) {
         toast("启动 TestShowFragment")
