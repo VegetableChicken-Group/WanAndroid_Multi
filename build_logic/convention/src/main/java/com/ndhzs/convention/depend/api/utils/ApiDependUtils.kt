@@ -64,7 +64,7 @@ class ApiDependUtils(val apiProjectPath: String) {
         dependencies {
           getImplPaths().forEach {
             if (it.isNotBlank() && filter.invoke(it)) {
-              "implementation"(project(it))
+              "runtimeOnly"(project(it)) // 使用 runtimeOnly 保证编译时不依赖
               dependList.add(it)
             }
           }

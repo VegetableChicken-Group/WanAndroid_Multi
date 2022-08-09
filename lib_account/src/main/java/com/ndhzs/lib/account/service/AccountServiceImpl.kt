@@ -5,24 +5,21 @@ import androidx.core.content.edit
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.franmontiel.persistentcookiejar.PersistentCookieJar
-import com.franmontiel.persistentcookiejar.cache.SetCookieCache
-import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.Gson
+import com.ndhzs.api.account.ACCOUNT_SERVICE
 import com.ndhzs.api.account.IAccountService
+import com.ndhzs.api.account.ICookieService
 import com.ndhzs.lib.account.network.LoginApiService
-import com.ndhzs.lib.common.config.ACCOUNT_SERVICE
-import com.ndhzs.lib.common.extensions.getSp
-import com.ndhzs.lib.common.extensions.lazyUnlock
-import com.ndhzs.lib.common.extensions.mapOrThrowApiException
-import com.ndhzs.lib.common.extensions.throwApiExceptionIfFail
-import com.ndhzs.lib.common.network.ApiGenerator
-import com.ndhzs.lib.common.network.getBaseUrl
+import com.ndhzs.lib.utils.extensions.getSp
+import com.ndhzs.lib.utils.extensions.lazyUnlock
+import com.ndhzs.lib.utils.extensions.mapOrThrowApiException
+import com.ndhzs.lib.utils.extensions.throwApiExceptionIfFail
+import com.ndhzs.lib.utils.network.ApiGenerator
+import com.ndhzs.lib.utils.network.getBaseUrl
+import com.ndhzs.lib.utils.service.impl
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import okhttp3.Cookie
-import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.OkHttpClient
 
@@ -36,18 +33,14 @@ import okhttp3.OkHttpClient
 class AccountServiceImpl : IAccountService {
   
   private lateinit var mContext: Context
-  
-  private val mCookieJar by lazyUnlock {
-    PersistentCookieJar(
-      SetCookieCache(), SharedPrefsCookiePersistor(mContext)
-    )
-  }
+
+  private val mCookieService = ICookieService::class.impl
   
   private val mApiService by lazyUnlock {
     ApiGenerator.getApiService(LoginApiService::class, false) {
       client(
         OkHttpClient().newBuilder()
-          .cookieJar(this@AccountServiceImpl)
+          .cookieJar(mCookieService)
           .build()
       )
     }
@@ -60,7 +53,7 @@ class AccountServiceImpl : IAccountService {
   }
   
   override fun isLogin(): Boolean {
-    return loadForRequest(getBaseUrl().toHttpUrl()).isNotEmpty()
+    return mCookieService.loadForRequest(getBaseUrl().toHttpUrl()).isNotEmpty()
   }
   
   override fun login(
@@ -79,7 +72,7 @@ class AccountServiceImpl : IAccountService {
     return mApiService.logout()
       .throwApiExceptionIfFail()
       .doOnSuccess {
-        mCookieJar.clear()
+        mCookieService.clearCookie()
         mUserInfoLiveData.postValue(null)
       }.flatMapCompletable {
         Completable.complete()
@@ -116,13 +109,5 @@ class AccountServiceImpl : IAccountService {
         putString(spKey, gson.toJson(it))
       }
     }
-  }
-  
-  override fun loadForRequest(url: HttpUrl): List<Cookie> {
-    return mCookieJar.loadForRequest(url)
-  }
-  
-  override fun saveFromResponse(url: HttpUrl, cookies: List<Cookie>) {
-    mCookieJar.saveFromResponse(url, cookies)
   }
 }

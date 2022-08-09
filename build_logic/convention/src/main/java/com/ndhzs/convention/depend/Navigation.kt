@@ -17,7 +17,7 @@ object Navigation {
   const val navigation_version = "2.4.2"
   const val `navigation-runtime-ktx` = "androidx.navigation:navigation-runtime-ktx:$navigation_version"
   const val `navigation-fragment-ktx` = "androidx.navigation:navigation-fragment-ktx:$navigation_version"
-  const val `navigation-ui-ktx` = "androidx.navigation:navigation-ui-ktx:$navigation_version"
+  const val `navigation-ui-ktx` = "androidx.navigation:navigation-test.ui-ktx:$navigation_version"
   
   // Testing Navigation
   const val `navigation-testing` = "androidx.navigation:navigation-testing:$navigation_version"

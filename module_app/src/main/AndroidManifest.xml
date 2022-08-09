@@ -5,11 +5,11 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/module_app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:icon="@mipmap/config_ic_launcher"
+        android:label="@string/config_app_name"
+        android:roundIcon="@mipmap/config_ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WanAndroid_Multi">
+        android:theme="@style/config_Theme.WanAndroid_Multi">
     </application>
 
 </manifest>

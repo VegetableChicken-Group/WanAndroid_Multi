@@ -2,10 +2,9 @@ package com.ndhzs.module.login.page.ui
 
 import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.ndhzs.lib.common.config.LOGIN_ENTRY
-import com.ndhzs.lib.common.extensions.setOnSingleClickListener
-import com.ndhzs.lib.common.extensions.toast
-import com.ndhzs.lib.common.ui.mvvm.BaseVmBindActivity
+import com.ndhzs.lib.base.ui.mvvm.BaseVmBindActivity
+import com.ndhzs.lib.config.route.LOGIN_ENTRY
+import com.ndhzs.lib.utils.extensions.setOnSingleClickListener
 import com.ndhzs.module.login.databinding.ActivityLoginBinding
 import com.ndhzs.module.login.page.viewmodel.LoginViewModel
 import com.ndhzs.module.login.utils.textwatcher.BaseTextWatcher

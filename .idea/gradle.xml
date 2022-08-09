@@ -26,7 +26,9 @@
             <option value="$PROJECT_DIR$/build_logic/convention" />
             <option value="$PROJECT_DIR$/lib_account" />
             <option value="$PROJECT_DIR$/lib_account/api_account" />
-            <option value="$PROJECT_DIR$/lib_common" />
+            <option value="$PROJECT_DIR$/lib_base" />
+            <option value="$PROJECT_DIR$/lib_config" />
+            <option value="$PROJECT_DIR$/lib_utils" />
             <option value="$PROJECT_DIR$/module_app" />
             <option value="$PROJECT_DIR$/module_login" />
             <option value="$PROJECT_DIR$/module_main" />

@@ -6,10 +6,8 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flatMap
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.rx3.asObservable
-import okhttp3.CookieJar
 import java.io.Serializable
 
 /**
@@ -18,7 +16,7 @@ import java.io.Serializable
  * @email 2767465918@qq.com
  * @date 2022/5/29 22:17
  */
-interface IAccountService : IProvider, CookieJar {
+interface IAccountService : IProvider {
   
   /**
    * 回调的数据为 null 时，说明退出了登录

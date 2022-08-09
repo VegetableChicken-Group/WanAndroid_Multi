@@ -10,9 +10,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ndhzs.api.test.ITestService
-import com.ndhzs.lib.common.config.TEST_ENTRY
-import com.ndhzs.lib.common.extensions.*
-import com.ndhzs.lib.common.ui.BaseActivity
+import com.ndhzs.lib.base.ui.BaseActivity
+import com.ndhzs.lib.config.route.TEST_ENTRY
+import com.ndhzs.lib.config.sp.SP_TEST_DEMO
+import com.ndhzs.lib.config.sp.defaultSp
+import com.ndhzs.lib.utils.extensions.*
 import com.ndhzs.module.test.R
 import kotlinx.coroutines.launch
 

@@ -8,7 +8,6 @@ import com.ndhzs.convention.depend.api.utils.ApiDependUtils
 import com.ndhzs.convention.depend.dependAndroidKtx
 import com.ndhzs.convention.depend.dependAndroidView
 import com.ndhzs.convention.depend.dependLifecycleKtx
-import com.ndhzs.convention.depend.lib.dependLibCommon
 import org.gradle.api.Project
 import com.ndhzs.convention.project.base.BaseApplicationProject
 import org.gradle.api.artifacts.ProjectDependency
@@ -27,7 +26,6 @@ class ModuleDebugProject(project: Project) : BaseApplicationProject(project) {
   }
   
   override fun initProject() {
-    dependLibCommon()
     dependAndroidView()
     dependAndroidKtx()
     dependLifecycleKtx()
@@ -86,7 +84,7 @@ class ModuleDebugProject(project: Project) : BaseApplicationProject(project) {
   ) {
     recursionNameSet.add(project.name)
     if (debugProject === project) {
-      println("检测到 ${debugProject.name} 处于单模块调试，将会反向依赖 api 实现模块")
+      println("检测到 ${debugProject.name} 开启了单模块调试，将会反向依赖 api 实现模块")
     }
     project.configurations.all {
       // all 方法是一种观察性的回调，它会把已经添加了的和之后将要添加的都进行回调
@@ -105,8 +103,8 @@ class ModuleDebugProject(project: Project) : BaseApplicationProject(project) {
                   (!dependPathSet.contains(it) && it != debugProject.path).apply {
                     if (this) {
                       /*
-                      * 因为在 implementation 新依赖时又会回调上面的 configuration.dependencies.all
-                      * 所以会比下面紧接着的 forEach 调用前再引入刚才的新依赖，所以需要在这里 add，防止重复引入
+                      * 因为在 runtimeOnly 新依赖时又会回调上面的 configuration.dependencies.all
+                      * 所以会比下面紧接着的 forEach 调用前，再引入刚才的新依赖，所以需要在这里 add，防止重复引入
                       * */
                       dependPathSet.add(it)
                     }

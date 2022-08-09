@@ -1,6 +1,5 @@
 package com.ndhzs.convention.project
 
-import com.ndhzs.convention.depend.lib.dependLibCommon
 import com.ndhzs.convention.project.base.BaseLibraryProject
 import org.gradle.api.Project
 
@@ -12,7 +11,6 @@ import org.gradle.api.Project
  */
 class LibProject(project: Project) : BaseLibraryProject(project) {
   override fun initProject() {
-    dependLibCommon()
   }
   
   /**

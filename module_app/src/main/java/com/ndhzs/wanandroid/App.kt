@@ -1,6 +1,6 @@
 package com.ndhzs.wanandroid
 
-import com.ndhzs.lib.common.BaseApp
+import com.ndhzs.lib.base.BaseApp
 
 /**
  * ...

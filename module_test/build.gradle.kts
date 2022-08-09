@@ -1,9 +1,16 @@
 import com.ndhzs.convention.depend.api.dependApiMain
 import com.ndhzs.convention.depend.dependHilt
+import com.ndhzs.convention.depend.lib.dependLibBase
+import com.ndhzs.convention.depend.lib.dependLibConfig
+import com.ndhzs.convention.depend.lib.dependLibUtils
 
 plugins {
   id("module-debug")
 }
+
+dependLibBase()
+dependLibUtils()
+dependLibConfig()
 
 // 还有其他比如协程、Retrofit、Glide 等，可以去 build_logic 中寻找
 // 基本上能用到的全都有依赖方式

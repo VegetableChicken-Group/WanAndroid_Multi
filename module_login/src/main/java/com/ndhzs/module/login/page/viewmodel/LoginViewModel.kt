@@ -5,11 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.distinctUntilChanged
 import com.ndhzs.api.account.IAccountService
-import com.ndhzs.lib.common.extensions.asFlow
-import com.ndhzs.lib.common.extensions.getSp
-import com.ndhzs.lib.common.network.ApiException
-import com.ndhzs.lib.common.service.ServiceManager
-import com.ndhzs.lib.common.ui.mvvm.BaseViewModel
+import com.ndhzs.lib.utils.extensions.asFlow
+import com.ndhzs.lib.utils.extensions.getSp
+import com.ndhzs.lib.utils.network.ApiException
+import com.ndhzs.lib.utils.service.ServiceManager
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.catch
@@ -20,7 +19,7 @@ import kotlinx.coroutines.flow.catch
  * @email 2767465918@qq.com
  * @date 2022/5/29 21:48
  */
-class LoginViewModel : BaseViewModel() {
+class LoginViewModel : com.ndhzs.lib.base.ui.mvvm.BaseViewModel() {
   
   private val _username = MutableLiveData<String?>()
   val userName: LiveData<String?>

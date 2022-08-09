@@ -3,16 +3,13 @@
     package="com.ndhzs.module.test">
 
     <application
-        android:name="app.DebugApp"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="module_test"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.WanAndroid_Multi">
-
+            android:name="test.app.DebugApp"
+            android:allowBackup="true"
+            android:label="module_login"
+            android:supportsRtl="true"
+            android:theme="@style/config_Theme.WanAndroid_Multi">
         <activity
-            android:name="ui.DebugActivity"
+            android:name="test.ui.DebugActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,9 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ndhzs.module.test.page.TestActivity"
-            android:exported="true">
-        </activity>
+            android:name="com.ndhzs.module.test.page.TestActivity"/>
     </application>
 
 </manifest>

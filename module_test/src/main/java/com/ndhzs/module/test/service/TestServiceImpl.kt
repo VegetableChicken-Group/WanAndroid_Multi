@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.ndhzs.api.test.ITestService
-import com.ndhzs.lib.common.config.TEST_SERVICE
+import com.ndhzs.api.test.TEST_SERVICE
 import com.ndhzs.module.test.page.TestActivity
 
 /**

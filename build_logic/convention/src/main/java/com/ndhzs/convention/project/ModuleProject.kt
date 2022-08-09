@@ -3,7 +3,6 @@ package com.ndhzs.convention.project
 import com.ndhzs.convention.depend.dependAndroidKtx
 import com.ndhzs.convention.depend.dependAndroidView
 import com.ndhzs.convention.depend.dependLifecycleKtx
-import com.ndhzs.convention.depend.lib.dependLibCommon
 import com.ndhzs.convention.project.base.BaseLibraryProject
 import org.gradle.api.Project
 
@@ -17,7 +16,6 @@ class ModuleProject(project: Project) : BaseLibraryProject(project) {
   
   override fun initProject() {
     checkIsInDebug()
-    dependLibCommon()
     dependAndroidView()
     dependAndroidKtx()
     dependLifecycleKtx()

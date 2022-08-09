@@ -3,12 +3,12 @@ package com.ndhzs.module.main
 import android.os.Bundle
 import android.widget.Button
 import com.ndhzs.api.test.ITestService
-import com.ndhzs.lib.common.config.TEST_SHOW
-import com.ndhzs.lib.common.extensions.toast
-import com.ndhzs.lib.common.service.ServiceManager
-import com.ndhzs.lib.common.ui.BaseActivity
+import com.ndhzs.api.test.TEST_SHOW
+import com.ndhzs.lib.base.ui.BaseActivity
+import com.ndhzs.lib.utils.service.ServiceManager
+import com.ndhzs.lib.utils.service.impl
 
-class MainActivity : BaseActivity(isPortraitScreen = false) {
+class MainActivity : BaseActivity() {
   
   private val mBtnOpenTestActivity: Button by R.id.main_btn_open_test_activity.view()
   private val mBtnShowFragment: Button by R.id.main_btn_show_test_show_fragment.view()
@@ -19,7 +19,7 @@ class MainActivity : BaseActivity(isPortraitScreen = false) {
     
     mBtnOpenTestActivity.setOnClickListener {
       toast("启动 TestActivity")
-      ServiceManager(ITestService::class)
+      ITestService::class.impl
         .startTestActivity(
           this,
           ITestService.Data(
@@ -29,7 +29,7 @@ class MainActivity : BaseActivity(isPortraitScreen = false) {
     }
 
     // 观察 liveData
-    ServiceManager(ITestService::class).liveData.observe {
+    ITestService::class.impl.liveData.observe {
       // ......
     }
   
