@@ -1,13 +1,16 @@
 package com.ndhzs.lib.base.ui
 
+import android.app.Activity
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.whenStarted
+import com.ndhzs.lib.utils.utils.ActivityBindView
+import com.ndhzs.lib.utils.utils.FragmentBindView
 import com.ndhzs.lib.base.operations.OperationUi
 import com.ndhzs.lib.utils.extensions.launch
-import com.ndhzs.lib.utils.utils.BindView
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -48,7 +51,11 @@ interface BaseUi : OperationUi {
    * ViewBinding 是给所有布局都默认开启的，大项目会严重拖垮编译速度
    * ```
    */
-  fun <T : View> Int.view() = BindView<T>(this, { rootView }, { getViewLifecycleOwner().lifecycle })
+  fun <T : View> Int.view() = when (this@BaseUi) {
+    is Activity -> ActivityBindView<T>(this, this@BaseUi)
+    is Fragment -> FragmentBindView(this, this@BaseUi)
+    else -> error("未实现，请自己实现该功能！")
+  }
   
   /**
    * 尤其注意这个 viewLifecycleOwner

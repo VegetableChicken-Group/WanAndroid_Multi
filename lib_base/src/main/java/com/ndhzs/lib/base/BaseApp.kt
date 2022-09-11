@@ -25,8 +25,8 @@ open class BaseApp : Application(), InitialManager {
   override fun onCreate() {
     super.onCreate()
     baseApp = this
-    UtilsApplicationWrapper.initializeAppContext(this)
-    ConfigApplicationWrapper.initializeAppContext(this)
+    UtilsApplicationWrapper.initialize(this)
+    ConfigApplicationWrapper.initialize(this)
     initARouter()
     initInitialService()
   }

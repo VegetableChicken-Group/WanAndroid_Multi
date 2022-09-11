@@ -1,5 +1,6 @@
 package com.ndhzs.lib.utils.extensions
 
+import android.content.Context
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.ProcessLifecycleOwner
@@ -13,8 +14,8 @@ import com.ndhzs.lib.utils.UtilsApplicationWrapper
  * @date 2022/5/30 15:57
  */
 
-val appContext
-  get() = UtilsApplicationWrapper.appContext
+val appContext: Context
+  get() = UtilsApplicationWrapper.application.applicationContext
 
 /**
  * 应用程序的生命周期

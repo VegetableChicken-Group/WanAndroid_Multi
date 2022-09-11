@@ -1,6 +1,6 @@
 package com.ndhzs.lib.config
 
-import android.content.Context
+import android.app.Application
 
 /**
  * ...
@@ -11,13 +11,13 @@ import android.content.Context
  */
 object ConfigApplicationWrapper {
   
-  internal lateinit var appContext: Context
+  internal lateinit var application: Application
     private set
   
   /**
-   * 设置 lib_config 模块的 appContext
+   * 为了不反向依赖 lib_base，所以单独设置 lib_config 模块的 appContext
    */
-  fun initializeAppContext(appContext: Context) {
-    this.appContext = appContext
+  fun initialize(application: Application) {
+    this.application = application
   }
 }
