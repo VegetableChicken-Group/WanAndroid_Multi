@@ -11,10 +11,21 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.coroutineScope
-import com.ndhzs.lib.utils.extensions.RxjavaLifecycle
-import io.reactivex.rxjava3.disposables.Disposable
+import com.mredrock.cyxbs.lib.base.utils.ArgumentHelper
+import com.ndhzs.lib.base.operations.OperationFragment
 
-abstract class BaseFragment : Fragment, BaseUi, RxjavaLifecycle {
+/**
+ * 绝对基础的抽象
+ *
+ * 这里面不要跟业务挂钩！！！
+ * 比如：使用 api 模块
+ * 这种操作请放在 [OperationFragment] 中
+ *
+ * @author 985892345
+ * @email 2767465918@qq.com
+ * @date 2021/5/25
+ */
+abstract class BaseFragment : OperationFragment {
   
   constructor() : super()
   
@@ -43,14 +54,6 @@ abstract class BaseFragment : Fragment, BaseUi, RxjavaLifecycle {
   override fun onCreate(savedInstanceState: Bundle?) {
     mIsFragmentRebuilt = savedInstanceState != null
     super.onCreate(savedInstanceState)
-  }
-  
-  @CallSuper
-  override fun onDestroyView() {
-    super.onDestroyView()
-    // 取消 Rxjava 流
-    mDisposableList.filter { !it.isDisposed }.forEach { it.dispose() }
-    mDisposableList.clear()
   }
   
   /**
@@ -86,15 +89,6 @@ abstract class BaseFragment : Fragment, BaseUi, RxjavaLifecycle {
     }
   }
   
-  private val mDisposableList = mutableListOf<Disposable>()
-  
-  /**
-   * 实现 [RxjavaLifecycle] 的方法，用于带有生命周期的调用
-   */
-  final override fun onAddRxjava(disposable: Disposable) {
-    mDisposableList.add(disposable)
-  }
-  
   final override val rootView: View
     get() = requireView()
   
@@ -122,4 +116,28 @@ abstract class BaseFragment : Fragment, BaseUi, RxjavaLifecycle {
   
   val viewLifecycleScope: LifecycleCoroutineScope
     get() = viewLifecycleOwner.lifecycle.coroutineScope
+  
+  
+  
+  /**
+   * 快速得到 arguments 中的变量，直接使用反射拿了变量的名字。支持声明为 var 修改对应参数
+   * ```
+   * companion object {
+   *   fun newInstance(
+   *     key: String
+   *   ) : Fragment {
+   *     return Fragment().apply {
+   *       arguments = bundleOf(
+   *         this::key.name to key // 这里直接拿变量名字
+   *       )
+   *     }
+   *   }
+   * }
+   *
+   * var key by arguments<String>()
+   *
+   * 这样写会在 arguments 中寻找名字叫 key 的参数
+   * ```
+   */
+  fun <T : Any> arguments() = ArgumentHelper<T>{ requireArguments() }
 }

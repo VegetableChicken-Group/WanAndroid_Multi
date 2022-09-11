@@ -1,9 +1,10 @@
 package com.ndhzs.lib.utils.extensions
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Toast
-import androidx.annotation.StringRes
 import com.ndhzs.lib.utils.BuildConfig
 
 /**
@@ -13,24 +14,29 @@ import com.ndhzs.lib.utils.BuildConfig
  * @date 2022/3/7 17:58
  */
 
+/**
+ * 已自带处于其他线程时自动切换至主线程发送
+ */
 fun toast(s: CharSequence?) {
-  WanAndroidToast.show(appContext, s, Toast.LENGTH_SHORT)
+  if (s == null) return
+  if (Thread.currentThread() !== Looper.getMainLooper().thread) {
+    Handler(Looper.getMainLooper()).post { WanAndroidToast.show(appContext, s, Toast.LENGTH_SHORT) }
+  } else {
+    WanAndroidToast.show(appContext, s, Toast.LENGTH_SHORT)
+  }
 }
 
 fun toastLong(s: CharSequence?) {
-  WanAndroidToast.show(appContext, s, Toast.LENGTH_LONG)
+  if (s == null) return
+  if (Thread.currentThread() !== Looper.getMainLooper().thread) {
+    Handler(Looper.getMainLooper()).post { WanAndroidToast.show(appContext, s, Toast.LENGTH_LONG) }
+  } else {
+    WanAndroidToast.show(appContext, s, Toast.LENGTH_LONG)
+  }
 }
 
 fun String.toast() = toast(this)
 fun String.toastLong() = toastLong(this)
-
-interface ToastUtils {
-  fun toast(s: CharSequence?) = WanAndroidToast.show(appContext, s, Toast.LENGTH_SHORT)
-  fun toastLong(s: CharSequence?) = WanAndroidToast.show(appContext, s, Toast.LENGTH_LONG)
-  fun String.toast() = toast(this)
-  fun String.toastLong() = toastLong(this)
-  fun toast(@StringRes id: Int) = toast(appContext.getString(id))
-}
 
 class WanAndroidToast {
   companion object {

@@ -1,15 +1,14 @@
 import com.ndhzs.convention.depend.*
+import com.ndhzs.convention.depend.lib.dependLibUtils
 
 plugins {
   id("module-manager")
 }
 
+dependLibUtils()
+
 dependRxjava()
-dependCoroutines()
-dependCoroutinesRx3()
 
 dependencies {
   implementation(Network.okhttp)
-  implementation(Lifecycle.`lifecycle-reactivestreams-ktx`)
-  implementation(Lifecycle.`livedata-ktx`)
 }

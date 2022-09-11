@@ -1,6 +1,6 @@
 package com.ndhzs.lib.utils
 
-import android.app.Application
+import android.content.Context
 
 /**
  * ...
@@ -10,13 +10,13 @@ import android.app.Application
  */
 object UtilsApplicationWrapper {
   
-  internal lateinit var appContext: Application
+  internal lateinit var appContext: Context
     private set
   
   /**
    * 设置 lib_utils 模块的 appContext
    */
-  fun setUtilsApplication(application: Application) {
-    appContext = application
+  fun initializeAppContext(appContext: Context) {
+    this.appContext = appContext
   }
 }

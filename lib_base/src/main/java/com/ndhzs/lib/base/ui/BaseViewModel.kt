@@ -1,11 +1,11 @@
-package com.ndhzs.lib.base.ui.mvvm
+package com.ndhzs.lib.base.ui
 
 import android.content.Context
 import androidx.annotation.CallSuper
 import androidx.lifecycle.*
+import com.ndhzs.lib.base.utils.RxjavaLifecycle
 import com.ndhzs.lib.base.BaseApp
-import com.ndhzs.lib.utils.extensions.RxjavaLifecycle
-import com.ndhzs.lib.utils.extensions.ToastUtils
+import com.ndhzs.lib.base.utils.ToastUtils
 import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -16,12 +16,6 @@ abstract class BaseViewModel : ViewModel(), RxjavaLifecycle, ToastUtils {
     get() = BaseApp.baseApp
   
   private val mDisposableList = mutableListOf<Disposable>()
-  
-  @Deprecated("ViewModel 中建议使用已拥有生命周期的 safeSubscribeBy() 方法，lifecycle() 方法将不再使用")
-  protected fun Disposable.lifecycle(): Disposable {
-    mDisposableList.add(this)
-    return this
-  }
   
   @CallSuper
   override fun onCleared() {
@@ -44,7 +38,7 @@ abstract class BaseViewModel : ViewModel(), RxjavaLifecycle, ToastUtils {
   /**
    * 实现 [RxjavaLifecycle] 的方法，用于带有生命周期的调用
    */
-  override fun onAddRxjava(disposable: Disposable) {
+  final override fun onAddRxjava(disposable: Disposable) {
     mDisposableList.add(disposable)
   }
 }

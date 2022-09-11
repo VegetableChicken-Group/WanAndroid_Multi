@@ -2,8 +2,12 @@ package com.ndhzs.lib.utils.extensions
 
 import android.graphics.drawable.Drawable
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
+import com.bumptech.glide.request.RequestOptions
+import com.ndhzs.lib.config.R
+import com.ndhzs.lib.utils.network.getBaseUrl
 
 /**
  * ...
@@ -12,9 +16,29 @@ import com.bumptech.glide.RequestBuilder
  * @date 2022/7/25 14:34
  */
 
-fun ImageView.glide(url: String, func: (RequestBuilder<Drawable>.() -> Unit)? = null) {
+fun ImageView.setImageFromUrl(
+  url: String,
+  @DrawableRes placeholder: Int = R.drawable.config_ic_place_holder,
+  @DrawableRes error: Int = R.drawable.config_ic_place_holder,
+  func: (RequestBuilder<Drawable>.() -> Unit)? = null
+) {
+  val realUrl = if (url.startsWith("http")) url else getBaseUrl() + url
   Glide.with(this)
-    .load(url)
+    .load(realUrl)
+    .apply(RequestOptions().placeholder(placeholder).error(error))
+    .apply { func?.invoke(this) }
+    .into(this)
+}
+
+fun ImageView.setImageFromId(
+  @DrawableRes id: Int,
+  @DrawableRes placeholder: Int = R.drawable.config_ic_place_holder,
+  @DrawableRes error: Int = R.drawable.config_ic_place_holder,
+  func: (RequestBuilder<Drawable>.() -> Unit)? = null
+) {
+  Glide.with(this)
+    .load(id)
+    .apply(RequestOptions().placeholder(placeholder).error(error))
     .apply { func?.invoke(this) }
     .into(this)
 }

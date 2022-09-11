@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import androidx.annotation.CallSuper
+import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
 import com.ndhzs.lib.utils.extensions.lazyUnlock
 import com.ndhzs.lib.utils.utils.GenericityUtils.getGenericClassFromSuperClass
@@ -28,6 +29,11 @@ abstract class BaseBindActivity<VB : ViewBinding> : BaseActivity() {
       LayoutInflater::class.java
     )
     val binding = method.invoke(null, layoutInflater) as VB
+    if (binding is ViewDataBinding) {
+      // ViewBinding 是 ViewBind 和 DataBind 共有的父类
+      // 目前掌邮建议使用 DataBind，因为 ViewBind 是白名单模式，默认所有 xml 生成类，严重影响速度
+      binding.lifecycleOwner = getViewLifecycleOwner()
+    }
     binding
   }
   

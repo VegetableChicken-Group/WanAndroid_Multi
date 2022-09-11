@@ -10,4 +10,3 @@ package com.ndhzs.api.account
 
 // account 模块
 const val ACCOUNT_SERVICE = "/account/service"
-const val COOKIE_SERVICE = "/cookie/service"

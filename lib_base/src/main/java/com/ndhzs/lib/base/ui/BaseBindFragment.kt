@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.CallSuper
+import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
 import com.ndhzs.lib.utils.utils.GenericityUtils.getGenericClassFromSuperClass
 
@@ -45,6 +46,7 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
       Boolean::class.java
     )
     _binding = method.invoke(null, inflater, container, false) as VB
+    (binding as? ViewDataBinding)?.lifecycleOwner = viewLifecycleOwner
     onCreateViewBefore(container, savedInstanceState)
     return binding.root
   }

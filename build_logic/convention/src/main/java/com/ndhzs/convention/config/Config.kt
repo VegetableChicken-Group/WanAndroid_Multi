@@ -11,7 +11,7 @@ import org.gradle.api.Project
  * @date 2022/5/26 15:13
  */
 object Config {
-  const val minSdk = 21
+  const val minSdk = 24
   const val targetSdk = 31
   const val compileSdk = 31
   
@@ -20,7 +20,14 @@ object Config {
   
   fun getApplicationId(project: Project): String {
     return when (project.name) {
-      "module_app" -> "com.ndhzs.wanandroid"
+      "module_app" -> {
+        if (project.gradle.startParameter.taskNames.any { it.contains("Release") }) {
+          "com.ndhzs.wanandroid"
+        } else {
+          // debug 状态下使用 debug 的包名，方便测试
+          "com.ndhzs.wanandroid.debug"
+        }
+      }
       else -> "com.ndhzs.wanandroid.${project.name}"
     }
   }

@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.distinctUntilChanged
 import com.ndhzs.api.account.IAccountService
+import com.ndhzs.lib.base.ui.BaseViewModel
 import com.ndhzs.lib.utils.extensions.asFlow
 import com.ndhzs.lib.utils.extensions.getSp
 import com.ndhzs.lib.utils.network.ApiException
+import com.ndhzs.lib.utils.network.mapOrInterceptException
 import com.ndhzs.lib.utils.service.ServiceManager
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.catch
 
 /**
  * ...
@@ -19,7 +20,7 @@ import kotlinx.coroutines.flow.catch
  * @email 2767465918@qq.com
  * @date 2022/5/29 21:48
  */
-class LoginViewModel : com.ndhzs.lib.base.ui.mvvm.BaseViewModel() {
+class LoginViewModel : BaseViewModel() {
   
   private val _username = MutableLiveData<String?>()
   val userName: LiveData<String?>
@@ -37,14 +38,14 @@ class LoginViewModel : com.ndhzs.lib.base.ui.mvvm.BaseViewModel() {
   private val mAccountService = ServiceManager(IAccountService::class)
   
   init {
-    mAccountService.observeUserInfoFlow()
-      .collectLaunch {
-        if (it == null) {
+    mAccountService.observeUserInfoState()
+      .safeSubscribeBy { value ->
+        value.nullIf {
           // 此时登出了账号，取消记住密码
           changeRememberPassword(false)
           _username.value = null
           _password.value = null
-        } else {
+        }.nullUnless {
           _username.value = it.username
           if (isRememberPassword()) {
             _password.value = it.password
@@ -66,10 +67,10 @@ class LoginViewModel : com.ndhzs.lib.base.ui.mvvm.BaseViewModel() {
   fun login(username: String, password: String) {
     mAccountService.login(username, password)
       .asFlow()
-      .catch {
-        if (it is ApiException) {
+      .mapOrInterceptException {
+        ApiException {
           _loginEvent.emit(LoginEvent.ApiFail(it))
-        } else {
+        }.catchOther {
           _loginEvent.emit(LoginEvent.HttpFail(it))
         }
       }.collectLaunch {

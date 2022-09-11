@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.ndhzs.lib.base.ui.BaseBindFragment
-import com.ndhzs.lib.utils.utils.GenericityUtils.getGenericClassFromSuperClass
+import com.ndhzs.lib.utils.utils.GenericityUtils
 
 /**
  * .....
@@ -18,9 +18,9 @@ abstract class BaseVmBindFragment<VM : ViewModel, DB : ViewBinding> : BaseBindFr
   protected val viewModel by lazy(LazyThreadSafetyMode.NONE) {
     val factory = getViewModelFactory()
     if (factory == null) {
-      ViewModelProvider(this)[getGenericClassFromSuperClass(javaClass)] as VM
+      ViewModelProvider(this)[GenericityUtils.getGenericClassFromSuperClass(javaClass)] as VM
     } else {
-      ViewModelProvider(this, factory)[getGenericClassFromSuperClass(javaClass)] as VM
+      ViewModelProvider(this, factory)[GenericityUtils.getGenericClassFromSuperClass(javaClass)] as VM
     }
   }
   

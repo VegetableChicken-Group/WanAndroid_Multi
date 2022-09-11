@@ -1,9 +1,10 @@
+@file:Suppress("UnstableApiUsage")
+
 package com.ndhzs.convention.project
 
-import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.project
 import com.ndhzs.convention.project.base.BaseApplicationProject
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.*
 
 /**
  * ...
@@ -14,6 +15,7 @@ import org.gradle.api.Project
 class AppProject(project: Project) : BaseApplicationProject(project) {
   override fun initProject() {
     dependAllProject()
+    // 这里面只依赖带有 internal 修饰的
   }
   
   /**
@@ -39,6 +41,8 @@ class AppProject(project: Project) : BaseApplicationProject(project) {
         it.isDirectory
           && it.name != "module_app"
           && "(lib_.+)|(module_.+)|(api_.+)".toRegex().matches(it.name)
+          && !it.name.contains("lib_common") // 目前 app 模块已经去掉了对 common 模块的依赖
+          && !it.name.contains("lib_debug") // 去除主动依赖 lib_debug 模块
           && it.name !in excludeList
           && includeProjects.contains(it.name)
       }.forEach {

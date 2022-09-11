@@ -1,6 +1,7 @@
 package com.ndhzs.convention.depend.lib
 
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 
@@ -20,33 +21,14 @@ object LibDepend {
   * */
 
   const val base = ":lib_base"
-  const val common = ":lib_common"
   const val config = ":lib_config"
+  const val debug = ":lib_debug"
   const val utils = ":lib_utils"
 }
 
 fun Project.dependLibBase() {
   dependencies {
     "implementation"(project(LibDepend.base))
-  }
-}
-
-/**
- * 除了 api 模块和 lib_common 模块，其他 Android 模块默认导入
- *
- * api 模块如果导入了，可能出现循环依赖，因为有时候 lib_common 模块也需要依赖 api 模块，
- * 所以 api 模块不应该设置得过于复杂
- */
-@Deprecated(
-  "common 模块已向 base、utils、config 模块迁移，请依赖后者，common 不再进行使用",
-  ReplaceWith(
-    "dependLibBase()\n" +
-      "dependLibUtils()\n" +
-      "dependLibConfig()")
-)
-fun Project.dependLibCommon() {
-  dependencies {
-    "implementation"(project(LibDepend.common))
   }
 }
 
@@ -59,5 +41,19 @@ fun Project.dependLibConfig() {
 fun Project.dependLibUtils() {
   dependencies {
     "implementation"(project(LibDepend.utils))
+  }
+}
+
+/**
+ * 依赖 lib_debug 模块
+ *
+ * 这个模块里面单独放只在 debug 下使用的依赖
+ */
+internal fun Project.debugDependLibDebug() {
+  if (!gradle.startParameter.taskNames.any { it.contains("Release") }) {
+    apply(plugin = "pandora-plugin")
+  }
+  dependencies {
+    "debugImplementation"(project(LibDepend.debug))
   }
 }

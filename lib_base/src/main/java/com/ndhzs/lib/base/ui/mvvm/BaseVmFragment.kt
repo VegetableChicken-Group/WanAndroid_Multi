@@ -9,6 +9,20 @@ import com.ndhzs.lib.utils.utils.GenericityUtils.getGenericClassFromSuperClass
 abstract class BaseVmFragment<VM : ViewModel> : BaseFragment {
   
   constructor() : super()
+  
+  /**
+   * 正确用法：
+   * ```
+   * class TestFragment : BaseFragment(R.layout.test)
+   * ```
+   *
+   * # 禁止使用下面这种写法！！！
+   * ```
+   * class TestFragment(layoutId: Int) : BaseFragment(layoutId)
+   *
+   * 这是错误写法！！！
+   * ```
+   */
   constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
   
   @Suppress("UNCHECKED_CAST")

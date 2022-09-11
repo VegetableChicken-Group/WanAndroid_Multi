@@ -38,7 +38,13 @@ abstract class BaseLibraryProject(project: Project) : BaseAndroidProject(project
       uniformConfigAndroid()
       defaultConfig {
         targetSdk = Config.targetSdk
+      
+        // 自己模块的混淆文件
         consumerProguardFiles.add(projectDir.resolve("consumer-rules.pro"))
+      }
+    
+      buildFeatures {
+        dataBinding = true
       }
     }
   }

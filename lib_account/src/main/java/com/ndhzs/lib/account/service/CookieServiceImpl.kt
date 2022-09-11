@@ -2,13 +2,14 @@ package com.ndhzs.lib.account.service
 
 import android.content.Context
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.facade.template.IProvider
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
-import com.ndhzs.api.account.COOKIE_SERVICE
-import com.ndhzs.api.account.ICookieService
+import com.ndhzs.lib.config.route.COOKIE_SERVICE
 import com.ndhzs.lib.utils.extensions.lazyUnlock
 import okhttp3.Cookie
+import okhttp3.CookieJar
 import okhttp3.HttpUrl
 
 /**
@@ -19,7 +20,7 @@ import okhttp3.HttpUrl
  * @date 2022/8/9 15:58
  */
 @Route(path = COOKIE_SERVICE)
-class CookieServiceImpl : ICookieService {
+class CookieServiceImpl : IProvider, CookieJar {
 
   private lateinit var mContext: Context
 
@@ -29,7 +30,7 @@ class CookieServiceImpl : ICookieService {
     )
   }
 
-  override fun clearCookie() {
+  internal fun clearCookie() {
     mCookieJar.clear()
   }
 

@@ -36,7 +36,7 @@ fun Project.dependNetwork() {
 /**
  * 有特殊用途的依赖，一般模块不需要引入
  */
-fun Project.dependNetworkInternal() {
+internal fun Project.dependNetworkInternal() {
   dependencies {
     "implementation"(Network.`converter-gson`)
     "implementation"(Network.`adapter-rxjava3`)

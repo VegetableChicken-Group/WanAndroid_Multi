@@ -2,7 +2,6 @@ package com.ndhzs.lib.base.operations
 
 import androidx.appcompat.app.AppCompatActivity
 import com.ndhzs.lib.base.ui.BaseUi
-import com.ndhzs.lib.utils.extensions.RxjavaLifecycle
 
 /**
  *
@@ -14,6 +13,6 @@ import com.ndhzs.lib.utils.extensions.RxjavaLifecycle
  * @email guo985892345@foxmail.com
  * @date 2022/8/8 19:16
  */
-abstract class OperationActivity : AppCompatActivity(), BaseUi, RxjavaLifecycle {
+abstract class OperationActivity : AppCompatActivity(), BaseUi {
 
 }

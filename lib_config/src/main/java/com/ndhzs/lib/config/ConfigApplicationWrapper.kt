@@ -1,22 +1,23 @@
 package com.ndhzs.lib.config
 
-import android.app.Application
+import android.content.Context
 
 /**
  * ...
  *
  * @author 985892345 (Guo Xiangrui)
- * @email 2767465918@qq.com
- * @date 2022/8/8 22:37
+ * @email guo985892345@foxmail.com
+ * @date 2022/9/11 11:18
  */
 object ConfigApplicationWrapper {
-  internal lateinit var appContext: Application
+  
+  internal lateinit var appContext: Context
     private set
   
   /**
    * 设置 lib_config 模块的 appContext
    */
-  fun setUtilsApplication(application: Application) {
-    appContext = application
+  fun initializeAppContext(appContext: Context) {
+    this.appContext = appContext
   }
 }

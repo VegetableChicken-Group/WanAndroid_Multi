@@ -17,5 +17,8 @@ abstract class BaseVmActivity<VM : ViewModel> : BaseActivity() {
     }
   }
   
+  /**
+   * 这个写在这里是因为有些参数需要通过 Intent 来拿
+   */
   protected open fun getViewModelFactory(): ViewModelProvider.Factory? = null
 }

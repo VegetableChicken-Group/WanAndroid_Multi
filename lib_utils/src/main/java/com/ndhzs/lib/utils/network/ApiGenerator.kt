@@ -1,9 +1,8 @@
 package com.ndhzs.lib.utils.network
 
-import com.ndhzs.api.account.ICookieService
-import com.ndhzs.lib.utils.extensions.mapOrThrowApiException
-import com.ndhzs.lib.utils.extensions.mapOrCatchApiException
-import com.ndhzs.lib.utils.service.impl
+import com.ndhzs.lib.config.route.COOKIE_SERVICE
+import com.ndhzs.lib.utils.service.ServiceManager
+import okhttp3.CookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -44,30 +43,14 @@ import kotlin.reflect.KClass
  * ApiService.INSTANCE.getXXX()
  *     .subscribeOn(Schedulers.io())  // 线程切换
  *     .observeOn(AndroidSchedulers.mainThread())
- *     .mapOrCatchApiException {      // 当 errorCode 的值不为成功时抛错，并处理错误
- *         // 处理 ApiException 错误，注意：这里并不会处理断网时的 HttpException
+ *     .mapOrInterceptException {     // 当 errorCode 的值不为成功时抛错，并拦截异常
+ *         // 这里面可以使用 DSL 写法，更多详细用法请看该方法注释
  *     }
  *     .safeSubscribeBy {            // 如果是网络连接错误，则这里会默认处理
  *         // 成功的时候
+ *         // 如果是仓库层，请使用 unsafeSubscribeBy()
  *     }
  * ```
- *
- * # 其他注意事项
- * ## Rxjava 或 Flow 的下游没任何输出（怎么处理断网时的 HttpException）
- *
- * 大概率是你直接用了 [mapOrCatchApiException]，而它只会处理 [ApiException]，如果你要处理其他网络错误，
- * 请把 [mapOrCatchApiException] 替换为 [mapOrThrowApiException]：
- * ```
- *     .mapOrThrowApiException()
- *     .doOnError {                    // Flow 操作符为 catch
- *         if (it is ApiException) {
- *             // 处理 ApiException 错误
- *         } else {
- *             // 处理其他网络错误
- *         }
- *     }
- * ```
- *
  *
  * @author 985892345 (Guo Xiangrui)
  * @email 2767465918@qq.com
@@ -75,32 +58,29 @@ import kotlin.reflect.KClass
  */
 object ApiGenerator {
   
-  private val mCookieService = ICookieService::class.impl
-  private val retrofit = getNewRetrofit(true) {}
+  private val mCookieJar = ServiceManager<CookieJar>(COOKIE_SERVICE)
+  private val retrofit = getNewRetrofit(true)
   
   fun <T : Any> getApiService(clazz: KClass<T>): T {
     return retrofit.create(clazz.java)
   }
   
-  fun <T : Any> getApiService(
-    clazz: KClass<T>,
-    isNeedCookie: Boolean,
-    config: Retrofit.Builder.() -> Unit
-  ): T {
-    return getNewRetrofit(isNeedCookie, config).create(clazz.java)
-  }
-  
+  /**
+   * 创建一个新的 Retrofit
+   */
   fun getNewRetrofit(
     isNeedCookie: Boolean,
-    config: Retrofit.Builder.() -> Unit
+    config: (OkHttpClient.Builder.() -> Unit)? = null
   ): Retrofit {
     return Retrofit
       .Builder()
       .baseUrl(getBaseUrl())
-      .client(OkHttpClient().newBuilder().defaultOkhttpConfig(isNeedCookie))
+      .client(OkHttpClient().newBuilder().run {
+        config?.invoke(this)
+        defaultOkhttpConfig(isNeedCookie)
+      })
       .addConverterFactory(GsonConverterFactory.create())
       .addCallAdapterFactory(RxJava3CallAdapterFactory.createSynchronous())
-      .apply { config.invoke(this) }
       .build()
   }
   
@@ -108,9 +88,24 @@ object ApiGenerator {
     connectTimeout(10, TimeUnit.SECONDS)
     readTimeout(10, TimeUnit.SECONDS)
     if (isNeedCookie) {
-      cookieJar(mCookieService) // 给每条请求增加 cookie
+      cookieJar(mCookieJar) // 给每条请求增加 cookie
     }
-    addInterceptor(HttpLoggingInterceptor())
+    addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
     return build()
   }
 }
+
+interface IApi {
+  companion object {
+    val MAP = HashMap<KClass<out IApi>, IApi>()
+  }
+}
+
+/**
+ * 带 cookie 的请求
+ */
+@Suppress("UNCHECKED_CAST")
+val <I : IApi> KClass<I>.api: I
+  get() = IApi.MAP.getOrPut(this) {
+    ApiGenerator.getApiService(this)
+  } as I

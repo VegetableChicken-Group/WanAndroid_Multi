@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import com.mredrock.cyxbs.lib.base.utils.IntentHelper
 import com.ndhzs.lib.base.operations.OperationActivity
 
 /**
@@ -26,13 +27,13 @@ import com.ndhzs.lib.base.operations.OperationActivity
  * @date 2021/5/25
  */
 abstract class BaseActivity : OperationActivity() {
-
+  
   /**
    * 是否锁定竖屏
    */
   protected open val isPortraitScreen: Boolean
     get() = true
-
+  
   /**
    * 是否沉浸式状态栏
    *
@@ -113,4 +114,16 @@ abstract class BaseActivity : OperationActivity() {
     get() = window.decorView
   
   final override fun getViewLifecycleOwner(): LifecycleOwner = this
+  
+  
+  
+  /**
+   * 快速得到 intent 中的变量，直接使用反射拿了变量的名字。支持声明为 var 修改对应参数
+   * ```
+   * var key by intent<String>()
+   *
+   * 这样写会在 intent 中寻找名字叫 key 的参数
+   * ```
+   */
+  inline fun <reified T : Any> intent() = IntentHelper(T::class.java) { intent }
 }

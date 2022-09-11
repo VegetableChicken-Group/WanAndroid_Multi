@@ -1,7 +1,6 @@
 package com.ndhzs.lib.account.network
 
 import com.ndhzs.api.account.IAccountService
-import com.ndhzs.lib.utils.network.ApiGenerator
 import com.ndhzs.lib.utils.network.ApiStatus
 import com.ndhzs.lib.utils.network.ApiWrapper
 import io.reactivex.rxjava3.core.Single
@@ -36,10 +35,4 @@ interface LoginApiService {
     @Field("password") password: String,
     @Field("repassword") rePassword: String
   ): Single<ApiWrapper<IAccountService.LoginBean>>
-  
-  companion object {
-    val INSTANCE by lazy {
-      ApiGenerator.getApiService(LoginApiService::class)
-    }
-  }
 }

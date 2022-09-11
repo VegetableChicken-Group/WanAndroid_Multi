@@ -5,12 +5,12 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.ndhzs.lib.base.ui.mvvm.BaseVmBindActivity
 import com.ndhzs.lib.config.route.LOGIN_ENTRY
 import com.ndhzs.lib.utils.extensions.setOnSingleClickListener
-import com.ndhzs.module.login.databinding.ActivityLoginBinding
+import com.ndhzs.module.login.databinding.LoginActivityLoginBinding
 import com.ndhzs.module.login.page.viewmodel.LoginViewModel
 import com.ndhzs.module.login.utils.textwatcher.BaseTextWatcher
 
 @Route(path = LOGIN_ENTRY)
-class LoginActivity : BaseVmBindActivity<LoginViewModel, ActivityLoginBinding>() {
+class LoginActivity : BaseVmBindActivity<LoginViewModel, LoginActivityLoginBinding>() {
   
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)

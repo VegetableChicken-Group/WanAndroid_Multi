@@ -15,3 +15,6 @@ const val TEST_ENTRY = "/test/entry"
 
 // login 模块
 const val LOGIN_ENTRY = "/login/entry"
+
+// cookie 服务
+const val COOKIE_SERVICE = "/cookie/service"

@@ -100,10 +100,6 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
       baseline = project.file("lint-baseline.xml")
     }
     
-    buildFeatures {
-      viewBinding = true
-    }
-    
     (this as ExtensionAware).extensions.configure<KotlinJvmOptions> {
       jvmTarget = "1.8"
     }
