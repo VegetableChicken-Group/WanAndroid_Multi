@@ -157,10 +157,12 @@ class ActivityBindView<T : View>(
   }
   
   override fun onActivityPostDestroyed(activity: Activity) {
-    isPostDestroy = true
-    forceSetNull()
-    // 别忘了取消监听！！！
-    activity.application.unregisterActivityLifecycleCallbacks(this)
+    if (activity === this@ActivityBindView.activity) {
+      isPostDestroy = true
+      forceSetNull()
+      // 别忘了取消监听！！！
+      activity.application.unregisterActivityLifecycleCallbacks(this)
+    }
   }
 }
 
