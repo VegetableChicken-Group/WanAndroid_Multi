@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import com.mredrock.cyxbs.lib.base.utils.IntentHelper
+import com.ndhzs.lib.base.utils.IntentHelper
 import com.ndhzs.lib.base.operations.OperationActivity
 
 /**

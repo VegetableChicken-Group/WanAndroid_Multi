@@ -1,4 +1,4 @@
-package com.mredrock.cyxbs.lib.base.utils
+package com.ndhzs.lib.base.utils
 
 import android.os.Bundle
 import android.os.IBinder
@@ -86,7 +86,6 @@ class ArgumentHelper<T: Any>(
           is Serializable -> putSerializable(name, value)
           is IBinder -> putBinder(name, value)
           is Size -> putSize(name, value)
-          is SizeF -> putSizeF(name, value)
           else -> error("未实现该类型 ${value::class.java.name} for key \"$name\"")
         }
       }

@@ -18,21 +18,11 @@ import com.ndhzs.lib.utils.BuildConfig
  * 已自带处于其他线程时自动切换至主线程发送
  */
 fun toast(s: CharSequence?) {
-  if (s == null) return
-  if (Thread.currentThread() !== Looper.getMainLooper().thread) {
-    Handler(Looper.getMainLooper()).post { WanAndroidToast.show(appContext, s, Toast.LENGTH_SHORT) }
-  } else {
-    WanAndroidToast.show(appContext, s, Toast.LENGTH_SHORT)
-  }
+  WanAndroidToast.show(appContext, s, Toast.LENGTH_SHORT)
 }
 
 fun toastLong(s: CharSequence?) {
-  if (s == null) return
-  if (Thread.currentThread() !== Looper.getMainLooper().thread) {
-    Handler(Looper.getMainLooper()).post { WanAndroidToast.show(appContext, s, Toast.LENGTH_LONG) }
-  } else {
-    WanAndroidToast.show(appContext, s, Toast.LENGTH_LONG)
-  }
+  WanAndroidToast.show(appContext, s, Toast.LENGTH_LONG)
 }
 
 fun String.toast() = toast(this)
@@ -40,12 +30,28 @@ fun String.toastLong() = toastLong(this)
 
 class WanAndroidToast {
   companion object {
+    
+    /**
+     * 已自带处于其他线程时自动切换至主线程发送
+     */
     fun show(
       context: Context,
       text: CharSequence?,
       duration: Int
     ) {
       if (text == null) return
+      if (Thread.currentThread() !== Looper.getMainLooper().thread) {
+        Handler(Looper.getMainLooper()).post { newInstance(context, text, duration).show() }
+      } else {
+        newInstance(context, text, duration).show()
+      }
+    }
+    
+    private fun newInstance(
+      context: Context,
+      text: CharSequence,
+      duration: Int
+    ) : Toast {
       if (BuildConfig.DEBUG) {
         val throwable = Throwable() // 获取堆栈信息
         val path = throwable.stackTrace
@@ -67,7 +73,7 @@ class WanAndroidToast {
           }
         Log.d("toast", "toast: text = $text   path: $path")
       }
-      Toast.makeText(context, text, duration).show()
+      return Toast.makeText(context, text, duration)
     }
 
     /**
