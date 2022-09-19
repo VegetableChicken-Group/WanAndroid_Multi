@@ -1,8 +1,9 @@
 package com.ndhzs.module.login.page.ui
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.ndhzs.lib.base.ui.mvvm.BaseVmBindActivity
+import com.ndhzs.lib.base.ui.BaseBindActivity
 import com.ndhzs.lib.config.route.LOGIN_ENTRY
 import com.ndhzs.lib.utils.extensions.setOnSingleClickListener
 import com.ndhzs.module.login.databinding.LoginActivityLoginBinding
@@ -10,7 +11,9 @@ import com.ndhzs.module.login.page.viewmodel.LoginViewModel
 import com.ndhzs.module.login.utils.textwatcher.BaseTextWatcher
 
 @Route(path = LOGIN_ENTRY)
-class LoginActivity : BaseVmBindActivity<LoginViewModel, LoginActivityLoginBinding>() {
+class LoginActivity : BaseBindActivity<LoginActivityLoginBinding>() {
+  
+  private val mViewModel by viewModels<LoginViewModel>()
   
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -21,12 +24,12 @@ class LoginActivity : BaseVmBindActivity<LoginViewModel, LoginActivityLoginBindi
   }
   
   private fun initView() {
-    binding.loginCbRemember.isChecked = viewModel.isRememberPassword()
+    binding.loginCbRemember.isChecked = mViewModel.isRememberPassword()
   }
   
   private fun initClick() {
     binding.loginCbRemember.setOnCheckedChangeListener { _, isChecked ->
-      viewModel.changeRememberPassword(isChecked)
+      mViewModel.changeRememberPassword(isChecked)
     }
     
     binding.loginBtnLogin.setOnSingleClickListener {
@@ -35,7 +38,7 @@ class LoginActivity : BaseVmBindActivity<LoginViewModel, LoginActivityLoginBindi
       if (username.isNullOrBlank() || password.isNullOrBlank()) {
         toast("请输入完整!")
       } else {
-        viewModel.login(username, password)
+        mViewModel.login(username, password)
       }
     }
     
@@ -62,15 +65,15 @@ class LoginActivity : BaseVmBindActivity<LoginViewModel, LoginActivityLoginBindi
   }
   
   private fun initObserve() {
-    viewModel.userName.observe {
+    mViewModel.userName.observe {
       binding.loginEtUsername.setText(it)
     }
     
-    viewModel.password.observe {
+    mViewModel.password.observe {
       binding.loginEtPassword.setText(it)
     }
     
-    viewModel.loginEvent.collectSuspend {
+    mViewModel.loginEvent.collectSuspend {
       when (it) {
         is LoginViewModel.LoginEvent.ApiFail -> {
           toast(it.error.errorMsg)

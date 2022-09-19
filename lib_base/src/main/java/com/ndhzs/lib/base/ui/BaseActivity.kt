@@ -22,6 +22,46 @@ import com.ndhzs.lib.base.operations.OperationActivity
  * 比如：使用 api 模块
  * 这种操作请放在 [OperationActivity] 中
  *
+ * ## 一、获取 ViewModel 的规范写法
+ * ### 获取自身的 ViewModel
+ * ```
+ * 1、ViewModel 构造器无参数
+ * private mViewModel by viewModels<XXXViewModel>()
+ *
+ * 2、ViewModel 构造器需要参数（即需要 Factory 的情况）
+ * private mViewModel by viewModelBy {
+ *     XXXViewModel(stuNum)
+ * }
+ * ```
+ *
+ * ## 二、replace Fragment 的规范写法
+ * 对于 replace(Fragment) 时的封装
+ * ```
+ * supportFragmentManager.beginTransaction()
+ *     .replace(id, XXXFragment())
+ *     .commit()
+ *  ↓
+ * replaceFragment(id) {
+ *     XXXFragment() // 这种写法避免了 Fragment 重复创建导致的 ViewModel 失效的问题
+ * }
+ * ```
+ * 详细用法请查看 [replaceFragment] 方法
+ *
+ * ## 三、intent 的封装
+ * 对于 intent 的使用进行了一层封装
+ * ```
+ * val a by lazy { intent!!.getInt("xxx") } // 过于繁琐，需要简化
+ *  ↓
+ * val a by intent<Int>()
+ * ```
+ * 详细用法请查看 [intent]
+ *
+ *
+ *
+ *
+ *
+ *
+ * # 更多封装请往父类和接口查看
  * @author 985892345
  * @email 2767465918@qq.com
  * @date 2021/5/25
@@ -83,7 +123,9 @@ abstract class BaseActivity : OperationActivity() {
    * 如果不按照正确方式使用，会造成 ViewModel 失效，
    * 你可以写个 demo 看看在屏幕翻转后 Fragment 的 ViewModel 的 hashcode() 值是不是同一个
    *
-   * 其实不是很建议你在 Activity 中拿到这个 Fragment 对象，Fragment 一般是不能直接暴露方法让外面调用的
+   * 没有返回 Fragment 的原因：Fragment 一般是不能直接暴露方法让外面调用的，所以拿了作用不大，
+   * 想宿主给子 Fragment 通信，请使用 ViewModel。
+   * 但返过来通信时，是允许直接强转的（requestActivity() as XXXActivity）
    */
   protected fun <F : Fragment> replaceFragment(
     @IdRes id: Int,
@@ -118,12 +160,13 @@ abstract class BaseActivity : OperationActivity() {
   
   
   /**
-   * 快速得到 intent 中的变量，直接使用反射拿了变量的名字。支持声明为 var 修改对应参数
+   * 快速得到 intent 中的变量，直接使用反射拿了变量的名字
    * ```
-   * var key by intent<String>()
+   * var key by intent<String>() // 支持声明为 var 修改参数
    *
    * 这样写会在 intent 中寻找名字叫 key 的参数
    * ```
+   * 但对于使用 ARouter 时该写法并不能起到很大的帮助，但我个人不是很推荐需要传参的 ARouter 启动，不如直接 api 模块
    */
   inline fun <reified T : Any> intent() = IntentHelper(T::class.java) { intent }
 }
