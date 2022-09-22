@@ -2,6 +2,7 @@ package com.ndhzs.lib.base.ui
 
 import android.annotation.SuppressLint
 import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -26,10 +27,10 @@ import com.ndhzs.lib.base.operations.OperationActivity
  * ### 获取自身的 ViewModel
  * ```
  * 1、ViewModel 构造器无参数
- * private mViewModel by viewModels<XXXViewModel>()
+ * private val mViewModel by viewModels<XXXViewModel>()
  *
  * 2、ViewModel 构造器需要参数（即需要 Factory 的情况）
- * private mViewModel by viewModelBy {
+ * private val mViewModel by viewModelBy {
  *     XXXViewModel(stuNum)
  * }
  * ```
@@ -114,7 +115,9 @@ abstract class BaseActivity : OperationActivity() {
     // 不同布局该属性效果不同，请给合适的布局添加
     WindowCompat.setDecorFitsSystemWindows(window, false)
     val windowInsetsController = WindowCompat.getInsetsController(window, decorView)
-    windowInsetsController.isAppearanceLightStatusBars = true // 设置状态栏字体颜色为黑色
+    // 如果你要白色的状态栏字体，请在你直接的 Activity 中单独设置 isAppearanceLightStatusBars，这里不提供方法
+    val uiMode = resources.configuration.uiMode // 判断是否是夜间模式
+    windowInsetsController.isAppearanceLightStatusBars = (uiMode and  Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
     window.statusBarColor = Color.TRANSPARENT //把状态栏颜色设置成透明
   }
   

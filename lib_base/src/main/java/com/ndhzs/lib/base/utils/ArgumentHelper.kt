@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.os.IBinder
 import android.os.Parcelable
 import android.util.Size
-import android.util.SizeF
 import androidx.core.os.bundleOf
 import java.io.Serializable
 import kotlin.properties.ReadWriteProperty

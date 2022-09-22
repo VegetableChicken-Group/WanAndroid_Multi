@@ -44,14 +44,14 @@ import kotlinx.coroutines.flow.Flow
  * ```
  * mViewModel.flow
  *     .collectSuspend {
- *         // launchWhenStarted() 的封装，作用：在进入后台的时候会自动挂起
+ *         // launchWhenStarted() 的封装，作用：在进入后台时会自动挂起
  *     }
  * ```
  * ### collectRestart()
  * ```
  * mViewModel.flow
  *     .collectRestart {
- *         // flowWithLifecycle() 的封装，作用：在进入后台的摧毁，再次进入时重启
+ *         // flowWithLifecycle() 的封装，作用：在进入后台时摧毁，再次进入时重启 Flow
  *     }
  * // 注意：该方法适用场景很少，有数据倒灌的缺点，请注意使用场景！！！
  * ```
