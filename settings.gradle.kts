@@ -1,7 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":lib_debug")
-
 
 /*
 * 这里每次新建模块都会 include，把它们删掉，因为已经默认 include 了
@@ -10,9 +8,8 @@ include(":lib_debug")
 pluginManagement {
   includeBuild("build_logic")
   repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/public") }
-    maven { url = uri("https://maven.aliyun.com/repository/google") }
-    maven { url = uri("https://jitpack.io") }
+    maven("https://maven.aliyun.com/repository/public")
+    maven("https://maven.aliyun.com/repository/google")
     gradlePluginPortal()
     mavenCentral()
     google()
@@ -21,10 +18,12 @@ pluginManagement {
 dependencyResolutionManagement {
   repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
   repositories {
-    maven { url = uri("$rootDir/build/maven") } // 本地模块缓存文件夹
-    maven { url = uri("https://maven.aliyun.com/repository/public") }
-    maven { url = uri("https://maven.aliyun.com/repository/google") }
-    maven { url = uri("https://jitpack.io") }
+    maven("$rootDir/build/maven") // 本地模块缓存文件夹
+    maven("https://maven.aliyun.com/repository/public")
+    maven("https://maven.aliyun.com/repository/google")
+    maven("https://jitpack.io")
+    // mavenCentral 快照仓库
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
     google()
     mavenCentral()
   }
