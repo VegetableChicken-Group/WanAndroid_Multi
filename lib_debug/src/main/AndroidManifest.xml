@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ndhzs.lib.debug">
+    
+    <application>
+        <activity android:name=".crash.CrashActivity"
+            android:process=":debug_crash"
+            android:launchMode="singleTop" />
+        <activity android:name=".crash.NetworkApiResultActivity" />
+    </application>
 
 </manifest>

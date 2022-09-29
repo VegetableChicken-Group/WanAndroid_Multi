@@ -11,6 +11,7 @@ import com.ndhzs.lib.utils.extensions.getSp
 import com.ndhzs.lib.utils.network.ApiException
 import com.ndhzs.lib.utils.network.mapOrInterceptException
 import com.ndhzs.lib.utils.service.ServiceManager
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 
@@ -39,6 +40,7 @@ class LoginViewModel : BaseViewModel() {
   
   init {
     mAccountService.observeUserInfoState()
+      .observeOn(AndroidSchedulers.mainThread())
       .safeSubscribeBy { value ->
         value.nullIf {
           // 此时登出了账号，取消记住密码

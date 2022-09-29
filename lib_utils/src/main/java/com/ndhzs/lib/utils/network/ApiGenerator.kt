@@ -1,13 +1,17 @@
 package com.ndhzs.lib.utils.network
 
 import com.ndhzs.lib.config.route.COOKIE_SERVICE
+import com.ndhzs.lib.utils.BuildConfig
 import com.ndhzs.lib.utils.service.ServiceManager
 import okhttp3.CookieJar
 import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
@@ -91,7 +95,35 @@ object ApiGenerator {
       cookieJar(mCookieJar) // 给每条请求增加 cookie
     }
     addInterceptor(HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY })
+    if (BuildConfig.DEBUG) {
+      addInterceptor {
+        // 专门用于收集信息的拦截器
+        val request = it.request()
+        val apiResult = ApiResult(request.newBuilder().build())
+        apiResultList.add(apiResult)
+        try {
+          it.proceed(request).also { response ->
+            // 如果请求成功了就记录新的 request
+            apiResult.request = response.request.newBuilder().build()
+            apiResult.response = response.newBuilder().build()
+          }
+        } catch (e: Exception) {
+          apiResult.stackTrace = e.stackTraceToString()
+          throw e
+        }
+      }
+    }
     return build()
+  }
+  
+  // 用于 debug 时保存网络请求，因为异常触发时进程被摧毁，Pandora 记录的请求会被清空
+  val apiResultList by lazy {
+    CopyOnWriteArrayList<ApiResult>()
+  }
+  
+  class ApiResult(var request: Request) {
+    var response: Response? = null
+    var stackTrace: String? = null // 直接保存 throwable 对象的话，不会被记录下来，不知道为什么
   }
 }
 

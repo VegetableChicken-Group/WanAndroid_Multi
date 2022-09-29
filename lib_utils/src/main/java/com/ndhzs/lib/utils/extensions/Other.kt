@@ -1,5 +1,6 @@
 package com.ndhzs.lib.utils.extensions
 
+import android.content.res.Configuration
 import androidx.lifecycle.LifecycleCoroutineScope
 import com.alibaba.android.arouter.facade.template.IProvider
 import kotlinx.coroutines.CoroutineScope
@@ -33,3 +34,11 @@ fun IProvider.launch(
   start: CoroutineStart = CoroutineStart.DEFAULT,
   block: suspend CoroutineScope.() -> Unit
 ): Job = lifecycleScope.launch(context, start, block)
+
+/**
+ * 是否是日间模式，否则为夜间模式
+ */
+fun isDaytimeMode(): Boolean {
+  val uiMode = appContext.resources.configuration.uiMode
+  return (uiMode and  Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
+}
