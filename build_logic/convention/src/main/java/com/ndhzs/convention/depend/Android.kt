@@ -25,13 +25,13 @@ object Android {
   
   // 官方扩展库
   // https://developer.android.google.cn/kotlin/ktx?hl=zh_cn#core
-  const val `core-ktx` = "androidx.core:core-ktx:1.9.0"
+  const val `core-ktx` = "androidx.core:core-ktx:1.8.0"
   // https://developer.android.google.cn/kotlin/ktx/extensions-list?hl=zh_cn#androidxcollection
   const val `collection-ktx` = "androidx.collection:collection-ktx:1.2.0"
   // https://developer.android.google.cn/kotlin/ktx/extensions-list?hl=zh_cn#androidxfragmentapp
   const val `fragment-ktx` = "androidx.fragment:fragment-ktx:1.5.3"
   // https://developer.android.google.cn/kotlin/ktx/extensions-list?hl=zh_cn#androidxactivity
-  const val `activity-ktx` = "androidx.activity:activity-ktx:1.6.0"
+  const val `activity-ktx` = "androidx.activity:activity-ktx:1.5.1"
 }
 
 /**
