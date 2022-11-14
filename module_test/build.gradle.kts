@@ -1,9 +1,3 @@
-import com.ndhzs.convention.depend.api.dependApiMain
-import com.ndhzs.convention.depend.dependHilt
-import com.ndhzs.convention.depend.lib.dependLibBase
-import com.ndhzs.convention.depend.lib.dependLibConfig
-import com.ndhzs.convention.depend.lib.dependLibUtils
-
 plugins {
   id("module-debug")
 }

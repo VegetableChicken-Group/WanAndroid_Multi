@@ -10,7 +10,12 @@
               <build path="$PROJECT_DIR$/build_logic" name="build_logic">
                 <projects>
                   <project path="$PROJECT_DIR$/build_logic" />
-                  <project path="$PROJECT_DIR$/build_logic/convention" />
+                  <project path="$PROJECT_DIR$/build_logic/core" />
+                  <project path="$PROJECT_DIR$/build_logic/core/manager" />
+                  <project path="$PROJECT_DIR$/build_logic/core/project" />
+                  <project path="$PROJECT_DIR$/build_logic/core/versions" />
+                  <project path="$PROJECT_DIR$/build_logic/plugin" />
+                  <project path="$PROJECT_DIR$/build_logic/plugin/cache" />
                 </projects>
               </build>
             </builds>
@@ -22,8 +27,14 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/api_init" />
             <option value="$PROJECT_DIR$/build_logic" />
-            <option value="$PROJECT_DIR$/build_logic/convention" />
+            <option value="$PROJECT_DIR$/build_logic/core" />
+            <option value="$PROJECT_DIR$/build_logic/core/manager" />
+            <option value="$PROJECT_DIR$/build_logic/core/project" />
+            <option value="$PROJECT_DIR$/build_logic/core/versions" />
+            <option value="$PROJECT_DIR$/build_logic/plugin" />
+            <option value="$PROJECT_DIR$/build_logic/plugin/cache" />
             <option value="$PROJECT_DIR$/lib_account" />
             <option value="$PROJECT_DIR$/lib_account/api_account" />
             <option value="$PROJECT_DIR$/lib_base" />

@@ -1,8 +1,6 @@
 package com.ndhzs.lib.debug.crash
 
 import com.google.auto.service.AutoService
-import com.ndhzs.lib.base.spi.InitialManager
-import com.ndhzs.lib.base.spi.InitialService
 
 /**
  * .
@@ -10,10 +8,10 @@ import com.ndhzs.lib.base.spi.InitialService
  * @author 985892345
  * @date 2022/9/23 15:51
  */
-@AutoService(InitialService::class)
-class CrashInitialService : InitialService {
+@AutoService(com.ndhzs.api.init.InitialService::class)
+class CrashInitialService : com.ndhzs.api.init.InitialService {
   
-  override fun onMainProcess(manager: InitialManager) {
+  override fun onMainProcess(manager: com.ndhzs.api.init.InitialManager) {
     Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
       CrashActivity.start(
         throwable,
@@ -23,7 +21,7 @@ class CrashInitialService : InitialService {
     }
   }
   
-  override fun onOtherProcess(manager: InitialManager) {
+  override fun onOtherProcess(manager: com.ndhzs.api.init.InitialManager) {
     Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
       CrashActivity.start(
         throwable,

@@ -1,9 +1,11 @@
 package test.ui
 
 import android.os.Bundle
-import com.ndhzs.api.test.ITestService
+import android.view.ViewGroup
+import androidx.fragment.app.FragmentContainerView
 import com.ndhzs.lib.base.BaseDebugActivity
-import com.ndhzs.module.test.page.TestActivity
+import com.ndhzs.module.test.page.TestFragment
+import kotlin.random.Random
 
 /**
  * ...
@@ -14,11 +16,16 @@ import com.ndhzs.module.test.page.TestActivity
 class DebugActivity : BaseDebugActivity() {
 
   override fun onDebugCreate(savedInstanceState: Bundle?) {
-    TestActivity.start(
-      this,
-      ITestService.Data(
-        "123", "12345"
+    val fcv = FragmentContainerView(this).apply {
+      layoutParams = ViewGroup.LayoutParams(
+        ViewGroup.LayoutParams.MATCH_PARENT,
+        ViewGroup.LayoutParams.MATCH_PARENT
       )
-    )
+      id = Random.nextInt() // 随机一个 id 即可
+    }
+    setContentView(fcv)
+    replaceFragment(fcv.id) {
+      TestFragment()
+    }
   }
 }

@@ -7,8 +7,8 @@ import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
 import com.google.auto.service.AutoService
-import com.ndhzs.lib.base.spi.InitialManager
-import com.ndhzs.lib.base.spi.InitialService
+import com.ndhzs.api.init.InitialManager
+import com.ndhzs.api.init.InitialService
 import com.ndhzs.lib.utils.utils.defaultImpl
 import tech.linjiang.pandora.Pandora
 import tech.linjiang.pandora.util.SensorDetector

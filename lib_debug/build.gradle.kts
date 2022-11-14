@@ -1,8 +1,3 @@
-import com.ndhzs.convention.depend.*
-import com.ndhzs.convention.depend.lib.dependLibBase
-import com.ndhzs.convention.depend.lib.dependLibConfig
-import com.ndhzs.convention.depend.lib.dependLibUtils
-
 plugins {
   id("module-manager")
   //  id("me.ele.lancet") // CodeLocator 所需要的插件

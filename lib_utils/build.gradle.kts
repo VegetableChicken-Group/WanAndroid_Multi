@@ -1,6 +1,3 @@
-import com.ndhzs.convention.depend.*
-import com.ndhzs.convention.depend.lib.dependLibConfig
-
 plugins {
   id("module-manager")
 }
@@ -13,3 +10,9 @@ dependGlide()
 dependNetwork()
 dependRxjava()
 dependRxPermissions()
+
+dependAutoService()
+
+dependencies {
+  implementation(project(":api_init"))
+}

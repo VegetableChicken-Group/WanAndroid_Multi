@@ -2,7 +2,7 @@ package com.ndhzs.lib.config.sp
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.ndhzs.lib.config.ConfigApplicationWrapper.appContext
+import com.ndhzs.lib.config.ConfigApplicationWrapper.Companion.application
 
 /**
  * ...
@@ -20,6 +20,6 @@ import com.ndhzs.lib.config.ConfigApplicationWrapper.appContext
  * ## 注意：这个是给整个应用全局使用的！
  */
 val defaultSp: SharedPreferences
-  get() = appContext.getSharedPreferences("share_data", Context.MODE_PRIVATE)
+  get() = application.getSharedPreferences("share_data", Context.MODE_PRIVATE)
 
 const val SP_TEST_DEMO = "这只是一个用于演示的例子"

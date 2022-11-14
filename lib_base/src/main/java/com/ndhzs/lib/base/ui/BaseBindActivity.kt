@@ -7,7 +7,7 @@ import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
 import com.ndhzs.lib.utils.extensions.lazyUnlock
-import com.ndhzs.lib.utils.utils.GenericityUtils.getGenericClassFromSuperClass
+import com.ndhzs.lib.utils.utils.get.GenericityUtils.getGenericClassFromSuperClass
 
 /**
  *

@@ -21,7 +21,7 @@
   - `api_test`：`module_test` 模块公开的接口
 - .......
 
-对于多模块开发，我写了一篇[教程](md/多模块指南.md)，看懂并实践后就可以正式开发
+对于多模块开发，我写了一篇[教程](doce/多模块指南.md)，看懂并实践后就可以正式开发
 
 如果只想看多模块构建相关代码，请查看 [`Framework`](https://github.com/VegetableChicken-Group/WanAndroid_Multi/tree/framework) 
 分支，多模块相关问题将在该分支上进行维护，`master` 分支用于 `wanAndroid` 项目开发(现已废弃，原因请看 [后文](#公告))
@@ -89,7 +89,7 @@ description
 - 可用于本地 `merge` 操作
 - 主分支只能采用 `pr` 的方式来推进
 
-具体的操作教程可以看：[`pr` 教程](md/pr教程.md)
+具体的操作教程可以看：[`pr` 教程](doce/pr教程.md)
 
 ### 公告
 由于经过了一次多模块的大规模改动，导致 master 分支不能直接移植，所以现决定废除 master 分支  

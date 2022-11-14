@@ -3,10 +3,7 @@ package com.ndhzs.lib.base
 import android.app.Application
 import androidx.annotation.CallSuper
 import com.alibaba.android.arouter.launcher.ARouter
-import com.ndhzs.lib.base.spi.InitialManager
-import com.ndhzs.lib.base.spi.InitialService
-import com.ndhzs.lib.config.ConfigApplicationWrapper
-import com.ndhzs.lib.utils.UtilsApplicationWrapper
+import com.ndhzs.api.init.InitialManager
 import java.util.*
 
 /**
@@ -25,8 +22,6 @@ open class BaseApp : Application(), InitialManager {
   override fun onCreate() {
     super.onCreate()
     baseApp = this
-    UtilsApplicationWrapper.initialize(this)
-    ConfigApplicationWrapper.initialize(this)
     initARouter()
     initInitialService()
   }
@@ -42,13 +37,14 @@ open class BaseApp : Application(), InitialManager {
   override val application: Application
     get() = this
   
-  private val loader = ServiceLoader.load(InitialService::class.java)
+  private val loader = ServiceLoader.load(com.ndhzs.api.init.InitialService::class.java)
   
   private fun initInitialService() {
     //由于android每开辟进程都会访问application的生命周期方法,所以为了保证sdk初始化无措，最好对其进行过滤。
     //因为有些sdk的初始化不是幂等的，即多次初始化会导致进程的crash。这样就会导致一些未知的问题。
     //所以解决方案就是对当前进程进程判断，只在main进程初始化sdk，其余进程默认不进行sdk的初始化。
     // (不排除某些sdk需要，比如友盟推送就需要在新开辟的:channel进行进行初始化)
+    loader.forEach { it.onAllProcess(this) }
     if (isMainProcess()){
       onMainProcess()
     }else {

@@ -1,15 +1,12 @@
 @file:Suppress("UnstableApiUsage")
 
-
-// 开启 versionCatalogs 功能
-enableFeaturePreview("VERSION_CATALOGS")
-
 pluginManagement {
   repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/public") }
-    maven { url = uri("https://maven.aliyun.com/repository/google") }
+    includeBuild(".")
+    maven("https://maven.aliyun.com/repository/public")
+    maven("https://maven.aliyun.com/repository/google")
     gradlePluginPortal()
-    maven { url = uri("https://jitpack.io") }
+    maven("https://jitpack.io")
     google()
     mavenCentral()
   }
@@ -17,9 +14,9 @@ pluginManagement {
 
 dependencyResolutionManagement {
   repositories {
-    maven { url = uri("https://maven.aliyun.com/repository/public") }
-    maven { url = uri("https://maven.aliyun.com/repository/google") }
-    maven { url = uri("https://jitpack.io") }
+    maven("https://maven.aliyun.com/repository/public")
+    maven("https://maven.aliyun.com/repository/google")
+    maven("https://jitpack.io")
     google()
     mavenCentral()
   }
@@ -32,4 +29,11 @@ dependencyResolutionManagement {
   }
 }
 rootProject.name = "build_logic"
-include(":convention")
+// 核心插件模块
+include(":core")
+include(":core:manager")
+include(":core:project")
+include(":core:versions")
+// 其他业务插件
+include(":plugin")
+include(":plugin:cache")
