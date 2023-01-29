@@ -2,11 +2,6 @@ plugins {
   `kotlin-dsl`
 }
 
-java {
-  sourceCompatibility = JavaVersion.VERSION_1_8
-  targetCompatibility = JavaVersion.VERSION_1_8
-}
-
 /*
 * 注意：
 * 1、classpath 在 build-logic 中要这样才能导入
@@ -32,4 +27,5 @@ dependencies {
   //  implementation("com.bytedance.tools.lancet:lancet-plugin-asm6:1.0.2")
   
   api(project(":core:versions"))
+  api(project(":plugin:checker"))
 }

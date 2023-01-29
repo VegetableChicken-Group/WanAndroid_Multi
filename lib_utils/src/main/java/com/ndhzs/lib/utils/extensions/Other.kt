@@ -40,5 +40,10 @@ fun IProvider.launch(
  */
 fun isDaytimeMode(): Boolean {
   val uiMode = appContext.resources.configuration.uiMode
-  return (uiMode and  Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
+  return (uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_NO
 }
+
+/**
+ * 是否是夜间模式
+ */
+fun isDarkMode() = !isDaytimeMode()

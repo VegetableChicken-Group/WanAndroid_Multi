@@ -5,19 +5,7 @@
       <module name="build_logic.convention" target="1.8" />
       <module name="build_logic.convention.main" target="1.8" />
       <module name="build_logic.convention.test" target="1.8" />
-      <module name="build_logic.core.manager" target="1.8" />
-      <module name="build_logic.core.manager.main" target="1.8" />
-      <module name="build_logic.core.manager.test" target="1.8" />
-      <module name="build_logic.core.project" target="1.8" />
-      <module name="build_logic.core.project.main" target="1.8" />
-      <module name="build_logic.core.project.test" target="1.8" />
-      <module name="build_logic.core.versions" target="1.8" />
-      <module name="build_logic.core.versions.main" target="1.8" />
-      <module name="build_logic.core.versions.test" target="1.8" />
       <module name="build_logic.main" target="1.8" />
-      <module name="build_logic.plugin.cache" target="1.8" />
-      <module name="build_logic.plugin.cache.main" target="1.8" />
-      <module name="build_logic.plugin.cache.test" target="1.8" />
       <module name="build_logic.test" target="1.8" />
     </bytecodeTargetLevel>
   </component>

@@ -9,16 +9,19 @@ import android.view.View
  * @date 2022/3/24 23:08
  */
 
-fun View.gone() {
+fun View.gone(): View {
   visibility = View.GONE
+  return this
 }
 
-fun View.invisible() {
+fun View.invisible(): View {
   visibility = View.INVISIBLE
+  return this
 }
 
-fun View.visible() {
+fun View.visible(): View {
   visibility = View.VISIBLE
+  return this
 }
 
 /**

@@ -2,6 +2,8 @@
 
 package project.base.base
 
+import check.AndroidProjectChecker
+import check.rule.ModuleNamespaceCheckRule
 import com.android.build.api.dsl.*
 import org.gradle.api.JavaVersion
 import org.gradle.api.plugins.ExtensionAware
@@ -26,6 +28,9 @@ import org.jetbrains.kotlin.gradle.plugin.KaptExtension
 abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
   
   override fun initProjectInternal() {
+    // 项目检查工具
+    AndroidProjectChecker.configBefore(project)
+    
     dependencies {
       if (isDependChildModule()) {
         // 自动依赖自己目录下的子模块
@@ -47,6 +52,9 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
         arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录
       }
     }
+  
+    // 项目检查工具
+    AndroidProjectChecker.configAfter(project)
   }
   
   /**
@@ -62,7 +70,7 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
   protected fun <A : BuildFeatures, B : BuildType, C : DefaultConfig, D : ProductFlavor>
     CommonExtension<A, B, C, D>.uniformConfigAndroid() {
     
-    namespace = "com.ndhzs.${project.name.replace("_", ".")}"
+    namespace = ModuleNamespaceCheckRule.getCorrectNamespace(project)
     compileSdk = Config.compileSdk
     defaultConfig {
       minSdk = Config.minSdk

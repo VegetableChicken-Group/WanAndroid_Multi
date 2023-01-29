@@ -1,7 +1,7 @@
 [versions]
-android_gradle_version = "7.3.1"
-kotlin_gradle_version = "1.7.10"
-hilt_gradle_version = "2.44"
+android_gradle_version = "7.4.0-rc01"
+kotlin_gradle_version = "1.7.21"
+hilt_gradle_version = "2.44.2"
 
 [libraries]
 android-gradlePlugin = { module = "com.android.tools.build:gradle", version.ref = "android_gradle_version" }

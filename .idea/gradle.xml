@@ -16,6 +16,7 @@
                   <project path="$PROJECT_DIR$/build_logic/core/versions" />
                   <project path="$PROJECT_DIR$/build_logic/plugin" />
                   <project path="$PROJECT_DIR$/build_logic/plugin/cache" />
+                  <project path="$PROJECT_DIR$/build_logic/plugin/checker" />
                 </projects>
               </build>
             </builds>
@@ -35,6 +36,7 @@
             <option value="$PROJECT_DIR$/build_logic/core/versions" />
             <option value="$PROJECT_DIR$/build_logic/plugin" />
             <option value="$PROJECT_DIR$/build_logic/plugin/cache" />
+            <option value="$PROJECT_DIR$/build_logic/plugin/checker" />
             <option value="$PROJECT_DIR$/lib_account" />
             <option value="$PROJECT_DIR$/lib_account/api_account" />
             <option value="$PROJECT_DIR$/lib_base" />

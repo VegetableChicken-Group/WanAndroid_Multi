@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
-import com.ndhzs.lib.utils.utils.get.GenericityUtils.getGenericClassFromSuperClass
+import com.ndhzs.lib.base.BuildConfig
+import com.ndhzs.lib.utils.utils.get.GenericityUtils.getGenericClass
+import java.lang.reflect.Method
 
 /**
  *
@@ -20,13 +22,17 @@ import com.ndhzs.lib.utils.utils.get.GenericityUtils.getGenericClassFromSuperCla
  *
  *
  *
- *
  * # 更多封装请往父类和接口查看
  * @author 985892345
  * @email 2767465918@qq.com
  * @data 2021/6/2
  */
 abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
+  
+  companion object {
+    // VB inflate() 缓存。key 为 javaClass，value 为 VB 的 inflate 方法
+    private val VB_METHOD_BY_CLASS = hashMapOf<Class<out BaseBindFragment<*>>, Method>()
+  }
   
   abstract override fun onViewCreated(view: View, savedInstanceState: Bundle?)
   
@@ -37,6 +43,17 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
   private var _binding: VB? = null
   protected val binding: VB
     get() = _binding!!
+  
+  init {
+    viewLifecycleOwnerLiveData.observeForever {
+      // 因为 binding 需要在 onDestroyView() 中置空
+      // 但是置空是在父类中操作，会导致比子类先调用 (除非你把 super 写在末尾)
+      // 所以为了优雅，可以观察 viewLifecycleOwnerLiveData，它是在 onDestroyView() 后回调的
+      if (it == null) {
+        _binding = null
+      }
+    }
+  }
   
   @CallSuper
   @Suppress("UNCHECKED_CAST")
@@ -50,14 +67,25 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ): View {
-    val method = getGenericClassFromSuperClass<VB, ViewBinding>(javaClass).getMethod(
-      "inflate",
-      LayoutInflater::class.java,
-      ViewGroup::class.java,
-      Boolean::class.java
-    )
+    val method = VB_METHOD_BY_CLASS.getOrPut(javaClass) {
+      getGenericClass<VB, ViewBinding>(javaClass).getMethod(
+        "inflate",
+        LayoutInflater::class.java,
+        ViewGroup::class.java,
+        Boolean::class.java
+      )
+    }
     _binding = method.invoke(null, inflater, container, false) as VB
-    (binding as? ViewDataBinding)?.lifecycleOwner = viewLifecycleOwner
+    if (_binding is ViewDataBinding) {
+      // ViewBinding 是 ViewBind 和 DataBind 共有的父类
+      (binding as ViewDataBinding).lifecycleOwner = viewLifecycleOwner
+    } else {
+      // 目前掌邮更建议使用 DataBind，因为 ViewBind 是白名单模式，默认所有 xml 生成类，严重影响编译速度
+      // 但 DataBind 不是很推荐使用双向绑定，因为 xml 中写代码以后很难维护
+      if (BuildConfig.DEBUG) {
+        toast("更推荐使用 DataBind (Fragment: ${this::class.simpleName})")
+      }
+    }
     onCreateViewBefore(container, savedInstanceState)
     return binding.root
   }
@@ -69,10 +97,5 @@ abstract class BaseBindFragment<VB : ViewBinding> : BaseFragment() {
     container: ViewGroup?,
     savedInstanceState: Bundle?
   ) {
-  }
-  
-  override fun onDestroyView() {
-    super.onDestroyView()
-    _binding = null
   }
 }
