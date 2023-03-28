@@ -122,7 +122,7 @@ abstract class BaseFragment : OperationFragment {
     fragmentManager: FragmentManager = childFragmentManager,
     func: FragmentTransaction.() -> F
   ) {
-    if (super.getLifecycle().currentState == Lifecycle.State.CREATED) {
+    if (lifecycle.currentState == Lifecycle.State.CREATED) {
       // 处于 onCreate 时
       if (mIsFragmentRebuilt) {
         // 如果此时 Fragment 处于重建状态，Fragment 会自动恢复，不能重复提交而改变之前的状态
@@ -146,8 +146,6 @@ abstract class BaseFragment : OperationFragment {
   final override val rootView: View
     get() = requireView()
   
-  val viewLifecycleScope: LifecycleCoroutineScope
-    get() = viewLifecycleOwner.lifecycle.coroutineScope
   
   /**
    * 快速得到 arguments 中的变量，直接使用反射拿了变量的名字
@@ -202,11 +200,6 @@ abstract class BaseFragment : OperationFragment {
   
   
   
-  @Deprecated(
-    "你确定你需要的是 Lifecycle 而不是 viewLifecycle?",
-    ReplaceWith("viewLifecycle")
-  )
-  override fun getLifecycle(): Lifecycle = super.getLifecycle()
   
   val viewLifecycle: Lifecycle
     get() = viewLifecycleOwner.lifecycle
@@ -222,5 +215,8 @@ abstract class BaseFragment : OperationFragment {
     ReplaceWith("viewLifecycleScope")
   )
   val lifecycleScope: LifecycleCoroutineScope
-    get() = super.getLifecycle().coroutineScope
+    get() = lifecycle.coroutineScope
+  
+  val viewLifecycleScope: LifecycleCoroutineScope
+    get() = viewLifecycleOwner.lifecycle.coroutineScope
 }

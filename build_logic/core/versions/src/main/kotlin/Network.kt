@@ -22,7 +22,7 @@ object Network {
   const val `logging-interceptor` = "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
   
   // https://github.com/google/gson
-  const val gson = "com.google.code.gson:gson:2.10"
+  const val gson = "com.google.code.gson:gson:2.10.1"
 }
 
 fun Project.dependNetwork() {

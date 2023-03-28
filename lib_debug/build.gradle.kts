@@ -12,7 +12,7 @@ dependAutoService()
 dependencies {
   
   // 依赖 LeakCanary，检查内存泄漏 https://github.com/square/leakcanary
-  implementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
+  implementation("com.squareup.leakcanary:leakcanary-android:2.10")
   
   /**
    * 很牛逼的检测工具，debug 模式下摇一摇手机触发
