@@ -2,7 +2,24 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
 /**
- * ...
+ * 留给后人：
+ * 掌邮的依赖建议每隔一年就升级一次，对于升级的方式有以下两种：
+ *
+ * ## 1、Gradle Dependency Updates 插件
+ *
+ * AS 下载 Gradle Dependency Updates 插件，插件主页：https://plugins.jetbrains.com/plugin/14243-gradle-dependency-updates
+ *
+ * 该插件会自动检查所有模块的依赖版本，比较智能
+ *
+ * ## 2、手动查询
+ * - 每个依赖我都贴心的给出了官网地址，可以快速查到最新版本号
+ * - 也可以在该网站中寻找到所有仓库的依赖：https://mvnrepository.com/
+ *
+ * # 注意：
+ * - 如果你要添加其他依赖，请贴出官网地址，方便后人查找
+ * - 依赖一定要经常升级，不然到后面一起升很麻烦
+ * - 除了这里的依赖外，还有 build.gradle.kts 中的 android:gradle 和 kotlin:gradle 版本
+ *
  * @author 985892345 (Guo Xiangrui)
  * @email 2767465918@qq.com
  * @date 2022/5/27 14:10

@@ -39,7 +39,5 @@ class MainActivity : BaseActivity() {
         ServiceManager.fragment(TEST_SHOW)
       }
     }
-    
-    
   }
 }

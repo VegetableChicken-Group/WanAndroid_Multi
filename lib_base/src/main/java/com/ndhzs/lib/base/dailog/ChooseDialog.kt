@@ -8,6 +8,7 @@ import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import com.ndhzs.lib.config.R
 import com.ndhzs.lib.utils.extensions.color
 import com.ndhzs.lib.utils.extensions.dp2px
 
@@ -21,7 +22,8 @@ import com.ndhzs.lib.utils.extensions.dp2px
  *     ChooseDialog.Data(
  *         content = "你已有一位关联的同学\n确定要替换吗？",
  *         width = 255.dp2px,
- *         height = 167.dp2px
+ *         height = 167.dp2px,
+ *         type = DialogType.ONE_BUT // 设置为单按钮，默认为双按钮
  *     )
  * ).setPositiveClick {
  *     // 点击确认按钮
@@ -35,7 +37,7 @@ import com.ndhzs.lib.utils.extensions.dp2px
  * ```
  *
  * ## 1、我的 dialog 需要带有一个标题 ? 一个输入框 ?
- * 你可以参考掌邮里面 module_login 中的 UserAgreementDialog，他是我写的带有标题的一个示例，并且是这个 dialog 的子类。
+ * 你可以参考 module_login 中的 UserAgreementDialog，他是我写的带有标题的一个示例，并且是这个 dialog 的子类。
  * 如果你还有其他扩展需求，可以继承 ChooseDialog 或者 BaseDialog 进行自定义
  *
  * @author 985892345 (Guo Xiangrui)
@@ -44,31 +46,12 @@ import com.ndhzs.lib.utils.extensions.dp2px
  */
 open class ChooseDialog protected constructor(
   context: Context,
-  positiveClick: (ChooseDialog.() -> Unit)? = null,
-  negativeClick: (ChooseDialog.() -> Unit)? = null,
-  dismissCallback: (ChooseDialog.() -> Unit)? = null,
-  cancelCallback: (ChooseDialog.() -> Unit)? = null,
-  data: Data,
-) : BaseDialog<ChooseDialog, ChooseDialog.Data>(
-  context,
-  positiveClick,
-  negativeClick,
-  dismissCallback,
-  cancelCallback,
-  data
-) {
+) : BaseDialog<ChooseDialog, ChooseDialog.Data>(context) {
   
   open class Builder(context: Context, data: Data) : BaseDialog.Builder<ChooseDialog, Data>(context, data) {
     
-    override fun build(): ChooseDialog {
-      return ChooseDialog(
-        context,
-        positiveClick,
-        negativeClick,
-        dismissCallback,
-        cancelCallback,
-        data
-      )
+    override fun buildInternal(): ChooseDialog {
+      return ChooseDialog(context)
     }
   }
   
@@ -86,7 +69,7 @@ open class ChooseDialog protected constructor(
    * @param buttonSize button 的大小，单位 dp
    */
   open class Data(
-    val content: String = "弹窗内容为空",
+    val content: CharSequence = "弹窗内容为空",
     val contentSize: Float = 13F,
     val contentGravity: Int = Gravity.CENTER,
     override val type: DialogType = BaseDialog.Data.type,
@@ -115,7 +98,7 @@ open class ChooseDialog protected constructor(
         leftMargin = 25.dp2px
         rightMargin = leftMargin
       }
-      setTextColor(com.ndhzs.lib.config.R.color.config_level_four_font_color.color)
+      setTextColor(R.color.config_level_four_font_color.color)
     }
   }
   

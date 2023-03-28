@@ -10,8 +10,6 @@ dependLibConfig()
 // 基本上能用到的全都有依赖方式
 dependApiMain()
 
-dependHilt()
-
 dependencies {
   // 这里面写只有自己模块才会用到的额外依赖
   // 如果 build_logic 中已有，请直接使用

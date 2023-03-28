@@ -2,22 +2,18 @@ package com.ndhzs.lib.base.ui
 
 import android.app.Activity
 import android.view.View
-import androidx.activity.ComponentActivity
-import androidx.activity.viewModels
+import androidx.activity.ComponentDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.whenStarted
 import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.ndhzs.lib.utils.utils.ActivityBindView
 import com.ndhzs.lib.utils.utils.FragmentBindView
 import com.ndhzs.lib.base.operations.OperationUi
 import com.ndhzs.lib.utils.extensions.launch
+import com.ndhzs.lib.utils.utils.ComponentDialogBindView
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -97,6 +93,7 @@ interface BaseUi : OperationUi {
   fun <T : View> Int.view() = when (this@BaseUi) {
     is Activity -> ActivityBindView<T>(this, this@BaseUi)
     is Fragment -> FragmentBindView(this, this@BaseUi)
+    is ComponentDialog -> ComponentDialogBindView(this, this@BaseUi)
     else -> error("未实现，请自己实现该功能！")
   }
   
@@ -175,26 +172,4 @@ interface BaseUi : OperationUi {
   fun <T> Flow<T>.collectRestart(action: suspend (value: T) -> Unit) {
     flowWithLifecycle(getViewLifecycleOwner().lifecycle).collectLaunch(action)
   }
-}
-
-/**
- * 官方的 viewModel 高阶函数在需要使用 Factory 时有些不方便，所以改了一下，用法如下：
- * ```
- * private val mViewModel by viewModelBy {
- *   HomeCourseViewModel(mNowWeek)
- * }
- * ```
- */
-inline fun <reified VM : ViewModel> BaseUi.viewModelBy(
-  noinline instance: (() -> VM)? = null
-) = when (this) {
-  is ComponentActivity -> this.viewModels {
-    if (instance == null) defaultViewModelProviderFactory
-    else viewModelFactory { initializer { instance.invoke() } }
-  }
-  is Fragment -> this.viewModels<VM> {
-    if (instance == null) defaultViewModelProviderFactory
-    else viewModelFactory { initializer { instance.invoke() } }
-  }
-  else -> error("未实现！")
 }

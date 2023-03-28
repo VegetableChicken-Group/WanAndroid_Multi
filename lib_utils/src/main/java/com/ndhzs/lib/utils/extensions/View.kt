@@ -1,6 +1,7 @@
 package com.ndhzs.lib.utils.extensions
 
 import android.view.View
+import com.ndhzs.lib.utils.R
 
 /**
  * ...
@@ -30,10 +31,24 @@ fun View.visible(): View {
  */
 fun View.setOnSingleClickListener(interval: Long = 500, click: (View) -> Unit) {
   setOnClickListener {
-    val tag = getTag(423612342) as? Long
+    val tag = getTag(R.id.utils_single_click_id) as? Long
     if (System.currentTimeMillis() - (tag ?: 0L) > interval) {
       click(it)
     }
-    it.setTag(423612342, System.currentTimeMillis())
+    it.setTag(R.id.utils_single_click_id, System.currentTimeMillis())
+  }
+}
+
+/**
+ * @param interval 毫秒为单位，点击间隔小于这个值监听事件才能生效（默认为500毫秒）
+ * @param click 具体的点击事件
+ */
+fun View.setOnDoubleClickListener(interval: Long = 500, click: (View) -> Unit) {
+  setOnClickListener {
+    val tag = getTag(R.id.utils_double_click_id) as? Long
+    if (System.currentTimeMillis() - (tag ?: 0L) < interval) {
+      click(it)
+    }
+    it.setTag(R.id.utils_double_click_id, System.currentTimeMillis())
   }
 }

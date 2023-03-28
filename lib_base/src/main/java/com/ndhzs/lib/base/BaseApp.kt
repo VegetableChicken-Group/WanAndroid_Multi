@@ -1,11 +1,15 @@
 package com.ndhzs.lib.base
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Application
+import android.os.Bundle
 import androidx.annotation.CallSuper
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ndhzs.api.init.InitialManager
+import com.ndhzs.lib.utils.utils.impl.ActivityLifecycleCallbacksImpl
+import java.lang.ref.WeakReference
 import java.util.*
-import kotlin.properties.Delegates
 
 /**
  * ...
@@ -17,9 +21,18 @@ open class BaseApp : Application() {
   companion object {
     lateinit var baseApp: BaseApp
       private set
+  
+    /**
+     * 获取栈顶的 Activity
+     *
+     * 栈顶 Activity 可用于实现全局 dialog
+     */
+    @SuppressLint("StaticFieldLeak")
+    lateinit var topActivity: WeakReference<Activity>
+      private set
   }
   
-  private var mInitialManager by Delegates.notNull<InitialManagerImpl>()
+  private lateinit var mInitialManager: InitialManagerImpl
   
   @CallSuper
   override fun onCreate() {
@@ -27,6 +40,7 @@ open class BaseApp : Application() {
     baseApp = this
     initARouter()
     initInitialService()
+    initActivityManger()
   }
   
   private fun initARouter() {
@@ -39,6 +53,22 @@ open class BaseApp : Application() {
   
   private fun initInitialService() {
     mInitialManager = InitialManagerImpl(this)
+  }
+  
+  private fun initActivityManger() {
+    registerActivityLifecycleCallbacks(
+      object : ActivityLifecycleCallbacksImpl {
+        override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
+          topActivity = WeakReference(activity)
+        }
+        
+        override fun onActivityResumed(activity: Activity) {
+          if (activity !== topActivity.get()) {
+            topActivity = WeakReference(activity)
+          }
+        }
+      }
+    )
   }
   
   

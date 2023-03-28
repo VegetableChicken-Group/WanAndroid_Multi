@@ -12,8 +12,6 @@ dependencies {
   implementation(libs.android.gradlePlugin)
   implementation(libs.kotlin.gradlePlugin)
   
-  implementation(libs.hilt.gradlePlugin)
-  
   // ARouter https://github.com/alibaba/ARouter
   // 可以去插件中搜索 ARouter Helper，用于实现一些快捷跳转的操作
   implementation("com.alibaba:arouter-register:1.0.2")
