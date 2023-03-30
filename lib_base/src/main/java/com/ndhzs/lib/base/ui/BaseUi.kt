@@ -1,7 +1,7 @@
 package com.ndhzs.lib.base.ui
 
-import android.app.Activity
 import android.view.View
+import androidx.activity.ComponentActivity
 import androidx.activity.ComponentDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -9,11 +9,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.whenStarted
 import androidx.lifecycle.flowWithLifecycle
-import com.ndhzs.lib.utils.utils.ActivityBindView
-import com.ndhzs.lib.utils.utils.FragmentBindView
 import com.ndhzs.lib.base.operations.OperationUi
 import com.ndhzs.lib.utils.extensions.launch
-import com.ndhzs.lib.utils.utils.ComponentDialogBindView
+import com.ndhzs.lib.utils.utils.BindView
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -91,9 +89,9 @@ interface BaseUi : OperationUi {
    * ```
    */
   fun <T : View> Int.view() = when (this@BaseUi) {
-    is Activity -> ActivityBindView<T>(this, this@BaseUi)
-    is Fragment -> FragmentBindView(this, this@BaseUi)
-    is ComponentDialog -> ComponentDialogBindView(this, this@BaseUi)
+    is ComponentActivity -> BindView<T>(this, this@BaseUi)
+    is Fragment -> BindView(this, this@BaseUi)
+    is ComponentDialog -> BindView(this, this@BaseUi)
     else -> error("未实现，请自己实现该功能！")
   }
   
