@@ -6,7 +6,9 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 
 /**
- * .
+ * 为了统一模块依赖，所以写了这个类
+ *
+ * 注意: 该类不建议有包名，因为不写包名可以不用导包
  *
  * @author 985892345
  * @date 2022/11/9 17:29
@@ -18,30 +20,13 @@ object LibDepend {
   * 2、建议按顺序添加
   * 3、一般情况下只有共用的才会添加，比如像 lib_account 这种，只需要添加它的 api 模块就够了，
   *   没必要添加它的 lib 模块，因为没有其他模块会使用
+  *
+  * 写了后会由一个 gradle 脚本自动生成对应 dependLib*() 方法
   * */
   
   const val base = ":lib_base"
   const val config = ":lib_config"
-  const val debug = ":lib_debug"
   const val utils = ":lib_utils"
-}
-
-fun Project.dependLibBase() {
-  dependencies {
-    "implementation"(project(LibDepend.base))
-  }
-}
-
-fun Project.dependLibConfig() {
-  dependencies {
-    "implementation"(project(LibDepend.config))
-  }
-}
-
-fun Project.dependLibUtils() {
-  dependencies {
-    "implementation"(project(LibDepend.utils))
-  }
 }
 
 /**
@@ -54,6 +39,6 @@ fun Project.debugDependLibDebug() {
     apply(plugin = "pandora-plugin")
   }
   dependencies {
-    "debugImplementation"(project(LibDepend.debug))
+    "debugImplementation"(project(":lib_debug"))
   }
 }
