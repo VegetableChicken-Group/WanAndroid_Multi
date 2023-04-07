@@ -29,10 +29,12 @@ interface ICrashService : IProvider{
    */
   fun showCrashDialog(throwable: Throwable, action: (Dialog.() -> Unit)? = null) {
     if (Looper.getMainLooper().isCurrentThread) {
-      action?.invoke(createCrashDialog(throwable))
+      val dialog = createCrashDialog(throwable)
+      action?.invoke(dialog)
     } else {
       Handler(Looper.getMainLooper()).post {
-        action?.invoke(createCrashDialog(throwable))
+        val dialog = createCrashDialog(throwable)
+        action?.invoke(dialog)
       }
     }
   }
