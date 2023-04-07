@@ -17,7 +17,7 @@ function setRealLastReturn() {
 ###############################################Commit消息格式检查####################################################
 commitMsg=$(cat "$1")
 
-merge=$(echo "$commitMsg" | grep "^Merge")
+merge=$(echo "$commitMsg" | grep "^(Merge|Revert)")
 
 if ! [ "$merge" == "" ]; then
   # 当得到的 merge 不为空的时候，说明是 git 合并生成的提交记录，直接退出脚本
