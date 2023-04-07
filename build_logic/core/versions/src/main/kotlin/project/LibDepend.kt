@@ -24,8 +24,10 @@ object LibDepend {
   * 写了后会由一个 gradle 脚本自动生成对应 dependLib*() 方法
   * */
   
+  const val account = ":lib_account"
   const val base = ":lib_base"
   const val config = ":lib_config"
+  const val crash = ":lib_crash"
   const val utils = ":lib_utils"
 }
 
