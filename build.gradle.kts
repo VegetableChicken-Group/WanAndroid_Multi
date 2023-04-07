@@ -17,7 +17,6 @@ buildscript {
     google()
     mavenCentral() // 优先 MavenCentral，一是：github CI 下不了 aliyun 依赖；二是：开 VPN 访问 aliyun 反而变慢了
     maven("https://jitpack.io")
-    jcenter()
     maven { url = uri("https://maven.aliyun.com/repository/public") }
     maven { url = uri("https://maven.aliyun.com/repository/google") }
   }

@@ -40,7 +40,7 @@ object Android {
   
   // 官方扩展库
   // https://developer.android.google.cn/kotlin/ktx?hl=zh_cn#core
-  const val `core-ktx` = "androidx.core:core-ktx:1.10.0"
+  const val `core-ktx` = "androidx.core:core-ktx:1.9.0"
   
   // https://developer.android.google.cn/kotlin/ktx/extensions-list#dependency_4
   const val `collection-ktx` = "androidx.collection:collection-ktx:1.2.0"
@@ -49,7 +49,7 @@ object Android {
   const val `fragment-ktx` = "androidx.fragment:fragment-ktx:1.5.6"
   
   // https://developer.android.google.cn/kotlin/ktx/extensions-list#androidxactivity
-  const val `activity-ktx` = "androidx.activity:activity-ktx:1.6.1"
+  const val `activity-ktx` = "androidx.activity:activity-ktx:1.7.0"
 }
 
 /**
