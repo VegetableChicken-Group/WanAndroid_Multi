@@ -3,6 +3,9 @@
 package project
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import dependAndroidKtx
+import dependAndroidView
+import dependLifecycleKtx
 import org.gradle.api.Project
 import project.base.BaseApplicationProject
 import org.gradle.api.artifacts.ProjectDependency
@@ -22,9 +25,9 @@ class ModuleDebugProject(project: Project) : BaseApplicationProject(project) {
   }
   
   override fun initProject() {
-//    dependAndroidView()
-//    dependAndroidKtx()
-//    dependLifecycleKtx()
+    dependAndroidView()
+    dependAndroidKtx()
+    dependLifecycleKtx()
     // 依赖 api 模块的实现模块
     passOnApiImplDepend(project, project, hashSetOf(), hashSetOf())
   }

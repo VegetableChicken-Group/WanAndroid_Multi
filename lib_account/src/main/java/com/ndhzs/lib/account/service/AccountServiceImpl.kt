@@ -49,6 +49,10 @@ class AccountServiceImpl : IAccountService {
     return userInfoEvent.distinctUntilChanged()
   }
   
+  override fun getUserInfo(): IAccountService.LoginBean? {
+    return userInfoState.value?.value
+  }
+  
   private val userInfoState = BehaviorSubject.create<Value<IAccountService.LoginBean>>()
   private val userInfoEvent = PublishSubject.create<Value<IAccountService.LoginBean>>()
   

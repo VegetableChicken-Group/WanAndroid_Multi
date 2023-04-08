@@ -71,6 +71,8 @@ interface IAccountService : IProvider {
    */
   fun observeUserInfoEvent(): Observable<Value<LoginBean>>
   
+  fun getUserInfo(): LoginBean?
+  
   fun isLogin(): Boolean
   
   fun login(
