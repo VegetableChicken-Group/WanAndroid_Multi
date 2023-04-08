@@ -7,6 +7,7 @@ dependLibBase()
 dependLibUtils()
 dependLibConfig()
 
+dependApiCrash()
 dependAutoService()
 
 dependencies {

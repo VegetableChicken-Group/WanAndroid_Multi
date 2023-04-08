@@ -13,13 +13,14 @@ import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
+import com.ndhzs.api.crash.view.ScaleScrollTextView
 import com.ndhzs.lib.base.ui.BaseActivity
 import com.ndhzs.lib.debug.R
 import com.ndhzs.lib.utils.extensions.appContext
+import com.ndhzs.lib.utils.extensions.collectUsefulStackTrace
 import com.ndhzs.lib.utils.network.ApiGenerator
-import java.io.PrintWriter
 import java.io.Serializable
-import java.io.StringWriter
 import kotlin.system.exitProcess
 
 /**
@@ -35,7 +36,7 @@ class CrashActivity : BaseActivity() {
       appContext.startActivity(
         Intent(appContext, CrashActivity::class.java)
           .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-          .putExtra(CrashActivity::mStackTrace.name, throwable.collectStackTrace())
+          .putExtra(CrashActivity::mStackTrace.name, throwable.collectUsefulStackTrace())
           .putExtra(
             CrashActivity::mRebootIntent.name,
             // 重新启动整个应用的 intent
@@ -58,23 +59,6 @@ class CrashActivity : BaseActivity() {
       )
     }
     
-    private fun Throwable.collectStackTrace(): String {
-      val writer = StringWriter()
-      val printWriter = PrintWriter(writer)
-      printStackTrace(printWriter)
-      var cause = cause
-      var position = 1
-      while (cause != null) {
-        printWriter.println()
-        printWriter.print("第 $position 个 Caused By: ")
-        position++
-        cause.printStackTrace(printWriter)
-        cause = cause.cause
-      }
-      printWriter.close()
-      return writer.toString()
-    }
-    
     class NetworkApiResult(
       val request: String,
       val response: String,
@@ -91,6 +75,7 @@ class CrashActivity : BaseActivity() {
   
   private val mTvProcess by R.id.debug_tv_process_crash.view<TextView>()
   private val mTvThread by R.id.debug_tv_thread_crash.view<TextView>()
+  private val mTvMessage by R.id.debug_tv_message.view<TextView>()
   private val mScaleScrollTextView by R.id.debug_ssv_crash.view<ScaleScrollTextView>()
   private val mBtnCopy by R.id.debug_btn_copy_crash.view<Button>()
   private val mBtnReboot by R.id.debug_btn_reboot_crash.view<Button>()
@@ -103,7 +88,8 @@ class CrashActivity : BaseActivity() {
     initTextView()
     initShowStackTrace()
     initClick()
-    toast("哦豁，掌上重邮崩溃了！")
+    initBackPressed()
+    toast("哦豁，课表极速版崩溃了！")
   }
   
   @SuppressLint("SetTextI18n")
@@ -125,6 +111,8 @@ class CrashActivity : BaseActivity() {
       )
     }
     mScaleScrollTextView.setText(builder)
+    val length = builder.indexOf('\n').let { if (it == -1) builder.length else it }
+    mTvMessage.text = builder.substring(0, length) // 只显示第一行的 message
   }
   
   private fun initClick() {
@@ -170,19 +158,25 @@ class CrashActivity : BaseActivity() {
     }
   }
   
-  private var mLastBackPressedTime = 0L
   
-  override fun onBackPressed() {
-    if (mProcessName == appContext.packageName) {
-      val nowTime = System.currentTimeMillis()
-      if (nowTime - mLastBackPressedTime > 2000) {
-        toast("主进程已崩溃，返回键将退出应用，再次返回即可退出")
-        mLastBackPressedTime = nowTime
-      } else {
-        super.onBackPressed()
+  private fun initBackPressed() {
+    var lastBackPressedTime = 0L
+    onBackPressedDispatcher.addCallback(
+      object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+          if (mProcessName == appContext.packageName) {
+            val nowTime = System.currentTimeMillis()
+            if (nowTime - lastBackPressedTime > 2000) {
+              toast("主进程已崩溃，返回键将退出应用，再次返回即可退出")
+              lastBackPressedTime = nowTime
+            } else {
+              finish()
+            }
+          } else {
+            finish()
+          }
+        }
       }
-    } else {
-      super.onBackPressed()
-    }
+    )
   }
 }

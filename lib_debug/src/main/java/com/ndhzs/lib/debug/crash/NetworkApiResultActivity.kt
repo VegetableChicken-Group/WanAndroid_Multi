@@ -1,6 +1,5 @@
 package com.ndhzs.lib.debug.crash
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -113,7 +112,6 @@ class NetworkApiResultActivity : BaseActivity() {
       }
     }
   
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: VH, position: Int) {
       when (getItemViewType(position)) {
         ApiVH::class.hashCode() -> {
