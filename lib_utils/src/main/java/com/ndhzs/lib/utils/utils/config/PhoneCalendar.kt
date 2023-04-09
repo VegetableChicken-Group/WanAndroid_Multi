@@ -9,10 +9,10 @@ import android.icu.util.TimeZone
 import android.provider.CalendarContract.*
 import androidx.annotation.IntRange
 import androidx.fragment.app.FragmentActivity
+import com.ndhzs.api.account.IAccountService
 import com.ndhzs.lib.utils.UtilsApplicationWrapper.Companion.application
 import com.ndhzs.lib.utils.extensions.doPermissionAction
 import com.ndhzs.lib.utils.extensions.toast
-import com.ndhzs.lib.utils.internal.IUtilsAccountService
 import com.ndhzs.lib.utils.service.impl
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.*
@@ -54,11 +54,11 @@ object PhoneCalendar {
    * 注意：ACCOUNT_NAME 和 ACCOUNT_TYPE 是一个人日历账户的唯一标识
    */
   private fun getAccountName(): String {
-    return IUtilsAccountService::class.impl.getId().toString()
+    return IAccountService::class.impl.getUserInfo()?.id.toString()
   }
   
   // 账户类型。这个不会显示给用户
-  private const val ACCOUNT_TYPE = "课表极速版"
+  private const val ACCOUNT_TYPE = "wanAndroid_Multi"
   // 日历路径来源。这个在手机日历账号管理中可以看到。比如：Xiaomi Calendar
   private const val NAME = ACCOUNT_TYPE
   

@@ -5,6 +5,7 @@ plugins {
 dependLibConfig()
 
 dependApiInit()
+dependApiAccount()
 
 dependCoroutines()
 dependCoroutinesRx3()
