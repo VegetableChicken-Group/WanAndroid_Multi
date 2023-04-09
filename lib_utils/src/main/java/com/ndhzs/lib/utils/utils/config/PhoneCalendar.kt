@@ -9,10 +9,10 @@ import android.icu.util.TimeZone
 import android.provider.CalendarContract.*
 import androidx.annotation.IntRange
 import androidx.fragment.app.FragmentActivity
-import com.ndhzs.api.account.IAccountService
 import com.ndhzs.lib.utils.UtilsApplicationWrapper.Companion.application
 import com.ndhzs.lib.utils.extensions.doPermissionAction
 import com.ndhzs.lib.utils.extensions.toast
+import com.ndhzs.lib.utils.internal.IUtilsAccountService
 import com.ndhzs.lib.utils.service.impl
 import kotlinx.coroutines.suspendCancellableCoroutine
 import java.util.*
@@ -54,7 +54,7 @@ object PhoneCalendar {
    * 注意：ACCOUNT_NAME 和 ACCOUNT_TYPE 是一个人日历账户的唯一标识
    */
   private fun getAccountName(): String {
-    return IAccountService::class.impl.getUserInfo()?.publicName ?: "未知"
+    return IUtilsAccountService::class.impl.getId().toString()
   }
   
   // 账户类型。这个不会显示给用户

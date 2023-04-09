@@ -4,6 +4,8 @@ plugins {
 
 dependApiInit()
 
+dependRxjava()
+
 dependencies {
   implementation(Android.appcompat)
   implementation(Android.constraintlayout)

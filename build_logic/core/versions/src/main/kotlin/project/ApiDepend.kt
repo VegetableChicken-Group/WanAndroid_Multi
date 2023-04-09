@@ -1,7 +1,6 @@
 @file:Suppress("PackageDirectoryMismatch")
 
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.dependencies
 import utils.ApiDependUtils
 
 /**
@@ -26,13 +25,15 @@ object ApiDepend {
   * parent: 如果父模块是实现模块，则使用该方式可直接添加
   * and:    用于连接多个实现模块，比如后面写的 module_xxx，就是 api_test 的另一个实现模块
   *
-  * 写了后会由一个 gradle 脚本自动生成对应 dependLib*() 方法
+  * 写了后会由一个 gradle 脚本自动生成对应 dependApi*() 方法
   * */
   
+  // 下面的顺序尽量根据模块的排序来写
+  val init = ":api_init".byNoImpl()
   val account = ":lib_account:api_account" by parent
+  val crash = ":lib_crash:api_crash" by parent
   val main = ":module_main:api_main" by parent
   val test = ":module_test:api_test" by parent
-  val crash = ":lib_crash:api_crash" by parent
   
   private infix fun String.by(implPath: String): ApiDependUtils.IApiDependUtils = by { implPath }
   private infix fun String.by(implPath: String.() -> String): ApiDependUtils.IApiDependUtils {
@@ -46,12 +47,16 @@ object ApiDepend {
     get() = { substringBeforeLast(":") }
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//     如果你的模块需要单独写依赖逻辑，请以 fun Project.xxx[Name]() 开头书写，这样脚本就不会自动生成对应方法
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
  * api_init 模块没有实现模块，所以单独写
  */
 fun Project.dependApiInit() {
-  dependencies {
-    "implementation"(project(":api_init"))
-  }
+  ApiDepend.init.dependApiOnly(this)
   dependAutoService()
 }

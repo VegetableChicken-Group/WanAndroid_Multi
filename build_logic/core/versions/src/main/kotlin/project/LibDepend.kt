@@ -3,7 +3,6 @@
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.project
 
 /**
  * 为了统一模块依赖，所以写了这个类
@@ -28,8 +27,15 @@ object LibDepend {
   const val base = ":lib_base"
   const val config = ":lib_config"
   const val crash = ":lib_crash"
+  const val debug = ":lib_debug"
   const val utils = ":lib_utils"
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//
+//     如果你的模块需要单独写依赖逻辑，请以 fun Project.xxx[Name]() 开头书写，这样脚本就不会自动生成对应方法
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
  * 依赖 lib_debug 模块
@@ -41,6 +47,6 @@ fun Project.debugDependLibDebug() {
     apply(plugin = "pandora-plugin")
   }
   dependencies {
-    "debugImplementation"(project(":lib_debug"))
+    "debugImplementation"(project(LibDepend.debug))
   }
 }
