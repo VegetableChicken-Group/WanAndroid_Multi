@@ -7,8 +7,8 @@ import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
 import com.ndhzs.api.account.ACCOUNT_SERVICE
 import com.ndhzs.api.account.IAccountService
+import com.ndhzs.api.account.utils.Value
 import com.ndhzs.lib.account.network.LoginApiService
-import com.ndhzs.lib.utils.extensions.Value
 import com.ndhzs.lib.utils.extensions.getSp
 import com.ndhzs.lib.utils.extensions.lazyUnlock
 import com.ndhzs.lib.utils.extensions.unsafeSubscribeBy
@@ -69,7 +69,7 @@ class AccountServiceImpl : IAccountService {
   override fun login(
     username: String,
     password: String
-  ): Single<ApiWrapper<IAccountService.LoginBean>> {
+  ): Single<IAccountService.LoginBean> {
     return mApiService.login(username, password)
       .doOnSuccess {
         if (it.isSuccess()) {
@@ -77,6 +77,7 @@ class AccountServiceImpl : IAccountService {
           emitUserInfo(it.data.copy(password = password))
         }
       }.subscribeOn(Schedulers.io())
+      .map { it.data }
   }
   
   override fun logout(): Completable {
@@ -94,7 +95,7 @@ class AccountServiceImpl : IAccountService {
     username: String,
     password: String,
     rePassword: String
-  ): Single<ApiWrapper<IAccountService.LoginBean>> {
+  ): Single<IAccountService.LoginBean> {
     return mApiService.register(username, password, rePassword)
       .doOnSuccess {
         if (it.isSuccess()) {
@@ -102,6 +103,7 @@ class AccountServiceImpl : IAccountService {
           emitUserInfo(it.data.copy(password = password))
         }
       }.subscribeOn(Schedulers.io())
+      .map { it.data }
   }
   
   override fun init(context: Context) {

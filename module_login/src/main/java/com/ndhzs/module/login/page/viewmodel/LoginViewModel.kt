@@ -9,11 +9,11 @@ import com.ndhzs.lib.base.ui.BaseViewModel
 import com.ndhzs.lib.utils.extensions.asFlow
 import com.ndhzs.lib.utils.extensions.getSp
 import com.ndhzs.lib.utils.network.ApiException
-import com.ndhzs.lib.utils.network.mapOrInterceptException
 import com.ndhzs.lib.utils.service.ServiceManager
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.catch
 
 /**
  * ...
@@ -69,10 +69,10 @@ class LoginViewModel : BaseViewModel() {
   fun login(username: String, password: String) {
     mAccountService.login(username, password)
       .asFlow()
-      .mapOrInterceptException {
-        ApiException {
+      .catch {
+        if (it is ApiException) {
           _loginEvent.emit(LoginEvent.ApiFail(it))
-        }.catchOther {
+        } else {
           _loginEvent.emit(LoginEvent.HttpFail(it))
         }
       }.collectLaunch {

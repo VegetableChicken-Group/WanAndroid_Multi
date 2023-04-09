@@ -1,8 +1,7 @@
 package com.ndhzs.api.account
 
 import com.alibaba.android.arouter.facade.template.IProvider
-import com.ndhzs.lib.utils.extensions.Value
-import com.ndhzs.lib.utils.network.ApiWrapper
+import com.ndhzs.api.account.utils.Value
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -78,7 +77,7 @@ interface IAccountService : IProvider {
   fun login(
     username: String,
     password: String
-  ): Single<ApiWrapper<LoginBean>>
+  ): Single<LoginBean>
   
   fun logout(): Completable
   
@@ -86,7 +85,7 @@ interface IAccountService : IProvider {
     username: String,
     password: String,
     rePassword: String
-  ): Single<ApiWrapper<LoginBean>>
+  ): Single<LoginBean>
   
   data class LoginBean(
     val admin: Boolean,
