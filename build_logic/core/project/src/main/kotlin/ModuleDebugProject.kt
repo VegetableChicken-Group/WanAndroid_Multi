@@ -98,7 +98,7 @@ class ModuleDebugProject(project: Project) : BaseApplicationProject(project) {
               dependency.name.startsWith("api_") -> {
                 // 对于单模块调试，需要反向依赖 api 的实现模块，不然 ARouter 无法找到，会报空指针
                 val apiPath = dependency.dependencyProject.path
-                ApiDependUtils.sApiWithImplMap[apiPath]?.dependApiImplOnly(debugProject) {
+                ApiDependUtils.apiWithImplMap[apiPath]?.dependApiImplOnly(debugProject) {
                   (!dependPathSet.contains(it) && it != debugProject.path).apply {
                     if (this) {
                       /*

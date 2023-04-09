@@ -5,6 +5,10 @@ package com.ndhzs.api.init
  *
  * 在自己的模块中参考以下写法即可实现注入：
  * ```
+ * 添加依赖：
+ * dependApiInit() // 已包含 AutoService
+ *
+ * 实现接口：
  * @AutoService(InitialService::class)
  * class XXXInitialService : InitialService
  * ```

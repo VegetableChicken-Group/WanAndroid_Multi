@@ -16,38 +16,42 @@ class ApiDependUtils(val apiProjectPath: String) {
     return apiImplDependUtils
   }
   
+  // 不带实现类
+  fun byNoImpl(): IApiDependUtils {
+    isNoImpl = true
+    return apiImplDependUtils
+  }
+  
   private val list = mutableListOf<String>()
   private val apiImplDependUtils = ApiImplDependUtils()
+  private var isNoImpl = false
   
   init {
     _ApiWithImplMap[apiProjectPath] = apiImplDependUtils
   }
   
+  // 专门用来保存实现模块路径的类
   private inner class ApiImplDependUtils: IApiDependUtils {
     
     val apiProjectPath: String
       get() = this@ApiDependUtils.apiProjectPath
     
-    infix fun and(path: String): IApiDependUtils {
-      list.add(path)
-      return this
-    }
-  
     override fun add(path: String): IApiDependUtils {
-      list.add(path)
+      if (!isNoImpl) list.add(path)
       return this
     }
-  
+    
     override fun add(path: (String) -> String): IApiDependUtils {
-      list.add(path.invoke(apiProjectPath))
+      if (!isNoImpl) list.add(path.invoke(apiProjectPath))
       return this
     }
-  
+    
     override fun getImplPaths(): List<String> {
       return list
     }
-  
+    
     override fun dependApiOnly(project: Project) {
+      if (isNoImpl) return
       if (list.isEmpty()) {
         throw RuntimeException("api 模块 $apiProjectPath 没得实现模块，你正确书写了吗？")
       }
@@ -57,8 +61,9 @@ class ApiDependUtils(val apiProjectPath: String) {
         }
       }
     }
-  
+    
     override fun dependApiImplOnly(project: Project, filter: (String) -> Boolean): List<String> {
+      if (isNoImpl) return emptyList()
       val dependList = mutableListOf<String>()
       project.run {
         dependencies {
@@ -80,15 +85,36 @@ class ApiDependUtils(val apiProjectPath: String) {
     /**
      * api 模块的 path 与 实现模块的路径
      */
-    val sApiWithImplMap: Map<String, IApiDependUtils>
+    val apiWithImplMap: Map<String, IApiDependUtils>
       get() = _ApiWithImplMap
   }
   
   interface IApiDependUtils {
+    /**
+     * 添加实现模块
+     */
     infix fun add(path: String): IApiDependUtils
+    
+    /**
+     * 添加实现模块
+     */
     infix fun add(path: (String) -> String): IApiDependUtils
+    
+    /**
+     * 得到所有实现模块的 path
+     */
     fun getImplPaths(): List<String>
+    
+    /**
+     * 只依赖 api 模块
+     */
     fun dependApiOnly(project: Project)
+    
+    /**
+     * 依赖 api 模块的实现模块，用于在单模块调试时使用
+     * @param project 当前处于单模块调试的模块
+     * @param filter 筛选器，提供实现模块的 path，返回一个 Boolean 用于决定是否依赖该实现模块
+     */
     fun dependApiImplOnly(project: Project, filter: (String) -> Boolean = { true }): List<String>
   }
 }
