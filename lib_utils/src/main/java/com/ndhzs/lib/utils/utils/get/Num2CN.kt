@@ -30,13 +30,17 @@ object Num2CN {
      * @param isColloquial 是否口语化，例如12转换为'十二'而不是'一十二'，默认为true，进行口语化
      * @return
      */
-    fun number2ChineseNumber(num: Long, isColloquial: Boolean = true): String {
+    fun transform(num: Long, isColloquial: Boolean = true): String {
         val result = convert(num, isColloquial)
         val strB = StringBuffer(32)
         for (str in result) {
             strB.append(str)
         }
         return strB.toString()
+    }
+    
+    fun transform(num: Int, isColloquial: Boolean = true): String {
+        return transform(num.toLong(), isColloquial)
     }
 
     /**
