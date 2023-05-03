@@ -18,6 +18,17 @@ import retrofit2.http.POST
 @Suppress("SpellCheckingInspection")
 interface LoginApiService {
   
+  /**
+   * 注意：
+   * 网络请求返回的数据类统一用 [ApiWrapper] 或者 [ApiStatus] 包裹
+   *
+   * 原因：
+   * 一个大项目的对于网络请求有一定的约束，
+   * 比如网络请求的返回格式有固定的外层 json，通常包含 code、meg 字段
+   *
+   * 这两个字段中包含一些异常信息，为了统一处理，所以使用 [ApiWrapper] 和 [ApiStatus] 进行包裹
+   */
+  
   @POST("/user/login")
   @FormUrlEncoded
   fun login(

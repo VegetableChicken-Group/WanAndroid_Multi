@@ -31,6 +31,8 @@ class LoginViewModel : BaseViewModel() {
   val password: LiveData<String?>
     get() = _password.distinctUntilChanged()
   
+  // 登录成功是事件，并不是状态，所以使用 SharedFlow
+  // SharedFlow 与 LiveData 的区别以及事件与状态的区别请看：https://juejin.cn/post/7046191406825603109
   private val _loginEvent = MutableSharedFlow<LoginEvent>()
   val loginEvent: SharedFlow<LoginEvent>
     get() = _loginEvent
@@ -39,9 +41,11 @@ class LoginViewModel : BaseViewModel() {
   private val mAccountService = ServiceManager(IAccountService::class)
   
   init {
+    // 对学号进行观察
     mAccountService.observeUserInfoState()
       .observeOn(AndroidSchedulers.mainThread())
       .safeSubscribeBy { value ->
+        // 统一使用 safeSubscribeBy 自动关联生命周期
         value.nullIf {
           // 此时登出了账号，取消记住密码
           changeRememberPassword(false)

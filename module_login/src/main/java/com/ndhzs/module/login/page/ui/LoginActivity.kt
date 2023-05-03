@@ -17,6 +17,7 @@ class LoginActivity : BaseBindActivity<LoginActivityLoginBinding>() {
   
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    // 分离每个初始化功能，别只会全写在 onCreate 中
     initView()
     initClick()
     initEvent()
