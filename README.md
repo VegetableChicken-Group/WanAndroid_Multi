@@ -26,13 +26,15 @@
 如果只想看多模块构建相关代码，请查看 [`Framework`](https://github.com/VegetableChicken-Group/WanAndroid_Multi/tree/framework) 
 分支，多模块相关问题将在该分支上进行维护，`master` 分支用于 `wanAndroid` 项目开发(现已废弃，原因请看 [后文](#公告))
 
+### 如何入手
+
 如果你没有多模块项目的经验，或者不知道该如何入手，请查看下面内容：
 - `lib_account` 模块：里面包含了网络请求的示例写法
 - `api_account`、`api_test` 模块：里面包含了 `api` 模块的示例写法
 - `lib_login` 模块：里面有一个示例的登录界面
 - `lib_base` 模块：里面包含 `BaseActivity`、`BaseFragment`、`BaseViewModel`，需要你继承他们进行开发
 - `lib_utils` 模块：里面包含很多扩展以及网络请求的封装
-  - 比如统一的 VP2 的 Adapter：`FragmentAdapter`
+  - 比如统一的 VP2 的 Adapter：`FragmentVpAdapter`
   - `Flow`、`Rxjava`、`Glide`、`Toast` 扩展等
   - 强烈建议每个类都看一遍！！！
 - `lib_config` 模块：包含常用的字体颜色，要求 Text 必须使用里面的颜色，请查看 color.xml 文件
