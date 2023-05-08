@@ -13,6 +13,8 @@ import com.ndhzs.module.login.utils.textwatcher.BaseTextWatcher
 @Route(path = LOGIN_ENTRY)
 class LoginActivity : BaseBindActivity<LoginActivityLoginBinding>() {
   
+  // 官方写的获取 ViewModel 的扩展函数
+  // 如果需要带参数，你可以看看 BaseActivity 上的头注释
   private val mViewModel by viewModels<LoginViewModel>()
   
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,8 @@ class LoginActivity : BaseBindActivity<LoginActivityLoginBinding>() {
     binding.loginCbRemember.setOnCheckedChangeListener { _, isChecked ->
       mViewModel.changeRememberPassword(isChecked)
     }
-    
+  
+    // 使用 setOnSingleClickListener 防抖 (即 500 毫秒内的多次点击无效)
     binding.loginBtnLogin.setOnSingleClickListener {
       val username = binding.loginEtUsername.text?.toString()
       val password = binding.loginEtPassword.text?.toString()
@@ -84,6 +87,7 @@ class LoginActivity : BaseBindActivity<LoginActivityLoginBinding>() {
         }
         is LoginViewModel.LoginEvent.Success -> {
           toast("欢迎回来 ${it.bean.username}")
+          finishAfterTransition() // 其他页面可能返回动画，所以使用这个方法
         }
       }
     }

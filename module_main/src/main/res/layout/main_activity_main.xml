@@ -7,16 +7,28 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/mainTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
         android:text="MainActivity"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:ignore="HardcodedText"
+        app:layout_constraintBottom_toTopOf="@+id/main_btn_login" />
+
+    <Button
+        android:id="@+id/main_btn_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="登录界面"
         app:layout_constraintBottom_toTopOf="@+id/main_btn_open_test_activity"
-        android:layout_marginBottom="32dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="HardcodedText" />
 
     <Button
         android:id="@+id/main_btn_open_test_activity"

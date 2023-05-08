@@ -2,10 +2,10 @@ package test.ui
 
 import android.os.Bundle
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.FragmentContainerView
 import com.ndhzs.lib.base.BaseDebugActivity
 import com.ndhzs.module.test.page.TestFragment
-import kotlin.random.Random
 
 /**
  * ...
@@ -21,7 +21,7 @@ class DebugActivity : BaseDebugActivity() {
         ViewGroup.LayoutParams.MATCH_PARENT,
         ViewGroup.LayoutParams.MATCH_PARENT
       )
-      id = Random.nextInt() // 随机一个 id 即可
+      id = ViewCompat.generateViewId() // 生成一个 id
     }
     setContentView(fcv)
     replaceFragment(fcv.id) {

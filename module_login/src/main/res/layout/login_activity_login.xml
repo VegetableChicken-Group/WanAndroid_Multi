@@ -45,7 +45,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLines="1"
-                android:textColor="@color/black"
+                android:textColor="@color/config_level_two_font_color"
                 android:textSize="24sp" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -78,7 +78,7 @@
                 android:inputType="textPassword"
                 android:lines="1"
                 android:maxLines="1"
-                android:textColor="@color/black"
+                android:textColor="@color/config_level_two_font_color"
                 android:textSize="24sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,6 +88,7 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:text="忘记密码"
+            android:textColor="@color/config_level_two_font_color"
             app:layout_constraintBottom_toBottomOf="@+id/login_btn_register"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
@@ -102,6 +103,7 @@
             android:layout_height="wrap_content"
             android:background="#00FFFFFF"
             android:text="立即注册"
+            android:textColor="@color/config_level_two_font_color"
             app:layout_constraintBottom_toTopOf="@+id/login_btn_login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"
@@ -115,6 +117,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:text="登录"
+            android:textColor="@color/config_white_black"
             android:theme="@style/Theme.MaterialComponents.Light"
             app:cornerRadius="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -148,7 +151,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="64dp"
             android:text="试试其他账号登录"
-            android:textColor="#757575"
+            android:textColor="@color/config_level_four_font_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -184,6 +187,7 @@
             android:layout_marginTop="6dp"
             android:layout_marginEnd="8dp"
             android:text="记住密码"
+            android:textColor="@color/config_level_two_font_color"
             app:layout_constraintEnd_toEndOf="@+id/login_btn_login"
             app:layout_constraintTop_toBottomOf="@+id/login_btn_login"
             tools:ignore="HardcodedText" />

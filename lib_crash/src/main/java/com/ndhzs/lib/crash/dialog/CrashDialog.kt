@@ -63,6 +63,7 @@ class CrashDialog private constructor(
       leftMargin = 10.dp2px
     }
     textSize = 12F
+    setTextIsSelectable(true) // 内容可长按复制
   }
   
   private val mScaleScrollTextView = ScaleScrollTextView(context, null).apply {
