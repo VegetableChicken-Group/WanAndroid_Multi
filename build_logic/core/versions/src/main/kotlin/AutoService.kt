@@ -8,14 +8,16 @@ import org.gradle.kotlin.dsl.dependencies
  * @date 2022/7/20 15:13
  */
 object AutoService {
-  // 谷歌官方的一种动态加载库 https://github.com/google/auto/tree/master/service
-  const val autoService = "com.google.auto.service:auto-service:1.0.1"
+  // 谷歌官方的一种动态加载库 https://github.com/google/auto/tree/main/service
+  val version = "1.0.1"
+  val `autoServic-core` = "com.google.auto.service:auto-service-annotations:$version"
+  val autoService = "com.google.auto.service:auto-service:$version"
 }
 
 fun Project.dependAutoService() {
   dependencies {
-    // 谷歌官方的一种动态加载库 https://github.com/google/auto/tree/master/service
-    "compileOnly"(AutoService.autoService)
+    // 谷歌官方的一种动态加载库 https://github.com/google/auto/tree/main/service
+    "implementation"(AutoService.`autoServic-core`)
     "kapt"(AutoService.autoService)
   }
 }
