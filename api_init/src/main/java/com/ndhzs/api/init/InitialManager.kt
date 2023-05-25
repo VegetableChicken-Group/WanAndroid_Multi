@@ -3,7 +3,6 @@ package com.ndhzs.api.init
 import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.app.Application
-import android.os.Build
 import android.os.Process
 import android.provider.Settings
 import android.text.TextUtils
@@ -31,12 +30,6 @@ interface InitialManager {
 
 
     fun applicationId() = application.packageName
-    fun applicationVersion() = application.packageManager.getPackageInfo(application.packageName, 0).versionName
-    fun applicationCode() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-        application.packageManager.getPackageInfo(application.packageName, 0).longVersionCode
-    } else {
-        application.packageManager.getPackageInfo(application.packageName, 0).versionCode.toLong()
-    }
     
     /*
      * 使用 androidId 来代替设备 id

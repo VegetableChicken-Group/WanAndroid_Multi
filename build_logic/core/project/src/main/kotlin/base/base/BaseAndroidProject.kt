@@ -45,14 +45,6 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
     dependARouter()
     super.initProjectInternal()
   
-    // kapt 的设置
-    extensions.configure<KaptExtension> {
-      arguments {
-        arg("AROUTER_MODULE_NAME", project.name)
-        arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录
-      }
-    }
-  
     // 项目检查工具
     AndroidProjectChecker.configAfter(project)
   }

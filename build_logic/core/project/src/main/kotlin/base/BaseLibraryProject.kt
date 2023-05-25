@@ -25,6 +25,7 @@ abstract class BaseLibraryProject(project: Project) : BaseAndroidProject(project
     apply(plugin = "com.android.library")
     apply(plugin = "kotlin-android")
     apply(plugin = "kotlin-kapt")
+    apply(plugin = "com.google.devtools.ksp")
     
     extensions.configure<LibraryExtension> {
       initAndroid(this)

@@ -4,20 +4,22 @@ plugins {
   `kotlin-dsl`
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-////////////////////////////////
+dependencies {
+  implementation(libs.ksp.gradlePlugin)
+}
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  ////////////////////////////////
 //
 //   生成依赖 api 模块代码的脚本
 //            开始

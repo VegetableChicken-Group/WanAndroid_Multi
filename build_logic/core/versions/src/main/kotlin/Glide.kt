@@ -13,12 +13,12 @@ object Glide {
   const val glide_version = "4.15.1"
   
   const val glide = "com.github.bumptech.glide:glide:$glide_version"
-  const val `glide-compiler` = "com.github.bumptech.glide:compiler:$glide_version"
+  const val `glide-ksp` = "com.github.bumptech.glide:ksp:$glide_version"
 }
 
 fun Project.dependGlide() {
   dependencies {
     "implementation"(Glide.glide)
-    "kapt"(Glide.`glide-compiler`)
+    "ksp"(Glide.`glide-ksp`)
   }
 }

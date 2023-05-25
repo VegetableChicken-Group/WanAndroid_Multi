@@ -28,6 +28,7 @@ abstract class BaseApplicationProject(project: Project) : BaseAndroidProject(pro
     apply(plugin = "com.android.application")
     apply(plugin = "kotlin-android")
     apply(plugin = "kotlin-kapt")
+    apply(plugin = "com.google.devtools.ksp")
     
     extensions.configure<BaseAppModuleExtension> {
       initAndroid(this)

@@ -29,6 +29,7 @@ buildscript {
     * */
     classpath(libs.android.gradlePlugin)
     classpath(libs.kotlin.gradlePlugin)
+    classpath(libs.ksp.gradlePlugin)
     
     // 很牛逼的检测工具 debug 模式下摇一摇手机触发 https://github.com/whataa/pandora
     // 在 lib_debug 模块中使用

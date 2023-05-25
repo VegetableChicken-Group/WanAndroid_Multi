@@ -1,4 +1,6 @@
+import com.google.devtools.ksp.gradle.KspExtension
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
 /**
@@ -11,7 +13,7 @@ import org.gradle.kotlin.dsl.dependencies
 object Room {
   // https://developer.android.com/training/data-storage/room
   // https://developer.android.com/jetpack/androidx/releases/room?hl=en
-  const val room_version = "2.5.0-rc01"
+  const val room_version = "2.5.1"
   
   const val `room-runtime` = "androidx.room:room-runtime:$room_version"
   const val `room-compiler` = "androidx.room:room-compiler:$room_version"
@@ -26,10 +28,14 @@ object Room {
 }
 
 fun Project.dependRoom() {
+  // ksp 设置
+  extensions.configure<KspExtension> {
+    arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录
+  }
   dependencies {
     "implementation"(Room.`room-runtime`)
     "implementation"(Room.`room-ktx`)
-    "kapt"(Room.`room-compiler`)
+    "ksp"(Room.`room-compiler`)
   }
 }
 
