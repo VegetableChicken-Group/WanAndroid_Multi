@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.annotation.CallSuper
 import com.alibaba.android.arouter.launcher.ARouter
 import com.ndhzs.api.init.InitialManager
+import com.ndhzs.lib.utils.BuildConfig
 import com.ndhzs.lib.utils.utils.impl.ActivityLifecycleCallbacksImpl
 import java.lang.ref.WeakReference
 import java.util.*

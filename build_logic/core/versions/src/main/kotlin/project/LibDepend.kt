@@ -44,7 +44,7 @@ object LibDepend {
  */
 fun Project.debugDependLibDebug() {
   if (!gradle.startParameter.taskNames.any { it.contains("Release") }) {
-    apply(plugin = "pandora-plugin")
+//    apply(plugin = "pandora-plugin")
   }
   dependencies {
     "debugImplementation"(project(LibDepend.debug))

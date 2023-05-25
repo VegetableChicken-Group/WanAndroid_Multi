@@ -10,10 +10,13 @@ import org.gradle.kotlin.dsl.dependencies
 @Suppress("MemberVisibilityCanBePrivate", "ObjectPropertyName", "SpellCheckingInspection")
 object ARouter {
   // https://github.com/alibaba/ARouter
-  const val arouter_version = "1.5.2"
+  // 适配 AGP8: https://github.com/jadepeakpoet/ARouter
+  const val arouter_version = "1.0.3"
   
-  const val `arouter-api` = "com.alibaba:arouter-api:$arouter_version"
-  const val `arouter-compiler` = "com.alibaba:arouter-compiler:$arouter_version"
+//  const val `arouter-api` = "com.alibaba:arouter-api:$arouter_version"
+//  const val `arouter-compiler` = "com.alibaba:arouter-compiler:$arouter_version"
+  const val `arouter-api` = "com.github.jadepeakpoet.ARouter:arouter-api:$arouter_version"
+  const val `arouter-compiler` = "com.github.jadepeakpoet.ARouter:arouter-compiler:$arouter_version"
 }
 
 /**

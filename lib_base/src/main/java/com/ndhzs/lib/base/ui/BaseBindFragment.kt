@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.annotation.CallSuper
 import androidx.databinding.ViewDataBinding
 import androidx.viewbinding.ViewBinding
-import com.ndhzs.lib.base.BuildConfig
+import com.ndhzs.lib.utils.BuildConfig
 import com.ndhzs.lib.utils.utils.get.GenericityUtils.getGenericClass
 import java.lang.reflect.Method
 
