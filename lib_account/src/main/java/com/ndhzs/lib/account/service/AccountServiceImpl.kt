@@ -1,19 +1,17 @@
 package com.ndhzs.lib.account.service
 
-import android.content.Context
 import androidx.core.content.edit
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.g985892345.provider.annotation.SingleImplProvider
 import com.google.gson.Gson
 import com.google.gson.JsonSyntaxException
-import com.ndhzs.api.account.ACCOUNT_SERVICE
 import com.ndhzs.api.account.IAccountService
 import com.ndhzs.api.account.utils.Value
 import com.ndhzs.lib.account.network.LoginApiService
+import com.ndhzs.lib.utils.extensions.appContext
 import com.ndhzs.lib.utils.extensions.getSp
 import com.ndhzs.lib.utils.extensions.lazyUnlock
 import com.ndhzs.lib.utils.extensions.unsafeSubscribeBy
 import com.ndhzs.lib.utils.network.*
-import com.ndhzs.lib.utils.service.impl
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
@@ -28,12 +26,10 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
  * @email 2767465918@qq.com
  * @date 2022/5/29 22:25
  */
-@Route(path = ACCOUNT_SERVICE)
-class AccountServiceImpl : IAccountService {
+@SingleImplProvider(IAccountService::class)
+object AccountServiceImpl : IAccountService {
   
-  private lateinit var mContext: Context
-
-  private val mCookieService = CookieServiceImpl::class.impl
+  private val mCookieService = CookieServiceImpl
   
   private val mApiService by lazyUnlock {
     ApiGenerator.getNewRetrofit(false) {
@@ -106,9 +102,8 @@ class AccountServiceImpl : IAccountService {
       .map { it.data }
   }
   
-  override fun init(context: Context) {
-    mContext = context
-    val userinfoSp = context.getSp("UserInfo")
+  init {
+    val userinfoSp = appContext.getSp("UserInfo")
     val gson = Gson()
     val spKey = "登录数据"
     // 从本地初始化数据

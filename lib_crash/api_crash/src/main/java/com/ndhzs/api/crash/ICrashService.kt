@@ -3,7 +3,6 @@ package com.ndhzs.api.crash
 import android.app.Dialog
 import android.os.Handler
 import android.os.Looper
-import com.alibaba.android.arouter.facade.template.IProvider
 
 /**
  * .
@@ -11,7 +10,7 @@ import com.alibaba.android.arouter.facade.template.IProvider
  * @author 985892345
  * 2023/3/1 10:24
  */
-interface ICrashService : IProvider {
+interface ICrashService {
   
   /**
    * 创建用于显示异常的 Dialog，可用于捕获异常后让用户复制异常信息向我们反馈

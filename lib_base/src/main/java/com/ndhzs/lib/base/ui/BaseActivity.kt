@@ -62,7 +62,7 @@ import com.ndhzs.lib.utils.extensions.isDaytimeMode
  *
  *
  *
- * # 更多封装请往父类和接口查看
+ * # 更多封装请往父类和接口查看，[BaseUi] 必看
  * @author 985892345
  * @email 2767465918@qq.com
  * @date 2021/5/25
@@ -195,7 +195,7 @@ abstract class BaseActivity : OperationActivity() {
    * 这样写会在 intent 中寻找名字叫 key 的参数
    * ```
    *
-   * 但对于使用 ARouter 时该写法并不能起到很大的帮助，但我个人不是很推荐需要传参的 ARouter 启动，不如直接 api 模块
+   * 但对于使用 KtProvider(或 ARouter) 时该写法并不能起到很大的帮助，但我个人不是很推荐需要传参的 ARouter 启动，不如直接 api 模块
    */
   inline fun <reified T : Any> intent() = IntentHelper(T::class.java) { intent }
   

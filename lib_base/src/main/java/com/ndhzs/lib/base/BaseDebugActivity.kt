@@ -29,9 +29,7 @@ abstract class BaseDebugActivity : BaseActivity() {
       val isLogin = IAccountService::class.impl
         .isLogin()
       if (!isLogin) {
-        ServiceManager.activity(LOGIN_ENTRY) {
-          withTransition(0, 0) // 取消动画
-        }
+        ServiceManager.activity(LOGIN_ENTRY)
       } else {
         onDebugCreate(savedInstanceState)
       }

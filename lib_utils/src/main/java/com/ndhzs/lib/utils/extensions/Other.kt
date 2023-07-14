@@ -2,14 +2,6 @@ package com.ndhzs.lib.utils.extensions
 
 import android.content.res.Configuration
 import androidx.lifecycle.LifecycleCoroutineScope
-import com.alibaba.android.arouter.facade.template.IProvider
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
-
 
 /**
  * ...
@@ -26,14 +18,8 @@ fun <T> lazyUnlock(initializer: () -> T) = lazy(LazyThreadSafetyMode.NONE, initi
 /**
  * IProvider 作为单例类，生命周期与应用保持一致
  */
-val IProvider.lifecycleScope: LifecycleCoroutineScope
+val lifecycleScope: LifecycleCoroutineScope
   get() = processLifecycleScope
-
-fun IProvider.launch(
-  context: CoroutineContext = EmptyCoroutineContext,
-  start: CoroutineStart = CoroutineStart.DEFAULT,
-  block: suspend CoroutineScope.() -> Unit
-): Job = lifecycleScope.launch(context, start, block)
 
 /**
  * 是否是日间模式，否则为夜间模式

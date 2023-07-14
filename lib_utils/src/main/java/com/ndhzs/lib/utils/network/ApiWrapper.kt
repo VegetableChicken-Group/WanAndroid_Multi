@@ -2,6 +2,7 @@ package com.ndhzs.lib.utils.network
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.util.Collections
 import kotlin.jvm.Throws
 
 /**
@@ -59,6 +60,8 @@ interface IApiStatus : Serializable {
    * ```
    */
   fun isSuccess(): Boolean {
+    Collections.unmodifiableMap()
+    HashMap
     return errorCode == 0 // 请不要私自加其他的成功状态！！！
   }
   

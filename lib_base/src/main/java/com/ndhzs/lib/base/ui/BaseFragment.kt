@@ -21,6 +21,9 @@ import com.ndhzs.lib.base.operations.OperationFragment
  * 比如：使用 api 模块
  * 这种操作请放在 [OperationFragment] 中
  *
+ * ## 零、Fragment 易错点必看文档 (必须看完并理解 !!!!!)
+ * https://redrock.feishu.cn/wiki/wikcnSDEtcCJzyWXSsfQGqWxqGe
+ *
  * ## 一、获取 ViewModel 的规范写法
  * ### 获取自身的 ViewModel
  * ```
@@ -74,7 +77,7 @@ import com.ndhzs.lib.base.operations.OperationFragment
  *
  *
  *
- * # 更多封装请往父类和接口查看
+ * # 更多封装请往父类和接口查看，[BaseUi] 必看
  * @author 985892345
  * @email 2767465918@qq.com
  * @date 2021/5/25
@@ -219,7 +222,7 @@ abstract class BaseFragment : OperationFragment {
     ReplaceWith("viewLifecycleScope")
   )
   val lifecycleScope: LifecycleCoroutineScope
-    get() = lifecycle.coroutineScope
+    get() = super.getLifecycle().coroutineScope
   
   val viewLifecycleScope: LifecycleCoroutineScope
     get() = viewLifecycleOwner.lifecycle.coroutineScope

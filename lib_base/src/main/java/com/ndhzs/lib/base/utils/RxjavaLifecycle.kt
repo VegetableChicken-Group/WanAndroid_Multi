@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.disposables.Disposable
  * 实现该接口，即代表该类支持自动关闭 Rxjava
  *
  * ## 为什么不放到 lib_utils 中？
- * 如果放到 lib_utils 中，在值依赖 lib_base 的时候会出现无法继承 BaseActivity 的情况
+ * 如果放到 lib_utils 中，在只依赖 lib_base 的时候会出现无法继承 BaseActivity 的情况
  *
  * 所以要求 base 类实现的接口尽量不要放在其他模块内
  *

@@ -2,9 +2,11 @@
 androidGradlePlugin = "8.0.1"
 kotlin = "1.8.21"
 ksp = "1.8.21-1.0.11"
+ktProvider = "1.0.1-alpha11-SNAPSHOT"
 
 [libraries]
 # Dependencies of the included build-logic
 android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
 kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+ktProvider-gradlePlugin = { group = "io.github.985892345", name = "provider-plugin-gradle", version.ref = "ktProvider" }

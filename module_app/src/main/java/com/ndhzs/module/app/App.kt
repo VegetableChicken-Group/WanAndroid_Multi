@@ -8,5 +8,4 @@ import com.ndhzs.lib.base.BaseApp
  * @email 2767465918@qq.com
  * @date 2022/5/26 14:37
  */
-class App : BaseApp() {
-}
+class App : BaseApp()

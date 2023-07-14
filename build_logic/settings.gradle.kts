@@ -6,9 +6,12 @@ pluginManagement {
     gradlePluginPortal()
     mavenCentral()
     google()
+    mavenLocal()
     maven("https://maven.aliyun.com/repository/public")
     maven("https://maven.aliyun.com/repository/google")
     maven("https://jitpack.io")
+    // mavenCentral 快照仓库
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
   }
 }
 
@@ -16,9 +19,12 @@ dependencyResolutionManagement {
   repositories {
     mavenCentral()
     google()
+    mavenLocal()
     maven("https://maven.aliyun.com/repository/public")
     maven("https://maven.aliyun.com/repository/google")
     maven("https://jitpack.io")
+    // mavenCentral 快照仓库
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
   }
   versionCatalogs {
     // 这个 libs 名字是固定的，搞了好久才解决这个问题

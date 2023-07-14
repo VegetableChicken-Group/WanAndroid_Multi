@@ -9,4 +9,3 @@ package com.ndhzs.api.account
  */
 
 // account 模块
-const val ACCOUNT_SERVICE = "/account/service"

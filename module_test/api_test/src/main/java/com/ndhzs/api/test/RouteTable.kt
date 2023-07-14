@@ -9,4 +9,3 @@ package com.ndhzs.api.test
  */
 
 const val TEST_SHOW = "/test/show/entry"
-const val TEST_SERVICE = "/test/service"

@@ -9,7 +9,7 @@ import com.ndhzs.lib.utils.extensions.appContext
  * Toast 工具类接口
  *
  * ## 为什么不放到 lib_utils 中？
- * 如果放到 lib_utils 中，在值依赖 lib_base 的时候会出现无法继承 BaseActivity 的情况
+ * 如果放到 lib_utils 中，在只依赖 lib_base 的时候会出现无法继承 BaseActivity 的情况
  *
  * 所以要求 base 类实现的接口尽量不要放在其他模块内
  */

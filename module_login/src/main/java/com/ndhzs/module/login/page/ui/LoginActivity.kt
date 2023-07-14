@@ -2,7 +2,7 @@ package com.ndhzs.module.login.page.ui
 
 import android.os.Bundle
 import androidx.activity.viewModels
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.g985892345.provider.annotation.KClassProvider
 import com.ndhzs.lib.base.ui.BaseBindActivity
 import com.ndhzs.lib.config.route.LOGIN_ENTRY
 import com.ndhzs.lib.utils.extensions.setOnSingleClickListener
@@ -10,7 +10,7 @@ import com.ndhzs.module.login.databinding.LoginActivityLoginBinding
 import com.ndhzs.module.login.page.viewmodel.LoginViewModel
 import com.ndhzs.module.login.utils.textwatcher.BaseTextWatcher
 
-@Route(path = LOGIN_ENTRY)
+@KClassProvider(LOGIN_ENTRY)
 class LoginActivity : BaseBindActivity<LoginActivityLoginBinding>() {
   
   // 官方写的获取 ViewModel 的扩展函数

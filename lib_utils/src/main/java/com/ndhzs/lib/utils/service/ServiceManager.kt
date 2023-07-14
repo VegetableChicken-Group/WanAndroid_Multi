@@ -1,9 +1,14 @@
 package com.ndhzs.lib.utils.service
 
+import android.app.Activity
+import android.content.Intent
 import androidx.fragment.app.Fragment
-import com.alibaba.android.arouter.facade.Postcard
-import com.alibaba.android.arouter.facade.template.IProvider
-import com.alibaba.android.arouter.launcher.ARouter
+import com.g985892345.provider.manager.KtProviderManager
+import com.g985892345.provider.manager.getImplOrNull
+import com.g985892345.provider.manager.getImplOrThrow
+import com.g985892345.provider.manager.getKClassOrNull
+import com.g985892345.provider.manager.getKClassOrThrow
+import com.ndhzs.lib.utils.extensions.appContext
 import kotlin.reflect.KClass
 
 /**
@@ -14,7 +19,6 @@ import kotlin.reflect.KClass
  *     2. 创建该接口的实现类，命名尽量只去掉I即可，然后加上路由注解，路由地址统一写到RoutingTable中，例如AccountService；
  *     3. 通过ServiceManager的方式获取实现类。
  */
-@Suppress("UNCHECKED_CAST")
 object ServiceManager {
   
   /**
@@ -23,14 +27,9 @@ object ServiceManager {
    * ServiceManger(IAccountService::class)
    *   .isLogin()
    * ```
-   * 还有更简单的写法：
-   * ```
-   * IAccountService::class.impl
-   *   .isLogin()
-   * ```
    */
   operator fun <T : Any> invoke(serviceClass: KClass<T>): T {
-    return ARouter.getInstance().navigation(serviceClass.java)
+    return getImplOrThrow(serviceClass)
   }
   
   /**
@@ -41,22 +40,41 @@ object ServiceManager {
    * ```
    */
   operator fun <T : Any> invoke(servicePath: String): T {
-    return ARouter.getInstance().build(servicePath).navigation() as T
+    return getImplOrThrow(servicePath)
   }
   
-  fun fragment(servicePath: String, with: (Postcard.() -> Unit)? = null): Fragment {
-    return ARouter.getInstance()
-      .build(servicePath)
-      .apply { with?.invoke(this) }
-      .navigation() as Fragment
+  fun fragment(servicePath: String): Fragment {
+    return getImplOrThrow(servicePath, false)
   }
   
-  fun activity(servicePath: String, with: (Postcard.() -> Unit)? = null) {
-    ARouter.getInstance()
-      .build(servicePath)
-      .apply { with?.invoke(this) }
-      .navigation()
+  fun activity(servicePath: String) {
+    val activityKClass = getKClassOrThrow<Activity>(servicePath)
+    appContext.startActivity(
+      Intent(appContext, activityKClass.java)
+        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+    )
   }
+  
+  
+  
+  fun <T : Any> getImplOrNull(name: String, singleton: Boolean? = null): T? =
+    KtProviderManager.getImplOrNull(name, singleton)
+  fun <T : Any> getImplOrNull(clazz: KClass<T>, singleton: Boolean? = null): T? =
+    KtProviderManager.getImplOrNull(clazz, singleton)
+  fun <T : Any> getImplOrNull(clazz: KClass<T>, name: String = "", singleton: Boolean? = null): T? =
+    KtProviderManager.getImplOrNull(clazz, name, singleton)
+  
+  fun <T : Any> getImplOrThrow(name: String, singleton: Boolean? = null): T =
+    KtProviderManager.getImplOrThrow(name, singleton)
+  fun <T : Any> getImplOrThrow(clazz: KClass<T>, singleton: Boolean? = null): T =
+    KtProviderManager.getImplOrThrow(clazz, singleton)
+  fun <T : Any> getImplOrThrow(clazz: KClass<T>, name: String = "", singleton: Boolean? = null): T =
+    KtProviderManager.getImplOrThrow(clazz, name, singleton)
+  
+  fun <T : Any> getKClassOrNull(name: String): KClass<out T>? =
+    KtProviderManager.getKClassOrNull(name)
+  fun <T : Any> getKClassOrThrow(name: String): KClass<out T> =
+    KtProviderManager.getKClassOrThrow(name)
 }
 
 /**
@@ -66,5 +84,5 @@ object ServiceManager {
  *   .isLogin()
  * ```
  */
-val <T: IProvider> KClass<T>.impl: T
+val <T: Any> KClass<T>.impl: T
   get() = ServiceManager(this)

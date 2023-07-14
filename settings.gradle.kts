@@ -12,7 +12,9 @@ pluginManagement {
     gradlePluginPortal()
     mavenCentral()
     google()
-    maven("https://jitpack.io")
+    mavenLocal()
+    // mavenCentral 快照仓库
+    maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
     jcenter() // 部分依赖需要
   }
 }
@@ -22,13 +24,13 @@ dependencyResolutionManagement {
     maven("$rootDir/build/maven") // 本地模块缓存文件夹
     google()
     mavenCentral() // 优先 MavenCentral，一是：github CI 下不了 aliyun 依赖；二是：开 VPN 访问 aliyun 反而变慢了
+    mavenLocal() // maven 默认的本地依赖位置：用户名/.m2/repository 中
     maven("https://jitpack.io")
     jcenter() // 部分依赖需要
     // mavenCentral 快照仓库
     maven("https://s01.oss.sonatype.org/content/repositories/snapshots/")
     maven("https://maven.aliyun.com/repository/public")
     maven("https://maven.aliyun.com/repository/google")
-    mavenLocal() // maven 默认的本地依赖位置：用户名/.m2/repository 中
   }
 }
 rootProject.name = "WanAndroid_Multi"

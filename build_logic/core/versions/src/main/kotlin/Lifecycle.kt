@@ -1,4 +1,5 @@
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 
 /**
@@ -46,6 +47,12 @@ fun Project.dependLifecycleKtx() {
     "implementation"(Lifecycle.`viewmodel-ktx`)
     "implementation"(Lifecycle.`livedata-ktx`)
     "implementation"(Lifecycle.`runtime-ktx`)
+  }
+}
+
+fun Project.kaptLifecycleCompiler() {
+  apply(plugin = "kotlin-kapt")
+  dependencies {
     "kapt"(Lifecycle.`lifecycle-compiler`)
   }
 }

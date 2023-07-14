@@ -1,6 +1,5 @@
 package com.ndhzs.api.account
 
-import com.alibaba.android.arouter.facade.template.IProvider
 import com.ndhzs.api.account.utils.Value
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
@@ -13,7 +12,7 @@ import java.io.Serializable
  * @email 2767465918@qq.com
  * @date 2022/5/29 22:17
  */
-interface IAccountService : IProvider {
+interface IAccountService {
   
   /**
    * 观察学号的改变（状态）

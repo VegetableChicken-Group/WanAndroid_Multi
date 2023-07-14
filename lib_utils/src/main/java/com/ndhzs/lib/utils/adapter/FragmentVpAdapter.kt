@@ -7,7 +7,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 /**
- * ...
+ * ViewPager2 用于 Fragment 的 Adapter
+ *
+ * 封装的原因在于替换错误的一种封装方法：在构造器中传入 List<Fragment>
+ * 请查看：https://redrock.feishu.cn/wiki/wikcnSDEtcCJzyWXSsfQGqWxqGe#doxcnG68ewygwqaSMGW4Qm9kZLg
+ *
  * @author 985892345 (Guo Xiangrui)
  * @email guo985892345@foxmail.com
  * @date 2022/7/25 18:22

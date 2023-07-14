@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.core.content.edit
-import com.alibaba.android.arouter.facade.annotation.Route
+import com.g985892345.provider.annotation.KClassProvider
 import com.ndhzs.api.test.ITestService
 import com.ndhzs.lib.base.ui.BaseActivity
 import com.ndhzs.lib.config.route.TEST_ENTRY
@@ -15,7 +15,7 @@ import com.ndhzs.lib.config.sp.defaultSp
 import com.ndhzs.lib.utils.extensions.*
 import com.ndhzs.module.test.R
 
-@Route(path = TEST_ENTRY)
+@KClassProvider(name = TEST_ENTRY)
 class TestActivity : BaseActivity() {
   
   // 官方写的获取 ViewModel 的扩展函数

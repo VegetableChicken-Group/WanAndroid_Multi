@@ -3,12 +3,15 @@
 package project.base
 
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.g985892345.provider.plugin.gradle.extensions.KtProviderExtensions
 import org.gradle.kotlin.dsl.apply
 import project.base.base.BaseAndroidProject
 import config.Config
 import debugDependLibDebug
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
+import utils.libsVersion
 
 /**
  * ...
@@ -27,12 +30,12 @@ abstract class BaseApplicationProject(project: Project) : BaseAndroidProject(pro
   protected open fun initApplication() {
     apply(plugin = "com.android.application")
     apply(plugin = "kotlin-android")
-    apply(plugin = "kotlin-kapt")
-    apply(plugin = "com.google.devtools.ksp")
     
     extensions.configure<BaseAppModuleExtension> {
       initAndroid(this)
     }
+    
+    initKtProvider()
   }
   
   // 配置 android 闭包
@@ -54,6 +57,16 @@ abstract class BaseApplicationProject(project: Project) : BaseAndroidProject(pro
         release {
           isShrinkResources = true
         }
+      }
+    }
+  }
+  
+  private fun initKtProvider() {
+    apply(plugin = "io.github.985892345.KtProvider")
+    extensions.configure(KtProviderExtensions::class) {
+      packageName {
+        include("com.ndhzs.module")
+        include("com.ndhzs.lib")
       }
     }
   }

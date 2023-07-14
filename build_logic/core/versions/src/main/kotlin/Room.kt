@@ -1,5 +1,6 @@
 import com.google.devtools.ksp.gradle.KspExtension
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
@@ -28,6 +29,7 @@ object Room {
 }
 
 fun Project.dependRoom() {
+  apply(plugin = "com.google.devtools.ksp")
   // ksp 设置
   extensions.configure<KspExtension> {
     arg("room.schemaLocation", "${project.projectDir}/schemas") // room 的架构导出目录

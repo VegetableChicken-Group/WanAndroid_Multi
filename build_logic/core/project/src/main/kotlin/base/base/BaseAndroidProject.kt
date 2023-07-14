@@ -12,12 +12,11 @@ import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.project
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 import config.Config
-import dependARouter
 import dependAndroidBase
 import dependTestBase
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.plugin.KaptExtension
+import utils.libsVersion
 
 /**
  * ...
@@ -41,8 +40,12 @@ abstract class BaseAndroidProject(project: Project) : BaseProject(project) {
     dependTestBase()
     // 所有 Android 工程模块都需要
     dependAndroidBase()
-    // 所有 Android 工程模块都需要依赖 ARouter
-    dependARouter()
+    // 所有 Android 工程模块都需要依赖 KtProvider
+    dependencies {
+      val krProviderVersion = libsVersion("ktProvider")
+      // 如果你只是 Kotlin/Jvm 项目（比如 Android 项目），只需要依赖 -jvm 即可
+      "implementation"("io.github.985892345:provider-annotation-jvm:$krProviderVersion")
+    }
     super.initProjectInternal()
   
     // 项目检查工具

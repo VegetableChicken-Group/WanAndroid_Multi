@@ -11,11 +11,7 @@ plugins {
 dependencies {
   implementation(libs.android.gradlePlugin)
   implementation(libs.kotlin.gradlePlugin)
-  
-  // ARouter https://github.com/alibaba/ARouter
-  // 可以去插件中搜索 ARouter Helper，用于实现一些快捷跳转的操作
-  // 性能问题：https://github.com/alibaba/ARouter/issues/1046
-//  implementation("com.alibaba:arouter-register:1.0.2")
+  implementation(libs.ktProvider.gradlePlugin)
   
   /*
   * 一个轻量级 Android AOP 框架，在本项目中 CodeLocator 需要使用

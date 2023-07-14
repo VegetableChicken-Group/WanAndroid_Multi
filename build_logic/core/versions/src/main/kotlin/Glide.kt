@@ -1,4 +1,5 @@
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 
 /**
@@ -17,6 +18,7 @@ object Glide {
 }
 
 fun Project.dependGlide() {
+  apply(plugin = "com.google.devtools.ksp")
   dependencies {
     "implementation"(Glide.glide)
     "ksp"(Glide.`glide-ksp`)

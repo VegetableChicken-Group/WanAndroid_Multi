@@ -61,7 +61,7 @@ class ModuleDebugProject(project: Project) : BaseApplicationProject(project) {
   }
   
   /**
-   * 单模块调试需要反向依赖 api 模块的实现模块，不然 ARouter 会报空指针
+   * 单模块调试需要反向依赖 api 模块的实现模块，不然 KtProvider(或者说 ARouter) 会报空指针
    *
    * 但存在 单模块A 依赖了 模块B，模块B 依赖了 api模块C，这种间接依赖 api 模块也要进行处理，不然也会报空指针
    *
@@ -96,7 +96,7 @@ class ModuleDebugProject(project: Project) : BaseApplicationProject(project) {
             // 如果依赖的是一个项目
             when {
               dependency.name.startsWith("api_") -> {
-                // 对于单模块调试，需要反向依赖 api 的实现模块，不然 ARouter 无法找到，会报空指针
+                // 对于单模块调试，需要反向依赖 api 的实现模块，不然 KtProvider 无法找到，会报空指针
                 val apiPath = dependency.dependencyProject.path
                 ApiDependUtils.apiWithImplMap[apiPath]?.dependApiImplOnly(debugProject) {
                   (!dependPathSet.contains(it) && it != debugProject.path).apply {

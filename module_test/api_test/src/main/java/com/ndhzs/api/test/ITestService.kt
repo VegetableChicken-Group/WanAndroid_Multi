@@ -2,13 +2,12 @@ package com.ndhzs.api.test
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import com.alibaba.android.arouter.facade.template.IProvider
 import java.io.Serializable
 
 /**
  * 命名规范：以 I 开头表示一个接口，以 Service 结尾表示服务
  */
-interface ITestService : IProvider {
+interface ITestService {
   
   /**
    * 启动 TestActivity
@@ -19,6 +18,8 @@ interface ITestService : IProvider {
    *   .withObject(...)
    *   .navigation()
    * 来启动
+   *
+   * 注：现已不再使用 ARouter，所以不能再这样写 (如果你是掌邮开发者，请使用 ServiceManager)
    *
    * 但上面这样有缺点，就是参数不是由被启动者来决定的，所以在需要复杂参数时建议使用下面这种方式
    */

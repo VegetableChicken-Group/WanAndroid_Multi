@@ -7,6 +7,8 @@ import org.gradle.kotlin.dsl.apply
 import project.base.base.BaseAndroidProject
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
+import org.gradle.kotlin.dsl.dependencies
+import utils.libsVersion
 
 /**
  * ...
@@ -24,8 +26,6 @@ abstract class BaseLibraryProject(project: Project) : BaseAndroidProject(project
   protected open fun initLibrary() {
     apply(plugin = "com.android.library")
     apply(plugin = "kotlin-android")
-    apply(plugin = "kotlin-kapt")
-    apply(plugin = "com.google.devtools.ksp")
     
     extensions.configure<LibraryExtension> {
       initAndroid(this)

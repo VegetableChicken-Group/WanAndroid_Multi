@@ -40,6 +40,7 @@ import com.ndhzs.lib.utils.extensions.dp2px
  * ## 3、本 Dialog 可直接变为 DialogFragment
  * DialogFragment 提供了 onCreateDialog(): Dialog 方法用于自定义 Dialog，如果有必要的话，可以重写该方法。
  * 但请遵守 Fragment 的使用规范 (详细请查看飞书易错点文档)
+ * 请查看：https://redrock.feishu.cn/wiki/wikcnSDEtcCJzyWXSsfQGqWxqGe
  *
  *
  *

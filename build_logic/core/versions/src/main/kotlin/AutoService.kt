@@ -1,4 +1,5 @@
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.dependencies
 
 /**
@@ -15,6 +16,7 @@ object AutoService {
 }
 
 fun Project.dependAutoService() {
+  apply(plugin = "kotlin-kapt")
   dependencies {
     // 谷歌官方的一种动态加载库 https://github.com/google/auto/tree/main/service
     "implementation"(AutoService.`autoServic-core`)
