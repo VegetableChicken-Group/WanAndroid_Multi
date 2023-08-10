@@ -81,7 +81,7 @@ description
 
 使用时再建议下载这个插件：
 
-![image-20220719123913736](https://img-1307243988.cos.ap-chengdu.myqcloud.com/typora-after-22-7-19/image-20220719123913736.png)
+![image-20220719123913736](doce/assets/img_gitmoji.png)
 
 在 commit 窗口点击一下就可以快速添加表情包到 commit 的头部
 
