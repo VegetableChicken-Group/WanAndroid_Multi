@@ -10,7 +10,7 @@ import android.provider.CalendarContract.*
 import androidx.annotation.IntRange
 import androidx.fragment.app.FragmentActivity
 import com.ndhzs.api.account.IAccountService
-import com.ndhzs.lib.utils.UtilsApplicationWrapper.Companion.application
+import com.ndhzs.lib.utils.UtilsApplicationWrapper.application
 import com.ndhzs.lib.utils.extensions.doPermissionAction
 import com.ndhzs.lib.utils.service.impl
 import io.reactivex.rxjava3.core.Completable

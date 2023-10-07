@@ -58,5 +58,4 @@ object ApiDepend {
  */
 fun Project.dependApiInit() {
   ApiDepend.init.dependApiOnly(this)
-  dependAutoService()
 }

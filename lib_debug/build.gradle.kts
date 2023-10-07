@@ -8,7 +8,7 @@ dependLibUtils()
 dependLibConfig()
 
 dependApiCrash()
-dependAutoService()
+dependApiInit()
 
 dependencies {
   

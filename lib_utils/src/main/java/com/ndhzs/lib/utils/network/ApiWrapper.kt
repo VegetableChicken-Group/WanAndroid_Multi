@@ -60,8 +60,6 @@ interface IApiStatus : Serializable {
    * ```
    */
   fun isSuccess(): Boolean {
-    Collections.unmodifiableMap()
-    HashMap
     return errorCode == 0 // 请不要私自加其他的成功状态！！！
   }
   

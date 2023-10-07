@@ -89,7 +89,7 @@ class CrashActivity : BaseActivity() {
     initShowStackTrace()
     initClick()
     initBackPressed()
-    toast("哦豁，课表极速版崩溃了！")
+    toast("哦豁，应用崩溃了！")
   }
   
   @SuppressLint("SetTextI18n")

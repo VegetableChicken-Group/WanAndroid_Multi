@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
-import com.google.auto.service.AutoService
+import com.g985892345.provider.annotation.SingleImplProvider
 import com.ndhzs.api.init.InitialManager
 import com.ndhzs.api.init.InitialService
 import com.ndhzs.lib.utils.utils.impl.ActivityLifecycleCallbacksImpl
@@ -19,8 +19,8 @@ import tech.linjiang.pandora.util.SensorDetector
  * @email guo985892345@foxmail.com
  * @date 2022/7/20 23:52
  */
-@AutoService(InitialService::class)
-class PandoraInitialService : InitialService, SensorDetector.Callback {
+@SingleImplProvider(InitialService::class, "PandoraInitialService")
+object PandoraInitialService : InitialService, SensorDetector.Callback {
   
   override fun onMainProcess(manager: InitialManager) {
     super.onMainProcess(manager)

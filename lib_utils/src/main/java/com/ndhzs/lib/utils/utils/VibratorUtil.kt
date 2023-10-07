@@ -29,6 +29,7 @@ object VibratorUtil {
         )
       )
     } else {
+      
       val vibrator = appContext.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
         vibrator.vibrate(

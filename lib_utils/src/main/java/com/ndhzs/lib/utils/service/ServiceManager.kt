@@ -4,10 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import androidx.fragment.app.Fragment
 import com.g985892345.provider.manager.KtProviderManager
-import com.g985892345.provider.manager.getImplOrNull
-import com.g985892345.provider.manager.getImplOrThrow
-import com.g985892345.provider.manager.getKClassOrNull
-import com.g985892345.provider.manager.getKClassOrThrow
 import com.ndhzs.lib.utils.extensions.appContext
 import kotlin.reflect.KClass
 
@@ -28,9 +24,7 @@ object ServiceManager {
    *   .isLogin()
    * ```
    */
-  operator fun <T : Any> invoke(serviceClass: KClass<T>): T {
-    return getImplOrThrow(serviceClass)
-  }
+  operator fun <T : Any> invoke(serviceClass: KClass<T>): T = getImplOrThrow(serviceClass)
   
   /**
    * 写法：
@@ -39,13 +33,9 @@ object ServiceManager {
    *   .isLogin()
    * ```
    */
-  operator fun <T : Any> invoke(servicePath: String): T {
-    return getImplOrThrow(servicePath)
-  }
+  operator fun <T : Any> invoke(servicePath: String): T = getImplOrThrow(servicePath)
   
-  fun fragment(servicePath: String): Fragment {
-    return getImplOrThrow(servicePath, false)
-  }
+  fun fragment(servicePath: String): Fragment = getImplOrThrow(servicePath, false)
   
   fun activity(servicePath: String) {
     val activityKClass = getKClassOrThrow<Activity>(servicePath)
@@ -55,7 +45,11 @@ object ServiceManager {
     )
   }
   
+  fun <T : Any> getAllSingleImpl(clazz: KClass<T>): Map<String, () -> T> =
+    KtProviderManager.getAllSingleImpl(clazz)
   
+  fun <T : Any> getAllNewImpl(clazz: KClass<T>): Map<String, () -> T> =
+    KtProviderManager.getAllNewImpl(clazz)
   
   fun <T : Any> getImplOrNull(name: String, singleton: Boolean? = null): T? =
     KtProviderManager.getImplOrNull(name, singleton)
@@ -85,4 +79,6 @@ object ServiceManager {
  * ```
  */
 val <T: Any> KClass<T>.impl: T
-  get() = ServiceManager(this)
+  get() = ServiceManager.getImplOrThrow(this)
+
+fun <T: Any> KClass<T>.impl(name: String): T = ServiceManager.getImplOrThrow(this, name)

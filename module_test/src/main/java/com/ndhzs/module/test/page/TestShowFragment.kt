@@ -1,7 +1,5 @@
 package com.ndhzs.module.test.page
 
-import android.os.Bundle
-import android.view.View
 import com.g985892345.provider.annotation.NewImplProvider
 import com.ndhzs.api.test.TEST_SHOW
 import com.ndhzs.lib.base.ui.BaseFragment
@@ -15,8 +13,4 @@ import com.ndhzs.module.test.R
  */
 @NewImplProvider(name = TEST_SHOW)
 class TestShowFragment : BaseFragment(R.layout.test_fragment_show) {
-  override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
-    Nothing
-  }
 }

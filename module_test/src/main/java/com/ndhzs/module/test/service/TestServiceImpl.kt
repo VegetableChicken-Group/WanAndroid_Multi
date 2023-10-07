@@ -12,7 +12,7 @@ import com.ndhzs.module.test.page.TestActivity
  *
  * 这个类会变成单例类
  */
-@SingleImplProvider(ITestService::class)
+@SingleImplProvider(clazz = ITestService::class)
 object TestServiceImpl : ITestService {
   
   private val mDataLive = MutableLiveData<ITestService.Data>()

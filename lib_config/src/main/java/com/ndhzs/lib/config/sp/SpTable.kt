@@ -2,7 +2,7 @@ package com.ndhzs.lib.config.sp
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.ndhzs.lib.config.ConfigApplicationWrapper.Companion.application
+import com.ndhzs.lib.config.ConfigApplicationWrapper.application
 
 /**
  * ...

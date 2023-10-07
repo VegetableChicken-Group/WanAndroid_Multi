@@ -26,7 +26,7 @@ import okhttp3.HttpUrl.Companion.toHttpUrl
  * @email 2767465918@qq.com
  * @date 2022/5/29 22:25
  */
-@SingleImplProvider(IAccountService::class)
+@SingleImplProvider(clazz = IAccountService::class)
 object AccountServiceImpl : IAccountService {
   
   private val mCookieService = CookieServiceImpl

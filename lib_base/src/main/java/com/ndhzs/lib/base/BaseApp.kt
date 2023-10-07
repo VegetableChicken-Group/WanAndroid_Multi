@@ -1,15 +1,16 @@
 package com.ndhzs.lib.base
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.annotation.CallSuper
 import com.g985892345.provider.init.KtProviderInitializer
 import com.ndhzs.api.init.InitialManager
+import com.ndhzs.api.init.InitialService
+import com.ndhzs.lib.utils.service.ServiceManager
 import com.ndhzs.lib.utils.utils.impl.ActivityLifecycleCallbacksImpl
 import java.lang.ref.WeakReference
-import java.util.*
+import kotlin.reflect.KClass
 
 /**
  * ...
@@ -27,7 +28,6 @@ open class BaseApp : Application(), KtProviderInitializer {
      *
      * 栈顶 Activity 可用于实现全局 dialog
      */
-    @SuppressLint("StaticFieldLeak")
     lateinit var topActivity: WeakReference<Activity>
       private set
   }
@@ -41,6 +41,24 @@ open class BaseApp : Application(), KtProviderInitializer {
     initKtProvider()
     initInitialService()
     initActivityManger()
+  }
+  
+  override fun addKClassProvider(name: String, init: () -> KClass<*>) {
+    super.addKClassProvider(name, init)
+    android.util.Log.d("ggg", "(${Exception().stackTrace[0].run { "$fileName:$lineNumber" }}) -> " +
+      "KClass: name = $name")
+  }
+  
+  override fun addNewImplProvider(clazz: KClass<*>, name: String, init: () -> Any) {
+    super.addNewImplProvider(clazz, name, init)
+    android.util.Log.d("ggg", "(${Exception().stackTrace[0].run { "$fileName:$lineNumber" }}) -> " +
+      "NewImpl: clazz = ${clazz.simpleName}   name = $name")
+  }
+  
+  override fun addSingleImplProvider(clazz: KClass<*>, name: String, init: () -> Any) {
+    super.addSingleImplProvider(clazz, name, init)
+    android.util.Log.d("ggg", "(${Exception().stackTrace[0].run { "$fileName:$lineNumber" }}) -> " +
+      "SingleImpl: clazz = ${clazz.simpleName}   name = $name")
   }
   
   private fun initInitialService() {
@@ -69,7 +87,8 @@ open class BaseApp : Application(), KtProviderInitializer {
    */
   private class InitialManagerImpl(override val application: Application) : InitialManager {
     
-    private val loader = ServiceLoader.load(com.ndhzs.api.init.InitialService::class.java)
+    private val loader = ServiceManager.getAllSingleImpl(InitialService::class)
+      .map { it.value.invoke() }
   
     init {
       //由于android每开辟进程都会访问application的生命周期方法,所以为了保证sdk初始化无措，最好对其进行过滤。

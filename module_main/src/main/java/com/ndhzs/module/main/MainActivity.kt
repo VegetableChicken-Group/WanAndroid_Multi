@@ -2,6 +2,7 @@ package com.ndhzs.module.main
 
 import android.os.Bundle
 import android.widget.Button
+import com.g985892345.provider.init.KtProviderInitializer
 import com.ndhzs.api.test.ITestService
 import com.ndhzs.api.test.TEST_SHOW
 import com.ndhzs.lib.base.ui.BaseActivity
@@ -51,6 +52,10 @@ class MainActivity : BaseActivity() {
   }
   
   private fun initObserve() {
+    android.util.Log.d("ggg", "(${Exception().stackTrace[0].run { "$fileName:$lineNumber" }}) -> " +
+      "Single: ITestService = ${KtProviderInitializer.SingleImplProviderMap[ITestService::class]}")
+    android.util.Log.d("ggg", "(${Exception().stackTrace[0].run { "$fileName:$lineNumber" }}) -> " +
+        "New: ITestService = ${KtProviderInitializer.NewImplProviderMap[ITestService::class]}")
     // 观察 liveData
     ITestService::class.impl.liveData.observe {
       // ......

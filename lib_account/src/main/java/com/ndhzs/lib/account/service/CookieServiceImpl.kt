@@ -1,6 +1,5 @@
 package com.ndhzs.lib.account.service
 
-import android.content.Context
 import com.franmontiel.persistentcookiejar.PersistentCookieJar
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor

@@ -6,11 +6,11 @@ package com.ndhzs.api.init
  * 在自己的模块中参考以下写法即可实现注入：
  * ```
  * 添加依赖：
- * dependApiInit() // 已包含 AutoService
+ * dependApiInit()
  *
  * 实现接口：
- * @AutoService(InitialService::class)
- * class XXXInitialService : InitialService
+ * @SingleImplProvider(InitialService::class, "XXXInitialService)
+ * object XXXInitialService : InitialService // 注意使用 object
  * ```
  *
  * @author ZhiQiang Tu
@@ -24,6 +24,4 @@ interface InitialService {
     fun onMainProcess(manager: InitialManager) {}
     // 处于sdk所对应的进程的时候的回调
     fun onOtherProcess(manager: InitialManager) {}
-    // 用于判断是否是sdk新开的进程(部分sdk可能会存在新开辟进程的行为.目前就有友盟推送,他会开辟一个:channel进程)
-    fun isOtherProcess(manager: InitialManager) = false
 }

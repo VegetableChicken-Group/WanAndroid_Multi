@@ -1,6 +1,6 @@
 package com.ndhzs.lib.debug.crash
 
-import com.google.auto.service.AutoService
+import com.g985892345.provider.annotation.SingleImplProvider
 import com.ndhzs.api.init.InitialManager
 import com.ndhzs.api.init.InitialService
 
@@ -10,8 +10,8 @@ import com.ndhzs.api.init.InitialService
  * @author 985892345
  * @date 2022/9/23 15:51
  */
-@AutoService(InitialService::class)
-class CrashInitialService : InitialService {
+@SingleImplProvider(InitialService::class, "CrashInitialService")
+object CrashInitialService : InitialService {
   
   override fun onMainProcess(manager: InitialManager) {
     Thread.setDefaultUncaughtExceptionHandler { thread, throwable ->
