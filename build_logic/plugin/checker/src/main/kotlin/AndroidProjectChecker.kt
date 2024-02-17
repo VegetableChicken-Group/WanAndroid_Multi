@@ -1,6 +1,5 @@
 package check
 
-import check.rule.ModuleNamespaceCheckRule
 import org.gradle.api.Project
 
 /**
@@ -12,8 +11,8 @@ import org.gradle.api.Project
 object AndroidProjectChecker {
   
   // TODO 在这里进行注册
-  private val checkRules = arrayOf(
-    ModuleNamespaceCheckRule
+  private val checkRules = arrayOf<ICheckRule>(
+//    ModuleNamespaceCheckRule
   )
   
   /**

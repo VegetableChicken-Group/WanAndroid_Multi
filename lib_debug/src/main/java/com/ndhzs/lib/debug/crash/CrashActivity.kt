@@ -19,7 +19,6 @@ import com.ndhzs.lib.base.ui.BaseActivity
 import com.ndhzs.lib.debug.R
 import com.ndhzs.lib.utils.extensions.appContext
 import com.ndhzs.lib.utils.extensions.collectUsefulStackTrace
-import com.ndhzs.lib.utils.network.ApiGenerator
 import java.io.Serializable
 import kotlin.system.exitProcess
 
@@ -46,23 +45,19 @@ class CrashActivity : BaseActivity() {
           ).putExtra(CrashActivity::mMainProcessPid.name, Process.myPid())
           .putExtra(
             CrashActivity::mNetworkResult.name,
-            ApiGenerator.apiResultList.mapTo(ArrayList()) {
+            CrashNetworkConfigService.apiResultList.mapTo(ArrayList()) {
               // 因为 CrashActivity 是在另一个进程中启动，所以只能以 String 的形式传过去
-              NetworkApiResult(
-                it.request.toString(),
-                it.response.toString(),
-                it.stackTrace.toString()
-              )
+              NetworkApiResult(it.request.toString(), it.response.toString(), it.throwable)
             }
           ).putExtra(CrashActivity::mProcessName.name, processName)
           .putExtra(CrashActivity::mThreadName.name, threadName)
       )
     }
-    
+
     class NetworkApiResult(
       val request: String,
       val response: String,
-      val stackTrace: String
+      val throwable: Throwable?,
     ) : Serializable
   }
   

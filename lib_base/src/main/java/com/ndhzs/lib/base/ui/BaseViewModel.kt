@@ -13,10 +13,15 @@ import com.ndhzs.lib.base.utils.RxjavaLifecycle
 import com.ndhzs.lib.base.BaseApp
 import com.ndhzs.lib.base.utils.ToastUtils
 import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 /**
  *
@@ -128,8 +133,12 @@ abstract class BaseViewModel : ViewModel(), RxjavaLifecycle, ToastUtils {
     }
     return sharedFlow
   }
-  
-  
+
+  protected fun launch(
+    context: CoroutineContext = EmptyCoroutineContext,
+    start: CoroutineStart = CoroutineStart.DEFAULT,
+    block: suspend CoroutineScope.() -> Unit
+  ): Job = viewModelScope.launch(context, start, block)
   
   
   

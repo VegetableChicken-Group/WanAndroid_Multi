@@ -7,21 +7,24 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.CallSuper
 import androidx.annotation.IdRes
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import com.ndhzs.lib.base.utils.IntentHelper
-import com.ndhzs.lib.base.operations.OperationActivity
+import com.ndhzs.lib.base.utils.IntentHelperNullable
 import com.ndhzs.lib.utils.extensions.isDaytimeMode
+import com.ndhzs.lib.utils.utils.BindView
 
 /**
  * 绝对基础的抽象
  *
  * 这里面不要跟业务挂钩！！！
  * 比如：使用 api 模块
- * 这种操作请放在 [OperationActivity] 中
+ * 这种操作请放在 OperationActivity 中，以扩展的方式向外提供
  *
  * ## 一、获取 ViewModel 的规范写法
  * ### 获取自身的 ViewModel
@@ -62,13 +65,17 @@ import com.ndhzs.lib.utils.extensions.isDaytimeMode
  *
  *
  *
- * # 更多封装请往父类和接口查看
+ * # 更多封装请往父类和接口查看，[BaseUi] 必看
  * @author 985892345
  * @email 2767465918@qq.com
  * @date 2021/5/25
  */
-abstract class BaseActivity : OperationActivity() {
-  
+abstract class BaseActivity : AppCompatActivity, BaseUi {
+
+  constructor() : super()
+
+  constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
+
   /**
    * 是否锁定竖屏
    *
@@ -81,7 +88,7 @@ abstract class BaseActivity : OperationActivity() {
    */
   protected open val isPortraitScreen: Boolean
     get() = true
-  
+
   /**
    * 是否沉浸式状态栏
    *
@@ -98,13 +105,13 @@ abstract class BaseActivity : OperationActivity() {
    */
   protected open val isCancelStatusBar: Boolean
     get() = true
-  
+
   /**
    * 是否处于转屏或异常重建后的 Activity 状态
    */
   protected var mIsActivityRebuilt = false
     private set
-  
+
   @CallSuper
   @SuppressLint("SourceLockedOrientationActivity")
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,16 +120,16 @@ abstract class BaseActivity : OperationActivity() {
     if (isPortraitScreen) { // 锁定竖屏
       requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
-    
+
     if (isCancelStatusBar) { // 沉浸式状态栏
       cancelStatusBar()
     }
   }
-  
+
   private fun cancelStatusBar() {
     val window = this.window
     val decorView = window.decorView
-    
+
     // 这是 Android 做了兼容的 Compat 包
     // 注意，使用了下面这个方法后，状态栏不会再有东西占位，
     // 可以给根布局加上 android:fitsSystemWindows=true
@@ -133,7 +140,7 @@ abstract class BaseActivity : OperationActivity() {
     windowInsetsController.isAppearanceLightStatusBars = isDaytimeMode()
     window.statusBarColor = Color.TRANSPARENT //把状态栏颜色设置成透明
   }
-  
+
   /**
    * 替换 Fragment 的正确用法。
    * 如果不按照正确方式使用，会造成 ViewModel 失效，
@@ -167,14 +174,40 @@ abstract class BaseActivity : OperationActivity() {
         .commit()
     }
   }
-  
+
   final override val rootView: View
     get() = window.decorView
-  
+
   final override fun getViewLifecycleOwner(): LifecycleOwner = this
-  
-  
-  
+
+  // 是否已经创建了 ContentView
+  private var mHasContentViewChanged = false
+
+  // doOnContentViewChanged 添加的回调
+  private val mOnCreateContentViewAction = ArrayList<(rootView: View) -> Any?>()
+
+  final override fun doOnCreateContentView(action: (rootView: View) -> Any?) {
+    if (mHasContentViewChanged) {
+      if (action.invoke(rootView) != null) {
+        mOnCreateContentViewAction.add(action)
+      }
+    } else mOnCreateContentViewAction.add(action)
+  }
+
+  override fun onContentChanged() {
+    super.onContentChanged()
+    if (mHasContentViewChanged) throw IllegalStateException("不允许多次调用 setContentView")
+    mHasContentViewChanged = true
+    val iterator = mOnCreateContentViewAction.iterator()
+    while (iterator.hasNext()) {
+      if (iterator.next().invoke(rootView) == null) {
+        iterator.remove()
+      }
+    }
+  }
+
+  final override fun <T : View> Int.view(): BindView<T> = BindView(this, this@BaseActivity)
+
   /**
    * 快速得到 intent 中的变量，直接使用反射拿了变量的名字
    * ```
@@ -198,32 +231,11 @@ abstract class BaseActivity : OperationActivity() {
    * 但对于使用 ARouter 时该写法并不能起到很大的帮助，但我个人不是很推荐需要传参的 ARouter 启动，不如直接 api 模块
    */
   inline fun <reified T : Any> intent() = IntentHelper(T::class.java) { intent }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+  /**
+   * 支持 null
+   */
+  inline fun <reified T> intentNullable() = IntentHelperNullable(T::class.java) { intent }
+
 }
+

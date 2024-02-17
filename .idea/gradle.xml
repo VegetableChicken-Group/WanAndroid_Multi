@@ -22,10 +22,8 @@
             </builds>
           </compositeBuild>
         </compositeConfiguration>
-        <option name="testRunner" value="GRADLE" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="jbr-17" />
+        <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
@@ -45,15 +43,17 @@
             <option value="$PROJECT_DIR$/lib_crash" />
             <option value="$PROJECT_DIR$/lib_crash/api_crash" />
             <option value="$PROJECT_DIR$/lib_debug" />
+            <option value="$PROJECT_DIR$/lib_single" />
             <option value="$PROJECT_DIR$/lib_utils" />
             <option value="$PROJECT_DIR$/module_app" />
             <option value="$PROJECT_DIR$/module_login" />
+            <option value="$PROJECT_DIR$/module_login/api_login" />
             <option value="$PROJECT_DIR$/module_main" />
-            <option value="$PROJECT_DIR$/module_main/api_main" />
             <option value="$PROJECT_DIR$/module_test" />
             <option value="$PROJECT_DIR$/module_test/api_test" />
           </set>
         </option>
+        <option name="resolveExternalAnnotations" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

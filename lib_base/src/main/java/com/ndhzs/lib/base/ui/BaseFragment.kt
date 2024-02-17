@@ -12,14 +12,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.coroutineScope
 import com.ndhzs.lib.base.utils.ArgumentHelper
-import com.ndhzs.lib.base.operations.OperationFragment
+import com.ndhzs.lib.base.utils.ArgumentHelperNullable
+import com.ndhzs.lib.utils.utils.BindView
 
 /**
  * 绝对基础的抽象
  *
  * 这里面不要跟业务挂钩！！！
  * 比如：使用 api 模块
- * 这种操作请放在 [OperationFragment] 中
+ * 这种操作请放在 OperationFragment 中，以扩展的方式向外提供
+ *
+ * ## 零、Fragment 易错点必看文档 (必须看完并理解 !!!!!)
+ * https://redrock.feishu.cn/wiki/wikcnSDEtcCJzyWXSsfQGqWxqGe
  *
  * ## 一、获取 ViewModel 的规范写法
  * ### 获取自身的 ViewModel
@@ -38,12 +42,11 @@ import com.ndhzs.lib.base.operations.OperationFragment
  * private val mActivityViewModel by activityViewModels<XXXViewModel>()
  *
  * 2、获取父 Fragment 的 ViewModel：
- * // 由于比较少见，再加上不愿意封装得过于彻底，所以这个并没有封装
+ * // 由于比较少用，再加上不愿意封装得过于彻底，所以这个并没有封装，直接用官方的写法
  * private val mParentViewModel by createViewModelLazy(
  *     XXXViewModel::class,
  *     { requireParentFragment().viewModelStore }
  * )
- *
  * // 特别注意：宿主的 ViewModel 如果构造器需要传参，那么子 Fragment 是不需要传参进去的，因为此时宿主的 ViewModel 已经被加载，可以直接拿
  * ```
  *
@@ -74,15 +77,15 @@ import com.ndhzs.lib.base.operations.OperationFragment
  *
  *
  *
- * # 更多封装请往父类和接口查看
+ * # 更多封装请往父类和接口查看，[BaseUi] 必看
  * @author 985892345
  * @email 2767465918@qq.com
  * @date 2021/5/25
  */
-abstract class BaseFragment : OperationFragment {
-  
+abstract class BaseFragment : Fragment, BaseUi {
+
   constructor() : super()
-  
+
   /**
    * 正确用法：
    * ```
@@ -97,19 +100,19 @@ abstract class BaseFragment : OperationFragment {
    * ```
    */
   constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
-  
+
   /**
    * 是否处于转屏或异常重建后的 Fragment 状态
    */
   protected var mIsFragmentRebuilt = false
     private set
-  
+
   @CallSuper
   override fun onCreate(savedInstanceState: Bundle?) {
     mIsFragmentRebuilt = savedInstanceState != null
     super.onCreate(savedInstanceState)
   }
-  
+
   /**
    * 替换 Fragment 的正确用法。
    * 如果不按照正确方式使用，会造成 ViewModel 失效，
@@ -142,11 +145,24 @@ abstract class BaseFragment : OperationFragment {
         .commit()
     }
   }
-  
+
   final override val rootView: View
     get() = requireView()
-  
-  
+
+  final override fun doOnCreateContentView(action: (rootView: View) -> Any?) {
+    viewLifecycleOwnerLiveData.observeUntil(this) {
+      if (it != null) {
+        // 直到返回 null 才停止
+        action.invoke(rootView) == null
+      } else false
+    }
+  }
+
+  final override fun <T : View> Int.view(): BindView<T> = BindView(this, this@BaseFragment)
+
+  val viewLifecycleScope: LifecycleCoroutineScope
+    get() = viewLifecycleOwner.lifecycle.coroutineScope
+
   /**
    * 快速得到 arguments 中的变量，直接使用反射拿了变量的名字
    * ```
@@ -168,37 +184,43 @@ abstract class BaseFragment : OperationFragment {
    * ```
    */
   fun <T : Any> arguments() = ArgumentHelper<T>{ requireArguments() }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+
+  /**
+   * 支持 null
+   */
+  fun <T> argumentsNullable() = ArgumentHelperNullable<T>{ requireArguments() }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   @Deprecated(
     "你确定你需要的是 Lifecycle 而不是 viewLifecycle?",
     ReplaceWith("viewLifecycle")
@@ -207,20 +229,17 @@ abstract class BaseFragment : OperationFragment {
   
   val viewLifecycle: Lifecycle
     get() = viewLifecycleOwner.lifecycle
-  
+
   @Deprecated(
     "你确定你需要的是 onDestroy() 而不是 onDestroyView()?",
     ReplaceWith("onDestroyView()")
   )
   override fun onDestroy() = super.onDestroy()
-  
+
   @Deprecated(
     "你确定你需要的是 lifecycleScope 而不是 viewLifecycleScope?",
     ReplaceWith("viewLifecycleScope")
   )
   val lifecycleScope: LifecycleCoroutineScope
-    get() = lifecycle.coroutineScope
-  
-  val viewLifecycleScope: LifecycleCoroutineScope
-    get() = viewLifecycleOwner.lifecycle.coroutineScope
+    get() = super.getLifecycle().coroutineScope
 }

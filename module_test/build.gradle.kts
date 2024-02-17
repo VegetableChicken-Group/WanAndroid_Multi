@@ -8,7 +8,6 @@ dependLibConfig()
 
 // 还有其他比如协程、Retrofit、Glide 等，可以去 build_logic 中寻找
 // 基本上能用到的全都有依赖方式
-dependApiMain()
 
 dependencies {
   // 这里面写只有自己模块才会用到的额外依赖

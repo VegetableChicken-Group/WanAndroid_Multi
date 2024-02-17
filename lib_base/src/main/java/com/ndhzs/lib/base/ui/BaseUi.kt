@@ -1,25 +1,25 @@
 package com.ndhzs.lib.base.ui
 
 import android.view.View
-import androidx.activity.ComponentActivity
-import androidx.activity.ComponentDialog
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import androidx.lifecycle.whenStarted
 import androidx.lifecycle.flowWithLifecycle
-import com.ndhzs.lib.base.operations.OperationUi
+import androidx.lifecycle.withStarted
+import com.ndhzs.lib.base.utils.RxjavaLifecycle
+import com.ndhzs.lib.base.utils.ToastUtils
 import com.ndhzs.lib.utils.extensions.launch
 import com.ndhzs.lib.utils.utils.BindView
+import io.reactivex.rxjava3.disposables.Disposable
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.Flow
 
 /**
- * 从 BaseActivity 和 BaseFragment 中抽离的共用函数
+ * 从 BaseActivity、BaseFragment、BaseDialog 中抽离的共用函数
  *
  * 这里面不要跟业务挂钩！！！
  * 比如：使用 api 模块
- * 这种操作请放在 [OperationUi] 中
+ * 这种操作请放在 OperationUi 中，以扩展的方式向外提供
  *
  * ## 一、属性代理获取 View
  * ```
@@ -61,17 +61,32 @@ import kotlinx.coroutines.flow.Flow
  * @email guo985892345@foxmail.com
  * @date 2022/7/20 19:44
  */
-interface BaseUi : OperationUi {
+interface BaseUi : ToastUtils, RxjavaLifecycle {
+
   /**
    * 根布局
    */
-  override val rootView: View
-  
+  val rootView: View
+
   /**
    * View 的 LifecycleOwner
+   *
+   * 注意：如果是 Fragment，则可能因为没有初始化 View 而报错，
+   * 使用 [doOnCreateContentView] 回调后再去拿 LifecycleOwner
    */
-  override fun getViewLifecycleOwner(): LifecycleOwner
-  
+  fun getViewLifecycleOwner(): LifecycleOwner
+
+  /**
+   * 创建 View 时的回调，该方法可用于外界获取 View 对象
+   *
+   * 请留意以下情况；
+   * - 如果添加时已经创建了 View，则会立马回调
+   * - Fragment 因为与 View 生命周期不一致所以存在多次回调的情况
+   *
+   * @return 返回非 null 值则继续观察下一次回调，用于 Fragment 中
+   */
+  fun doOnCreateContentView(action: (rootView: View) -> Any?)
+
   /**
    * 在简单界面，使用这种方式来得到 View，避免使用 ViewBinding 大材小用
    * ```
@@ -88,13 +103,8 @@ interface BaseUi : OperationUi {
    * ViewBinding 是给所有布局都默认开启的，大项目会严重拖垮编译速度
    * ```
    */
-  fun <T : View> Int.view() = when (this@BaseUi) {
-    is ComponentActivity -> BindView<T>(this, this@BaseUi)
-    is Fragment -> BindView(this, this@BaseUi)
-    is ComponentDialog -> BindView(this, this@BaseUi)
-    else -> error("未实现，请自己实现该功能！")
-  }
-  
+  fun <T : View> Int.view(): BindView<T>
+
   /**
    * 尤其注意这个 viewLifecycleOwner
    *
@@ -103,7 +113,7 @@ interface BaseUi : OperationUi {
   fun <T> LiveData<T>.observe(observer: (T) -> Unit) {
     observe(getViewLifecycleOwner(), observer)
   }
-  
+
   /**
    * 只观察一次 LiveData
    */
@@ -114,14 +124,14 @@ interface BaseUi : OperationUi {
     observe(
       owner,
       object : Observer<T> {
-        override fun onChanged(t: T) {
+        override fun onChanged(value: T) {
           removeObserver(this)
-          observer.invoke(t)
+          observer.invoke(value)
         }
       }
     )
   }
-  
+
   /**
    * 观察 LiveData 直到返回 true
    * @param observer 返回 true，则停止观察；返回 false，则继续观察
@@ -133,24 +143,22 @@ interface BaseUi : OperationUi {
     observe(
       owner,
       object : Observer<T> {
-        override fun onChanged(t: T) {
-          if (observer.invoke(t)) {
+        override fun onChanged(value: T) {
+          if (observer.invoke(value)) {
             removeObserver(this)
           }
         }
       }
     )
   }
-  
+
   fun <T> Flow<T>.collectLaunch(
     owner: LifecycleOwner = getViewLifecycleOwner(),
     action: suspend (value: T) -> Unit
-  ) {
-    owner.launch {
-      collect { action.invoke(it) }
-    }
+  ): Job = owner.launch {
+    collect { action.invoke(it) }
   }
-  
+
   /**
    * 结合生命周期收集 Flow 方法，在进入后台的时候会自动挂起
    *
@@ -161,14 +169,15 @@ interface BaseUi : OperationUi {
   fun <T> Flow<T>.collectSuspend(
     owner: LifecycleOwner = getViewLifecycleOwner(),
     action: suspend (value: T) -> Unit
-  ) {
-    owner.launch {
-      owner.whenStarted {
+  ): Job = owner.launch {
+    owner.withStarted {
+      owner.launch {
         collect { action.invoke(it) }
       }
     }
   }
-  
+
+
   /**
    * 结合生命周期收集 Flow 方法，在进入后台的时候会自动取消
    *
@@ -182,7 +191,12 @@ interface BaseUi : OperationUi {
   fun <T> Flow<T>.collectRestart(
     owner: LifecycleOwner = getViewLifecycleOwner(),
     action: suspend (value: T) -> Unit
-  ) {
-    flowWithLifecycle(owner.lifecycle).collectLaunch(owner, action)
+  ): Job = flowWithLifecycle(owner.lifecycle).collectLaunch(owner, action)
+
+
+  // Rxjava 自动关流
+  @Deprecated("内部方法，禁止调用", level = DeprecationLevel.HIDDEN)
+  override fun onAddRxjava(disposable: Disposable) {
+    bindLifecycle(disposable, getViewLifecycleOwner().lifecycle)
   }
 }

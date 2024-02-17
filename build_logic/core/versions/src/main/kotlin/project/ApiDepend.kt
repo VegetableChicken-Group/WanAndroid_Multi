@@ -34,6 +34,7 @@ object ApiDepend {
   val crash = ":lib_crash:api_crash" by parent
   val main = ":module_main:api_main" by parent
   val test = ":module_test:api_test" by parent
+  val login = ":module_login:api_login" by parent
   
   private infix fun String.by(implPath: String): ApiDependUtils.IApiDependUtils = by { implPath }
   private infix fun String.by(implPath: String.() -> String): ApiDependUtils.IApiDependUtils {

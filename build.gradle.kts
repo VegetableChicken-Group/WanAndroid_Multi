@@ -31,10 +31,6 @@ buildscript {
     classpath(libs.kotlin.gradlePlugin)
     classpath(libs.ksp.gradlePlugin)
     
-    // 很牛逼的检测工具 debug 模式下摇一摇手机触发 https://github.com/whataa/pandora
-    // 在 lib_debug 模块中使用
-    classpath("com.github.whataa:pandora-plugin:1.0.0")
-    
     /*
     * 一个轻量级 Android AOP 框架，在本项目中 CodeLocator 需要使用
     * CodeLocator：字节在用的强大的调试工具，请查看：https://github.com/bytedance/CodeLocator
