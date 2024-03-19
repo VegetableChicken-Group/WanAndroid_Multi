@@ -2,6 +2,9 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
+      <entry key="module_app">
+        <State />
+      </entry>
       <entry key="module_test">
         <State />
       </entry>

@@ -8,10 +8,13 @@
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
 .DS_Store
-build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
 maven
 **/lint-baseline.xml
+
+# 忽略 build，但不忽略 src 下的 build
+build
+!**/src/**/build
