@@ -60,9 +60,9 @@ import kotlin.reflect.KClass
 object ApiGenerator {
   
   private val mCookieJar = ServiceManager<CookieJar>(COOKIE_SERVICE)
-  private val retrofit = getNewRetrofit(true)
   private val loader = ServiceLoader.load(INetworkConfigService::class.java)
-  
+  private val retrofit = getNewRetrofit(true)
+
   fun <T : Any> getApiService(clazz: KClass<T>): T {
     return retrofit.create(clazz.java)
   }
